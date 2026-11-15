@@ -6,8 +6,8 @@
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col-xs-6"><small class="text-info">ant. Situación Salud</small></div>
-        <div class="col-xs-6 text-right"><small class="text-info">sig. Participación Comunitaria</small></div>
+        <div class="col-6"><small class="text-info">ant. Situación Salud</small></div>
+        <div class="col-6 text-right"><small class="text-info">sig. Participación Comunitaria</small></div>
     </div>
     <div class="progress">
       <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
@@ -20,8 +20,8 @@
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
+                <div class="card border-primary">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.aguasBlancas) }}</div>
                             <div class="col-sm-6">{{ form_row(form.lts_tanque) }}</div>
@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
+                <div class="card border-primary">
+                    <div class="card-body">
                         {{ form_row(form.sistemaElectrico) }}
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.medidorElectrico) }}</div>

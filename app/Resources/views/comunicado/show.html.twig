@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Comunicado: "{{ comunicado.titulo }}"<a href="{{ path('noticia_correo') }}" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Regresar</a></h2>
+    <h2>Comunicado: "{{ comunicado.titulo }}"<a href="{{ path('noticia_correo') }}" class="btn btn-primary float-right"><i class="fa fa-arrow-left"></i> Regresar</a></h2>
     <hr>
 
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">
-            <div class="panel panel-primary">
-                <div class="panel-body">
+            <div class="card border-primary">
+                <div class="card-body">
                     <p><span class="negritas">Envidado el:</span> {% if comunicado.fecha %}{{ comunicado.fecha|date('Y-m-d H:i:s') }}{% endif %}</p>
                     <p><span class="negritas">Envidado por:</span> {{ comunicado.emisor.nombreyapellido() }}</p>
                     <p class="negritas">Contenido del comunicado:</p>
                     <p style="background-color: #ddd;">{{ comunicado.cuerpo }}</p>
                 </div>
-                <div class="panel-footer">
+                <div class="card-footer">
                     <span class="negritas">Mensaje enviado a:</span> {{ comunicado.numDestinatarios }} personas.
                 </div>
             </div>

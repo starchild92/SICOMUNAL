@@ -6,9 +6,9 @@
 	<hr>
 	<div class="row">
 		<div class="col-lg-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Datos del Consejo Comunal</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">Datos del Consejo Comunal</div>
+				<div class="card-body">
 					{% if consejo|length > 0 %}
 						<div class="row">
 							<div class="col-sm-6">
@@ -37,9 +37,9 @@
 			</div>
 		</div>
 		<div class="col-lg-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Datos de la Comunidad</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">Datos de la Comunidad</div>
+				<div class="card-body">
 					{% if comunidad|length > 0 %}
 						<div class="row">
 							<div class="col-sm-6">
@@ -83,9 +83,9 @@
 	<hr>
 	<div class="row">
 		{% for unidad in unidades_restantes %}<div class="col-sm-4">
-			<div class="panel panel-primary">
-				<div class="panel-heading">{{ unidad.tipoUnidad }}</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">{{ unidad.tipoUnidad }}</div>
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-12">
 							{% if unidad.voceros|length == 0 %}
@@ -106,9 +106,9 @@
 
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Comité Ejecutivo</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">Comité Ejecutivo</div>
+				<div class="card-body">
 					<div class="row">
 						{% if unidades_eje|length == 0 %}
 							<div class="col-sm-12">

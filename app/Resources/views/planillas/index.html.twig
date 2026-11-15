@@ -10,10 +10,10 @@
                     <tr>
                         <th>Encuesta #</th>
                         <th>Empadronador</th>
-                        <th class="hidden-xs">Encuestado</th>
-                        <th class="hidden-xs"># Personas</th>
+                        <th class="d-none d-sm-block">Encuestado</th>
+                        <th class="d-none d-sm-block"># Personas</th>
                         <th>Fecha Modificada</th>
-                        <th class="hidden-xs hidden-sm">%</th>
+                        <th class="d-none d-sm-block d-sm-none">%</th>
                         <th><i class="fa fa-cogs"></i></th>
                     </tr>
                 </thead>
@@ -22,14 +22,14 @@
                         <tr class="{% if planilla.terminada != 100 %}warning{% endif %}">
                             <td><a href="{{ path('planillas_show', { 'id': planilla.id }) }}">Número {{ planilla.id }}</a>
                                 <p class="small marginless">{% if planilla.terminada != 100 %}Sin terminar</span>{% else %}Terminada</span>{% endif %}</p></td>
-                            <td class="hidden-xs">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
+                            <td class="d-none d-sm-block">{{ planilla.empadronador.primerNombre }} {{ planilla.empadronador.primerApellido }} <a href="{{ path('usuarios_show', { 'id' : planilla.empadronador.id }) }}"><i class="fa fa-link"></i></a><p class="small marginless">{{ planilla.empadronador.cedula }}</p></td>
                             <td>{% if planilla.jefeGrupoFamiliar != null %}{{ planilla.jefeGrupoFamiliar.nombreyapellido }} <p class="small marginless">{{ planilla.jefeGrupoFamiliar.cedula() }}</p> {% endif %}</td>
-                            <td class="hidden-xs text-center">{% if planilla.terminada == 100 %}{{ planilla.grupoFamiliar.cantidadMiembros }} personas{% endif %}</td>
+                            <td class="d-none d-sm-block text-center">{% if planilla.terminada == 100 %}{{ planilla.grupoFamiliar.cantidadMiembros }} personas{% endif %}</td>
                             <td class="text-center">{{ planilla.fechaCron() }}</td>
-                            <td class="hidden-xs hidden-sm text-center">{{ planilla.terminada }}%</td>
+                            <td class="d-none d-sm-block d-sm-none text-center">{{ planilla.terminada }}%</td>
                             <td>
                                 <div class="btn-group">
-                                    <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
+                                    <button type="button" role="button" class="btn btn-outline-secondary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         {% if planilla.terminada != 100 %}

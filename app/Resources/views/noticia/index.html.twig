@@ -13,7 +13,7 @@
             <a class="btn btn-primary btn-block" href="{{ path('noticia_new') }}"><i class="fa fa-plus"></i> Crear Noticia</a>
         </div>
         <div class="col-sm-10">
-            {# <div class="panel panel-info"> #}
+            {# <div class="card border-info"> #}
             <table id="dataTable" class="table table-bordered table-striped table-hover">
                 <thead class="thead-info">
                     <tr>
@@ -35,7 +35,7 @@
                         <td class="text-center">{% if noticium.visibilidad %} <i class="fa fa-eye"></i> visible {% else %} <i class="fa fa-eye-slash"></i> invisible {% endif %}</td>
                         <td>
                             <div class="btn-group">
-                                <button type="button" role="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> <span class="caret"></span>
+                                <button type="button" role="button" class="btn btn-outline-secondary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{ path('noticia_show', { 'id': noticium.id }) }}"> <i class="fa fa-info"></i> Mostrar detalles</a></li>

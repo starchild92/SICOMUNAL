@@ -14,9 +14,9 @@
 	<hr>
 	<div class="row">
 		<div class="col-lg-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Datos del Consejo Comunal</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">Datos del Consejo Comunal</div>
+				<div class="card-body">
 					{% if consejo|length > 0 %}
 						<div class="row">
 							<div class="col-sm-6">
@@ -49,9 +49,9 @@
 			<p>Consulte las actualizaciones en el sistema accediendo a la <a class="negritas" href="{{ path('bitacora_index') }}"><i class="fa fa-compass"></i> Bitácora</a></p>
 		</div>
 		<div class="col-lg-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Datos de la Comunidad</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">Datos de la Comunidad</div>
+				<div class="card-body">
 					{% if comunidad|length > 0 %}
 						<div class="row">
 							<div class="col-sm-6">
@@ -102,9 +102,9 @@
 		{% endif %}
 
 		{% for unidad in unidades_restantes %}<div class="col-sm-4">
-			<div class="panel panel-primary">
-				<div class="panel-heading">{{ unidad.tipoUnidad }}</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">{{ unidad.tipoUnidad }}</div>
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-12">
 							{% if unidad.voceros|length == 0 %}
@@ -128,9 +128,9 @@
 	<div class="row">
 	{% for unidad in unidades_eje %}
 		<div class="col-lg-6 col-sm-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">{{ unidad.nombre }}</div>
-				<div class="panel-body">
+			<div class="card border-primary">
+				<div class="card-header">{{ unidad.nombre }}</div>
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-12">
 							{# <p class="bottom-line negritas text-info p-header"> </p> #}
@@ -162,13 +162,13 @@
 				</div>
 				<div class="modal-body">
 					<span id="modalCuerpo">
-						<div class="well-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
+						<div class="card card-body bg-light-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
 						<hr>
 						<br>Cargando el formulario</div>
 					</span>
 				</div>
 				{# <div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary">Save changes</button>
 				</div> #}
 			</div>
@@ -207,7 +207,7 @@
                 cancelButtonClass: 'btn-info',
                 theme: 'black',
                 confirm: function(){
-                    $('#modalCuerpo').children().replaceWith("<div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><br />Cargando el formulario</div>")
+                    $('#modalCuerpo').children().replaceWith("<div class='card card-body bg-light-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><br />Cargando el formulario</div>")
                 },
                 cancel: function(){
                     e.preventDefault();

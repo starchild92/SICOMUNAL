@@ -8,9 +8,9 @@
 {% endblock %}
 {% block body %}
 <div class="row" style="background-color: whitesmoke;">
-	<div class="col-lg-5 col-sm-8 col-xs-12 offer" style="float: none; margin: 117px auto; text-align: center;">
+	<div class="col-lg-5 col-sm-8 col-12 offer" style="float: none; margin: 117px auto; text-align: center;">
 		<p class="text-center">
-			<img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive" style="float: none; margin: 0px auto; text-align: center;">
+			<img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid" style="float: none; margin: 0px auto; text-align: center;">
 		</p>
 		
 		{% if error %}
@@ -24,25 +24,25 @@
 
 			<div class="form-group">
 			<div class="input-group input-block-level">
-			  <span class="input-group-addon" id="basic-addon3"><i class="fa fa-user fa-fw"></i></span><input type="text" id="username" class="form-control input-md" aria-describedby="basic-addon3" name="_username" value="{{ last_username }}" placeholder="Usuario" required="required">
+			  <span class="input-group-text" id="basic-addon3"><i class="fa fa-user fa-fw"></i></span><input type="text" id="username" class="form-control input-md" aria-describedby="basic-addon3" name="_username" value="{{ last_username }}" placeholder="Usuario" required="required">
 			</div></div>
 			
 			<div class="form-group">
 			<div class="input-group input-block-level">
-			  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key fa-fw"></i></span><input class="form-control input-md" placeholder="Contraseña" aria-describedby="basic-addon2" type="password" id="password" name="_password" required="required">
+			  <span class="input-group-text" id="basic-addon2"><i class="fa fa-key fa-fw"></i></span><input class="form-control input-md" placeholder="Contraseña" aria-describedby="basic-addon2" type="password" id="password" name="_password" required="required">
 			</div></div>
 
 			<input class="btn btn-primary btn-md btn-block" type="submit" id="_submit" name="_submit" value="INCIAR SESIÓN" />
 			
 		</form>
-		{# <small><a class="btn btn-sm btn-default" href="#">¿No recuerdas tu contraseña?</a></small> #}
+		{# <small><a class="btn btn-sm btn-outline-secondary" href="#">¿No recuerdas tu contraseña?</a></small> #}
 	</div>
 
-	{# <div class="col-lg-4 col-sm-8 col-xs-12 offer" style="float: none; margin: 0px auto; text-align: center;">
+	{# <div class="col-lg-4 col-sm-8 col-12 offer" style="float: none; margin: 0px auto; text-align: center;">
 		<p><span class="negritas">Desarrollado por</span> Luis Pérez</p>
 	</div> #}
 
-	{# <div class="col-lg-4 col-sm-8 col-xs-12 offer" style="float: none; margin: 0px auto; text-align: center;">
+	{# <div class="col-lg-4 col-sm-8 col-12 offer" style="float: none; margin: 0px auto; text-align: center;">
 		<p>Desarrollado por Luis Pérez</p>
 		<div class="col-lg-12"><a href="https://www.linkedin.com/in/lapv1992" target="__new"><i class="fa fa-linkedin-square fa-2x"></i></a> <a href="https://twitter.com/lapv20" target="__new"><i class="fa fa-twitter fa-2x"></i></a></div>
 	</div> #}

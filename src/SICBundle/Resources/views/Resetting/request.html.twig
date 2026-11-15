@@ -9,23 +9,23 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-lg-5 col-sm-8 col-xs-12 offer" style="float: none; margin: 117px auto; text-align: center;">
-        <div class="page-header blanco" style="text-align: center;">
+    <div class="col-lg-5 col-sm-8 col-12 offer" style="float: none; margin: 117px auto; text-align: center;">
+        <div class="pb-2 mt-4 mb-2 border-bottom blanco" style="text-align: center;">
             <img src="{{ asset('images/logo.png') }}" class="img-login" >
         </div>
         
-        {% if invalid_username is defined %}<div class="well well-sm">
+        {% if invalid_username is defined %}<div class="card card-body bg-light card card-body bg-light-sm">
         <p class="text-info">
             <p>El nombre de usuario que especificó es incorrecto o no existe.</p>
         </p>
         </div>{% endif %}
 
-        <div class="well well-sm"><p><small>Mediante esta opción recibira un correo electronico con un enlace para restablecer su contraseña, a continuación indique su nombre de usuario.</small></p></div>
+        <div class="card card-body bg-light card card-body bg-light-sm"><p><small>Mediante esta opción recibira un correo electronico con un enlace para restablecer su contraseña, a continuación indique su nombre de usuario.</small></p></div>
 
         <form action="{{ path('fos_user_resetting_send_email') }}" method="post" class="form-group">
             <div class="form-group">
                 <div class="input-group input-block-level">
-                    <span class="input-group-addon" id="basic-addon3"><i class="fa fa-user fa-lg"></i></span>
+                    <span class="input-group-text" id="basic-addon3"><i class="fa fa-user fa-lg"></i></span>
                     <input class="form-control" aria-describedby="basic-addon3" type="text" id="username" name="username" required="required" placeholder="nombre de usuario o correo electronico" />
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <input class="btn btn-primary btn-block" type="submit" value="ENVIAME EL ENLACE DE RESTAURACIÓN" />
             </div>
         </form>
-        <a class="btn btn-default btn-xs" href="{{ path('fos_user_security_login') }}">ir al inicio de sesión</a>
+        <a class="btn btn-outline-secondary btn-xs" href="{{ path('fos_user_security_login') }}">ir al inicio de sesión</a>
     </div>
 </div>
 {% endblock body %}

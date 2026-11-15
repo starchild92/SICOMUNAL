@@ -14,8 +14,8 @@
                 </div>
             {% endif %}
             {% for noticia in noticias %}
-                <div class="panel panel-primary">
-                    <div class="panel-body">
+                <div class="card border-primary">
+                    <div class="card-body">
                         <h3>{{ noticia.titulo }} <small class="negritas"> por {{ noticia.usuario.nombreyapellido() }}</small></h3>
                         <p class="marginless text-info">
                             <span class="negritas">Publicado:</span> {% if noticia.fechaPub %}{{ noticia.fechaPubyhora() }}{% endif %}
@@ -23,7 +23,7 @@
                         <hr class="little">
                         <p>{{ noticia.cuerpo|raw }}</p>
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         <span class="negritas">Publicado:</span> {% if noticia.fechaPub %}{{ noticia.fechaPubyhora() }}{% endif %}
                     </div>
                 </div>

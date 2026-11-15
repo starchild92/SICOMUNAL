@@ -5,19 +5,19 @@
 		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
 		<script>var menu_element = document.getElementById('servicios').className = 'list-group-item active';</script>
 		<div class="col-lg-9 col-sm-9">
-			<h3 class="text-center text-info">Estadísticas Generales - Situación Servicios <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
+			<h3 class="text-center text-info">Estadísticas Generales - Situación Servicios <i class="fa fa-bar-chart fa-sm float-left"></i></h3>
 			<hr>
 			<div class="row grid">
 				{% for item in situacion %}
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-						<div class="panel panel-primary">
-							<p class="panel-title text-center negritas">{{ item.title }}</p>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+						<div class="card border-primary">
+							<p class="card-title text-center negritas">{{ item.title }}</p>
 							{% for object in item.array %}
 								{% if object.situacion|length > 0 %}
-								<div class="panel-body">
+								<div class="card-body">
 									<h4 class="bottom-line">{{ object.elemento }}</h4>
 									{% for situacion in object.situacion %}
-									<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+									<a class="badge badge-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 									{% endfor %}
 								</div>
 								{% endif %}

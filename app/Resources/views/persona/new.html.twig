@@ -5,8 +5,8 @@
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col-xs-6"><small class="text-info">ant. Datos Grupo Familiar</small></div>
-        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Económica</small></div>
+        <div class="col-6"><small class="text-info">ant. Datos Grupo Familiar</small></div>
+        <div class="col-6 text-right"><small class="text-info">sig. Situación Económica</small></div>
     </div>
     <div class="progress">
       <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
@@ -19,8 +19,8 @@
     {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
         <div class="row">
             <div class="col-sm-6">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
+                <div class="card border-primary">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.nombre) }}</div>
                             <div class="col-sm-6">{{ form_row(form.apellido) }}</div>
@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
+                <div class="card border-primary">
+                    <div class="card-body">
                         {{ form_row(form.parentesco) }}
                         {{ form_row(form.gradoInstruccion) }}
                         {{ form_row(form.cne) }}

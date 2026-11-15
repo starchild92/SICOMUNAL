@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">Cantidad Tipos de Ingresos</div>
+    <div class="card border-primary">
+        <div class="card-header">Cantidad Tipos de Ingresos</div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -21,7 +21,7 @@
             {% endfor %}
             </tbody>
         </table>
-        <div class="panel-footer">
+        <div class="card-footer">
             <a class="btn btn-primary" href="{{ path('configurable_tipos_ingresos_new') }}" id="forModal"><i class="fa fa-plus fa-fw"></i> Agregar Nuevo</a>
         </div>
     </div>

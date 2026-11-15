@@ -13,26 +13,26 @@
     <hr>
     <div class="row">
         <div class="col-sm-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Enviar Comunicado Masivo <i class="fa fa-envelope-o pull-right"></i></div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-header">Enviar Comunicado Masivo <i class="fa fa-envelope-o float-right"></i></div>
+                <div class="card-body">
                     <p>Haga llegar un mensaje a todos los miembros de la comunidad con una dirección de correo electrónico.</p>
                     <a href="#" data-url="{{ path('comunicado_new') }}" id="forModal" class="btn btn-success btn-block"><i class="fa fa-edit"></i> Redactar Mensaje</a>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Personas Suscritas</div>
-                <div class="panel-body text-center">
+            <div class="card">
+                <div class="card-header">Personas Suscritas</div>
+                <div class="card-body text-center">
                     <h1>{{ reciben_correo }}</h1>
-                    <small>Cantidad de personas recibiendo su estos correos</small>
+                    <small>Cantidad de personas recibiendo estos correos</small>
                     <a href="{{ path('noticia_correo_usuarios') }}" class="btn btn-block btn-success"><i class="fa fa-envelope-o"></i> Ver Cuentas de Usuarios</a>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-9">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Comunicados Enviados <i class="fa fa-inbox pull-right"></i></div>
+            <div class="card border-primary">
+                <div class="card-header">Comunicados Enviados <i class="fa fa-inbox float-right"></i></div>
                     {# <div class="pre-scrollable"> #}
                     <table id="dataTable" class="table borderless table-hover">
                         <thead class="thead-info">
@@ -46,7 +46,7 @@
                         <tbody>
                             {% for correo in comunicados %}
                             <tr>
-                                <td class="col-sm-5"><span class="negritas">{{ correo.titulo }}</span> <a title="ver completo el correo electronico enviado" class="pull-right" href="{{ path('comunicado_show', {'id':correo.id})}}">ver completo</a><br>{{ correo.cuerpo|slice(0,30) }}</td>
+                                <td class="col-sm-5"><span class="negritas">{{ correo.titulo }}</span> <a title="ver completo el correo electronico enviado" class="float-right" href="{{ path('comunicado_show', {'id':correo.id})}}">ver completo</a><br>{{ correo.cuerpo|slice(0,30) }}</td>
                                 <td><a title="ver los detalles del emisor" href="{{ path('usuarios_show', {'id':correo.emisor.id }) }}">{{ correo.emisor.nombreyapellido() }}<p class="small marginless">{{ correo.emisor }}</p></a></td>
                                 <td>{{ correo.fecha|date('Y-m-d') }}</td>
                                 <td>{{ correo.numDestinatarios }} personas</td>
@@ -62,11 +62,11 @@
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-            <div class="panel panel-default">
-                <div class="panel-heading"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="card">
+                <div class="card-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Elemento</h4></div>
-                <div class="panel-body" id="body-modal">
-                    <span id="modal-body" class="negritas text-center"><div class="well-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
+                <div class="card-body" id="body-modal">
+                    <span id="modal-body" class="negritas text-center"><div class="card card-body bg-light-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
                     <hr class="little">
                     Cargando el formulario</div></span>
                 </div>
@@ -112,7 +112,7 @@
                             content: "Tenga paciencia, dependiendo de la cantidad de personas esta opción puede tardar.",
                             theme: 'bootstrap',
                             confirmButtonClass: 'btn-success',
-                            cancelButtonClass: 'btn-default',
+                            cancelButtonClass: 'btn-outline-secondary',
                             confirmButton: 'Enviar',
                             cancelButton: 'Cancelar',
                             confirm: function(){
@@ -121,7 +121,7 @@
                                     title: false,
                                     content: 'Para enviarlos presione OKAY',
                                     confirmButtonClass: 'btn-success',
-                                    cancelButtonClass: 'btn-default',
+                                    cancelButtonClass: 'btn-outline-secondary',
                                     cancelButton: 'Cancelar',
                                     confirm: function(){
                                         $('#modal-body').submit();
@@ -146,9 +146,9 @@
                 theme: 'bootstrap',
                 cancelButton: 'Continuar escribiendo',
                 confirmButtonClass: 'btn-danger',
-                cancelButtonClass: 'btn-default',
+                cancelButtonClass: 'btn-outline-secondary',
                 confirm: function(){
-                    html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr class='little'>Cargando el formulario</div></span></div>";
+                    html = "<div class='card-body'><span id='modal-body'><div class='card card-body bg-light-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr class='little'>Cargando el formulario</div></span></div>";
                     $('#body-modal').replaceWith(html)
                 },
                 cancel: function(){
