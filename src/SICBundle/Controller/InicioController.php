@@ -3,15 +3,15 @@
 namespace SICBundle\Controller;
 
 use SICBundle\Controller\BaseController;
-use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use SICBundle\Entity\Bitacora;
 
 class InicioController extends BaseController
 {
     public function inicioAction(){
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+        if( $this->isGranted('IS_AUTHENTICATED_FULLY') )
         {
             $em = $this->getDoctrine()->getManager();
             $cant_usuarios = sizeof($em->getRepository('SICBundle:Usuario')->findAll());
@@ -26,12 +26,19 @@ class InicioController extends BaseController
                 'cant_planillas' => $cant_planillas,
                 ));
         }else{
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }    
+            return $this->redirectToRoute('sic_homepage_login');
+        }
     }
 
-    public function loginAction(){
-        return $this->redirect($this->generateUrl('fos_user_security_login'));
+    public function loginAction(AuthenticationUtils $authenticationUtils){
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('Security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'csrf_token' => '',
+        ]);
     }
 
     public function cmpVotos($a, $b){

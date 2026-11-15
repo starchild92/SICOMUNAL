@@ -19,8 +19,8 @@
 		    <br>
 		{% endif %}
 
-		<form action="{{ path("fos_user_security_check") }}" method="post" class="form-group">
-			<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+		<form action="/login_check" method="post" class="form-group">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 
 			<div class="form-group">
 			<div class="input-group input-block-level">
@@ -35,7 +35,7 @@
 			<input class="btn btn-primary btn-md btn-block" type="submit" id="_submit" name="_submit" value="INCIAR SESIÓN" />
 			
 		</form>
-		<small><a class="btn btn-sm btn-default" href="{{ path('fos_user_resetting_request') }}">¿No recuerdas tu contraseña?</a></small>
+		{# <small><a class="btn btn-sm btn-default" href="#">¿No recuerdas tu contraseña?</a></small> #}
 	</div>
 
 	{# <div class="col-lg-4 col-sm-8 col-xs-12 offer" style="float: none; margin: 0px auto; text-align: center;">

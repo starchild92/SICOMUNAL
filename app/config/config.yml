@@ -42,6 +42,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    paths:
+        '%kernel.project_dir%/src/SICBundle/Resources/views': ~
+        '%kernel.project_dir%/app/Resources/views': ~
     form_themes:
         - 'bootstrap_3_layout.html.twig'
 

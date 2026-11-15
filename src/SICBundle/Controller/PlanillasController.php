@@ -486,7 +486,7 @@ class PlanillasController extends BaseController
             return $this->render('estadisticas/imprimir-error.html.twig', array(
                 'mensaje' => 'Este estudio no está terminado por lo cual no lo puede imprimir, completelo y regrese.'));
         }else{
-            if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+            if( $this->isGranted('IS_AUTHENTICATED_FULLY') )
             {
                 $em = $this->getDoctrine()->getManager();
                 $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
@@ -522,7 +522,7 @@ class PlanillasController extends BaseController
     public function obtenerTodasAction()
     {
         set_time_limit(0);
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+        if( $this->isGranted('IS_AUTHENTICATED_FULLY') )
             {
                 $em = $this->getDoctrine()->getManager();
                 $planillas = $em->getRepository('SICBundle:Planillas')->findAll();
