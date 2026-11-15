@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminMisionesComunidad;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminMisionesComunidadType;
  * AdminMisionesComunidad controller.
  *
  */
-class AdminMisionesComunidadController extends Controller
+class AdminMisionesComunidadController extends BaseController
 {
     /**
      * Lists all AdminMisionesComunidad entities.

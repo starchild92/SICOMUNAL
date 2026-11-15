@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Comunidad;
 use SICBundle\Form\ComunidadType;
@@ -13,7 +13,7 @@ use SICBundle\Entity\Bitacora;
  * Comunidad controller.
  *
  */
-class ComunidadController extends Controller
+class ComunidadController extends BaseController
 {
     /**
      * Lists all Comunidad entities.
@@ -48,7 +48,7 @@ class ComunidadController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado la información de la Comunidad de forma exitosa.');
+            $this->addFlash('success', 'Se ha agregado la información de la Comunidad de forma exitosa.');
 
             return $this->redirectToRoute('sic_administacion_entidades');
         }
@@ -91,7 +91,7 @@ class ComunidadController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha actualizado la información de la Comunidad de forma exitosa.');
+            $this->addFlash('success', 'Se ha actualizado la información de la Comunidad de forma exitosa.');
 
             return $this->redirectToRoute('sic_administacion_entidades');
         }

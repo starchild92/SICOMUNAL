@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminPreguntasSitCom;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminPreguntasSitComType;
  * AdminPreguntasSitCom controller.
  *
  */
-class AdminPreguntasSitComController extends Controller
+class AdminPreguntasSitComController extends BaseController
 {
     /**
      * Lists all AdminPreguntasSitCom entities.
@@ -43,7 +43,7 @@ class AdminPreguntasSitComController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasSitCom);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','una nueva Pregunta Situación Comunal a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -84,7 +84,7 @@ class AdminPreguntasSitComController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Preguntas Situación Comunidad');
             $em->persist($bitacora);
             $em->persist($adminPreguntasSitCom);
@@ -113,7 +113,7 @@ class AdminPreguntasSitComController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPreguntasSitCom);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminPreguntasSitCom->getPregunta().' de los parámetros de Aguas Blancas del sistema');
             $em->persist($bitacora);
             $em->flush();

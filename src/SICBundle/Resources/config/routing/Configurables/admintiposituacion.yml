@@ -1,24 +1,24 @@
 admintiposituacion_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoSituacion:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionController::indexAction" }
     methods:  GET
 
 admintiposituacion_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoSituacion:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionController::showAction" }
     methods:  GET
 
 admintiposituacion_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoSituacion:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionController::newAction" }
     methods:  [GET, POST]
 
 admintiposituacion_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoSituacion:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionController::editAction" }
     methods:  [GET, POST]
 
 admintiposituacion_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoSituacion:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionController::deleteAction" }
     methods:  DELETE

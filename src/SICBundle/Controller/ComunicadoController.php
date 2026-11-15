@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Comunicado;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\ComunicadoType;
  * Comunicado controller.
  *
  */
-class ComunicadoController extends Controller
+class ComunicadoController extends BaseController
 {
     /**
      * Lists all Comunicado entities.
@@ -73,7 +73,7 @@ class ComunicadoController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha enviado el mensaje a los distintos usuarios.');
+            $this->addFlash('success', 'Se ha enviado el mensaje a los distintos usuarios.');
             return $this->redirectToRoute('noticia_correo');
         }
 

@@ -1,34 +1,34 @@
 comunicado_index:
     path:     /
-    defaults: { _controller: "SICBundle:Comunicado:index" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::indexAction" }
     methods:  GET
 
 comunicado_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:Comunicado:show" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::showAction" }
     methods:  GET
 
 comunicado_new:
     path:     /nuevo
-    defaults: { _controller: "SICBundle:Comunicado:new" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::newAction" }
     methods:  [GET, POST]
 
 comunicado_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:Comunicado:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::editAction" }
     methods:  [GET, POST]
 
 comunicado_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:Comunicado:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::deleteAction" }
     methods:  DELETE
 
 comunicado_no_recibir:
     path:     /no/recibir/comunicados/{correo}/
-    defaults: { _controller: "SICBundle:Comunicado:desactivarSubscripcion" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::desactivarSubscripcionAction" }
     methods:  GET
 
 comunicado_no_recibir_estatus:
     path:     /no/recibir/comunicados/{correo}/estatus
-    defaults: { _controller: "SICBundle:Comunicado:subscripcionEstatus" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunicadoController::subscripcionEstatusAction" }
     methods:  GET

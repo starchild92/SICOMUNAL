@@ -1,24 +1,24 @@
 configurable_tipo_situacion_exclusion_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoSituacionExclusion:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionExclusionController::indexAction" }
     methods:  GET
 
 configurable_tipo_situacion_exclusion_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoSituacionExclusion:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionExclusionController::showAction" }
     methods:  GET
 
 configurable_tipo_situacion_exclusion_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoSituacionExclusion:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionExclusionController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipo_situacion_exclusion_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoSituacionExclusion:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionExclusionController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipo_situacion_exclusion_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoSituacionExclusion:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoSituacionExclusionController::deleteAction" }
     methods:  DELETE

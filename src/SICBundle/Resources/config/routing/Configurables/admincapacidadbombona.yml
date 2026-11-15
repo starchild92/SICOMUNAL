@@ -1,24 +1,24 @@
 admincapacidadbombona_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminCapacidadBombona:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminCapacidadBombonaController::indexAction" }
     methods:  GET
 
 admincapacidadbombona_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminCapacidadBombona:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminCapacidadBombonaController::showAction" }
     methods:  GET
 
 admincapacidadbombona_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminCapacidadBombona:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminCapacidadBombonaController::newAction" }
     methods:  [GET, POST]
 
 admincapacidadbombona_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminCapacidadBombona:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminCapacidadBombonaController::editAction" }
     methods:  [GET, POST]
 
 admincapacidadbombona_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminCapacidadBombona:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminCapacidadBombonaController::deleteAction" }
     methods:  DELETE

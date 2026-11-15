@@ -1,29 +1,29 @@
 situacioneconomica_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:SituacionEconomica:index" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionEconomicaController::indexAction" }
     methods:  GET
 
 situacioneconomica_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:SituacionEconomica:show" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionEconomicaController::showAction" }
     methods:  GET
 
 situacioneconomica_new:
     path:     /paso/4/{id_planilla}/
-    defaults: { _controller: "SICBundle:SituacionEconomica:new" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionEconomicaController::newAction" }
     methods:  [GET, POST]
 
 situacioneconomica_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:SituacionEconomica:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionEconomicaController::editAction" }
     methods:  [GET, POST]
 
 situacioneconomica_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:SituacionEconomica:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionEconomicaController::deleteAction" }
     methods:  DELETE
 
 situacioneconomica_new_ajax:
     path:     /nuevo/agregar/ajax
-    defaults: { _controller: "SICBundle:SituacionEconomica:new_ajax" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionEconomicaController::new_ajaxAction" }
     methods:  [GET, POST]

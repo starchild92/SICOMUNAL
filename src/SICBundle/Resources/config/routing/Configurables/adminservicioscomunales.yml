@@ -1,24 +1,24 @@
 configurables_tipos_servicios_comunales_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminServiciosComunales:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminServiciosComunalesController::indexAction" }
     methods:  GET
 
 configurables_tipos_servicios_comunales_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminServiciosComunales:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminServiciosComunalesController::showAction" }
     methods:  GET
 
 configurables_tipos_servicios_comunales_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminServiciosComunales:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminServiciosComunalesController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipos_servicios_comunales_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminServiciosComunales:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminServiciosComunalesController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipos_servicios_comunales_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminServiciosComunales:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminServiciosComunalesController::deleteAction" }
     methods:  DELETE

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminNacionalidad;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminNacionalidadType;
  * AdminNacionalidad controller.
  *
  */
-class AdminNacionalidadController extends Controller
+class AdminNacionalidadController extends BaseController
 {
     /**
      * Lists all AdminNacionalidad entities.
@@ -43,7 +43,7 @@ class AdminNacionalidadController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminNacionalidad);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo Nacionalidad a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -85,7 +85,7 @@ class AdminNacionalidadController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminNacionalidad);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Nacionalidad');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminNacionalidadController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminNacionalidad);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminNacionalidad->getNacionalidad().' de los parámetros de Tipo de Nacionalidad del sistema');
             $em->persist($bitacora);
             $em->flush();

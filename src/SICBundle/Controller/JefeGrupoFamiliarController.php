@@ -4,7 +4,7 @@ namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\JefeGrupoFamiliar;
@@ -14,7 +14,7 @@ use SICBundle\Form\JefeGrupoFamiliarType;
  * JefeGrupoFamiliar controller.
  *
  */
-class JefeGrupoFamiliarController extends Controller
+class JefeGrupoFamiliarController extends BaseController
 {
     /**
      * Lists all JefeGrupoFamiliar entities.
@@ -54,8 +54,7 @@ class JefeGrupoFamiliarController extends Controller
         $p = $planilla[0];
 
         if($p->getJefeGrupoFamiliar() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('danger', 'Seleccione la sección que desea modificar');
+            $this->addFlash('danger', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -74,7 +73,7 @@ class JefeGrupoFamiliarController extends Controller
                 $p->setTerminada('10');
 	            $em->persist($jefeGrupoFamiliar);
 	            $em->persist($p);
-                $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Jefe de Grupo Familiar');
+                $this->addFlash('success', 'Se ha creado un Jefe de Grupo Familiar');
                 $bitacora = new Bitacora($this->getUser(),'agregó','un Jefe de Grupo Familiar a la planilla '.$id_planilla);
                 $em->persist($bitacora);
 	            $em->flush();
@@ -82,8 +81,7 @@ class JefeGrupoFamiliarController extends Controller
 	            // redirigir a (Caracteristicas Grupo Familiar)
 	            return $this->redirectToRoute('grupofamiliar_new', array('id_planilla' => $id_planilla, 'id_grupofamiliar' => 0));
         	}else{
-        		$this->get('session')->getFlashBag()
-                    ->add('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad. Para poder agregarlo como Jefe de Grupo Familiar debe eliminarlo como miembro de Grupo Familiar.');
+        		$this->addFlash('error', 'Ya existe una persona con este número de cédula, verifica sus datos en la Agenda de la Comunidad. Para poder agregarlo como Jefe de Grupo Familiar debe eliminarlo como miembro de Grupo Familiar.');
         	}
         }
 
@@ -129,7 +127,7 @@ class JefeGrupoFamiliarController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se han guardado los cambios de Jefe de Grupo Familiar');
+            $this->addFlash('success', 'Se han guardado los cambios de Jefe de Grupo Familiar');
 
             return $this->redirectToRoute('planillas_show', array('id' => $jefeGrupoFamiliar->getPlanilla()->getId()));
         }
@@ -152,7 +150,7 @@ class JefeGrupoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado a '.$jefeGrupoFamiliar->nombreyapellido().' Jefe de Grupo Familiar');
+            $this->addFlash('success', 'Se ha eliminado a '.$jefeGrupoFamiliar->nombreyapellido().' Jefe de Grupo Familiar');
             $bitacora = new Bitacora($this->getUser(),'eliminó','a '.$jefeGrupoFamiliar->nombreyapellido().' un Jefe de Grupo Familiar');
             $em->remove($jefeGrupoFamiliar);
             $em->persist($bitacora);

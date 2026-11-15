@@ -1,24 +1,24 @@
 situacionsalud_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:SituacionSalud:index" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionSaludController::indexAction" }
     methods:  GET
 
 situacionsalud_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:SituacionSalud:show" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionSaludController::showAction" }
     methods:  GET
 
 situacionsalud_new:
     path:     /paso/6/{id_planilla}/
-    defaults: { _controller: "SICBundle:SituacionSalud:new" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionSaludController::newAction" }
     methods:  [GET, POST]
 
 situacionsalud_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:SituacionSalud:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionSaludController::editAction" }
     methods:  [GET, POST]
 
 situacionsalud_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:SituacionSalud:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionSaludController::deleteAction" }
     methods:  DELETE

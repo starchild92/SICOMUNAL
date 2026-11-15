@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Persona;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\PersonaType;
  * Persona controller.
  *
  */
-class PersonaController extends Controller
+class PersonaController extends BaseController
 {
     private function obtenerStats(){
         $em = $this->getDoctrine()->getManager();
@@ -186,8 +186,7 @@ class PersonaController extends Controller
             $aux = sizeof($Grupo->getMiembros()) + 1;
             $Grupo->setCantidadMiembros($aux);
         }else{
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -208,7 +207,7 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
-            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
+            $this->addFlash('success', 'Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,
@@ -265,7 +264,7 @@ class PersonaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de forma correcta.');
+            $this->addFlash('success', 'Se han actualizado los datos de forma correcta.');
 
             return $this->redirectToRoute('personas_show', array('id' => $persona->getId()));
         }
@@ -293,7 +292,7 @@ class PersonaController extends Controller
             $bitacora = new Bitacora($this->getUser(),'eliminó','a '.$persona->nombreyapellido().' del Sistema');
             $em->persist($bitacora);
 
-            $this->get('session')->getFlashBag()->add('success','Se ha Eliminado a '.$persona->nombreyapellido().' del Grupo Familiar de forma correcta.');
+            $this->addFlash('success', 'Se ha Eliminado a '.$persona->nombreyapellido().' del Grupo Familiar de forma correcta.');
 
             $em->flush();
         }
@@ -353,8 +352,7 @@ class PersonaController extends Controller
             $aux = sizeof($Grupo->getMiembros()) + 1;
             $Grupo->setCantidadMiembros($aux);
         }else{
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -376,7 +374,7 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
-            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
+            $this->addFlash('success', 'Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }

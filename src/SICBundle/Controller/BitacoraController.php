@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Form\BitacoraType;
@@ -12,7 +12,7 @@ use SICBundle\Form\BitacoraType;
  * Bitacora controller.
  *
  */
-class BitacoraController extends Controller
+class BitacoraController extends BaseController
 {
     /**
      * Lists all Bitacora entities.

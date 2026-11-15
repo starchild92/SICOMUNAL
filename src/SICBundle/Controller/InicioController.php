@@ -2,13 +2,13 @@
 
 namespace SICBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use SICBundle\Entity\Bitacora;
 
-class InicioController extends Controller
+class InicioController extends BaseController
 {
     public function inicioAction(){
         if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
@@ -174,7 +174,7 @@ class InicioController extends Controller
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -217,7 +217,7 @@ class InicioController extends Controller
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -307,7 +307,7 @@ class InicioController extends Controller
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc->getNombre()));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
+            $this->addFlash('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -386,7 +386,7 @@ class InicioController extends Controller
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
+            $this->addFlash('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -415,7 +415,7 @@ class InicioController extends Controller
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -457,7 +457,7 @@ class InicioController extends Controller
             return $response;
 
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -495,7 +495,7 @@ class InicioController extends Controller
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -546,7 +546,7 @@ class InicioController extends Controller
             return $response;
 
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }

@@ -1,24 +1,24 @@
 configurable_tipo_tenencia_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoTenencia:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTenenciaController::indexAction" }
     methods:  GET
 
 configurable_tipo_tenencia_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoTenencia:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTenenciaController::showAction" }
     methods:  GET
 
 configurable_tipo_tenencia_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoTenencia:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTenenciaController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipo_tenencia_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoTenencia:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTenenciaController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipo_tenencia_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoTenencia:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTenenciaController::deleteAction" }
     methods:  DELETE

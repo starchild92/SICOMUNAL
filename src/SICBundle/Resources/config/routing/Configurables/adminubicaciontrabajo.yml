@@ -1,24 +1,24 @@
 configurable_ubicacion-trabajo_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminUbicacionTrabajo:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminUbicacionTrabajoController::indexAction" }
     methods:  GET
 
 configurable_ubicacion-trabajo_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminUbicacionTrabajo:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminUbicacionTrabajoController::showAction" }
     methods:  GET
 
 configurable_ubicacion-trabajo_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminUbicacionTrabajo:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminUbicacionTrabajoController::newAction" }
     methods:  [GET, POST]
 
 configurable_ubicacion-trabajo_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminUbicacionTrabajo:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminUbicacionTrabajoController::editAction" }
     methods:  [GET, POST]
 
 configurable_ubicacion-trabajo_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminUbicacionTrabajo:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminUbicacionTrabajoController::deleteAction" }
     methods:  DELETE

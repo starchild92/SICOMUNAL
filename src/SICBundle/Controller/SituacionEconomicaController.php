@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
 use SICBundle\Entity\SituacionEconomica;
@@ -15,7 +15,7 @@ use SICBundle\Form\SituacionEconomicaType;
  * SituacionEconomica controller.
  *
  */
-class SituacionEconomicaController extends Controller
+class SituacionEconomicaController extends BaseController
 {
     private function obtenerStats()
     {
@@ -104,8 +104,7 @@ class SituacionEconomicaController extends Controller
         $p = $planilla[0];
 
         if($p->getSituacionEconomica() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -163,8 +162,7 @@ class SituacionEconomicaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha modificado la información de la Situación Económica de forma exitosa.');
+            $this->addFlash('success', 'Se ha modificado la información de la Situación Económica de forma exitosa.');
             return $this->redirectToRoute('planillas_show', array('id' => $situacionEconomica->getPlanilla()->getId()));
         }
 

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
 use Slik\DompdfBundle\DomPDF;
@@ -31,7 +31,7 @@ use SICBundle\Form\PlanillasType;
  * Planillas controller.
  *
  */
-class PlanillasController extends Controller
+class PlanillasController extends BaseController
 {
     /**
      * Lists all Planillas entities.
@@ -133,7 +133,7 @@ class PlanillasController extends Controller
             $em->remove($planilla);
             $bitacora = new Bitacora($this->getUser(),'eliminó','Una planilla.');
             $em->persist($bitacora);
-            $this->get('session')->getFlashBag()->add('success', 'Se eliminó la planilla de forma exitosa.');
+            $this->addFlash('success', 'Se eliminó la planilla de forma exitosa.');
 
             $em->flush();
         }
@@ -168,8 +168,7 @@ class PlanillasController extends Controller
         $bitacora = new Bitacora($this->getUser(),'modificó','Las observaciones de la planilla '.$id_planilla);
         $em->persist($bitacora);
         $em->flush();
-        $this->get('session')->getFlashBag()
-        ->add('success', 'Se ha registrado la observación');
+        $this->addFlash('success', 'Se ha registrado la observación');
     }
 
     public function conitnuarEncuestaAction($id_encuesta = null)
@@ -210,8 +209,7 @@ class PlanillasController extends Controller
                                     if ($aux != NULL) {
                                         $aux = $planilla->getSituacionComunidad();
                                         if ($aux != NULL) {
-                                            $this->get('session')->getFlashBag()
-                                            ->add('success', 'La planilla ya está completa');
+                                            $this->addFlash('success', 'La planilla ya está completa');
                                             return $this->redirectToRoute('planillas_index');
                                         }else{
                                             return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $planilla->getId()));
@@ -239,8 +237,7 @@ class PlanillasController extends Controller
             }
         }
 
-        $this->get('session')->getFlashBag()
-        ->add('danger', 'La planilla que indicó no existe.');
+        $this->addFlash('danger', 'La planilla que indicó no existe.');
         return $this->redirectToRoute('planillas_index');
     }
 
@@ -485,7 +482,7 @@ class PlanillasController extends Controller
     public function imprimirAction(Planillas $planilla)
     {
         if ($planilla->getTerminada() != 100) {
-            $this->get('session')->getFlashBag()->add('danger', 'No puedes imprimir una planilla que no este completada.');
+            $this->addFlash('danger', 'No puedes imprimir una planilla que no este completada.');
             return $this->render('estadisticas/imprimir-error.html.twig', array(
                 'mensaje' => 'Este estudio no está terminado por lo cual no lo puede imprimir, completelo y regrese.'));
         }else{

@@ -1,24 +1,24 @@
 configurable_respuesta_cerrada_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminRespCerrada:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRespCerradaController::indexAction" }
     methods:  GET
 
 configurable_respuesta_cerrada_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminRespCerrada:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRespCerradaController::showAction" }
     methods:  GET
 
 configurable_respuesta_cerrada_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminRespCerrada:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRespCerradaController::newAction" }
     methods:  [GET, POST]
 
 configurable_respuesta_cerrada_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminRespCerrada:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRespCerradaController::editAction" }
     methods:  [GET, POST]
 
 configurable_respuesta_cerrada_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminRespCerrada:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRespCerradaController::deleteAction" }
     methods:  DELETE

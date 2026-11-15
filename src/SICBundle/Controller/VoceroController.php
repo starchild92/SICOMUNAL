@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Vocero;
 use SICBundle\Form\VoceroType;
@@ -12,7 +12,7 @@ use SICBundle\Form\VoceroType;
  * Vocero controller.
  *
  */
-class VoceroController extends Controller
+class VoceroController extends BaseController
 {
     /**
      * Lists all Vocero entities.

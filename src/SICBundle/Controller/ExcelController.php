@@ -2,7 +2,7 @@
 
 namespace SICBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use SICBundle\Entity\Bitacora;
@@ -10,7 +10,7 @@ use SICBundle\Entity\Bitacora;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 // use PHPExcel_Writer_OOCalc;
 
-class ExcelController extends Controller
+class ExcelController extends BaseController
 {
 	public function indexAction()
 	{

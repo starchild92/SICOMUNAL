@@ -1,34 +1,34 @@
 personas_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:Persona:index" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::indexAction" }
     methods:  GET
 
 personas_show:
     path:     /miembro/{id}/mostrar
-    defaults: { _controller: "SICBundle:Persona:show" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::showAction" }
     methods:  GET
 
 personas_new:
     path:     /paso/3/agregar_miembros/{id_planilla}/{id_grupofamiliar}
-    defaults: { _controller: "SICBundle:Persona:new" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::newAction" }
     methods:  [GET, POST]
 
 personas_edit:
     path:     /miembro/{id}/editar
-    defaults: { _controller: "SICBundle:Persona:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::editAction" }
     methods:  [GET, POST]
 
 personas_delete:
     path:     /miembro/{id}/eliminar
-    defaults: { _controller: "SICBundle:Persona:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::deleteAction" }
     methods:  DELETE
 
 agenda_comunitaria:
     path:     /agenda/comunitaria
-    defaults: { _controller: "SICBundle:Persona:agenda" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::agendaAction" }
     methods:  GET
 
 personas_nuevo_miembro:
     path:     /nuevo/{id_planilla}/{id_grupofamiliar}
-    defaults: { _controller: "SICBundle:Persona:nuevoMiembro" }
+    defaults: { _controller: "SICBundle\\Controller\\PersonaController::nuevoMiembroAction" }
     methods:  [GET, POST]

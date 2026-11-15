@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\SituacionSalud;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\SituacionSaludType;
  * SituacionSalud controller.
  *
  */
-class SituacionSaludController extends Controller
+class SituacionSaludController extends BaseController
 {
     private function obtenerStats()
     {
@@ -87,8 +87,7 @@ class SituacionSaludController extends Controller
         $p = $planilla[0];
 
         if($p->getSituacionSalud() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -105,8 +104,7 @@ class SituacionSaludController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha agregado la informacion de Salud de forma exitosa');
+            $this->addFlash('success', 'Se ha agregado la informacion de Salud de forma exitosa');
 
             return $this->redirectToRoute('situacionservicios_new', array('id_planilla' => $id_planilla));
         }
@@ -148,8 +146,7 @@ class SituacionSaludController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha modificado la información de la Situación de Salud de forma exitosa.');
+            $this->addFlash('success', 'Se ha modificado la información de la Situación de Salud de forma exitosa.');
             return $this->redirectToRoute('planillas_show', array('id' => $situacionSalud->getPlanilla()->getId()));
         }
 

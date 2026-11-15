@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\ParticipacionComunitaria;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\ParticipacionComunitariaType;
  * ParticipacionComunitaria controller.
  *
  */
-class ParticipacionComunitariaController extends Controller
+class ParticipacionComunitariaController extends BaseController
 {
     private function obtenerStats()
     {
@@ -113,8 +113,7 @@ class ParticipacionComunitariaController extends Controller
         $p = $planilla[0];
 
         if($p->getParticipacionComunitaria() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -127,7 +126,7 @@ class ParticipacionComunitariaController extends Controller
             $p->setParticipacionComunitaria($participacionComunitarium);
             $p->setTerminada('85');
             $em->persist($p);
-            $this->get('session')->getFlashBag()->add('success', 'Se han agregado una Participación Comunitaria');
+            $this->addFlash('success', 'Se han agregado una Participación Comunitaria');
             $entrada = new Bitacora($this->getUser(),'agregó','información de Participación Comunitaria a la planilla '.$id_planilla);
             $em->persist($entrada);
             $em->flush();
@@ -169,8 +168,7 @@ class ParticipacionComunitariaController extends Controller
             $questions = $participacionComunitarium->getPreguntasParticipacionComunitaria();
             foreach ($questions as $q) {
                 if ($q->getInterrogante() == '') {
-                    $this->get('session')->getFlashBag()
-                    ->add('warning', 'No puede haber una Interrogante en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    $this->addFlash('warning', 'No puede haber una Interrogante en blanco. A continuación eliga la pregunta y coloque su respuesta.');
                     return $this->render('participacioncomunitaria/edit.html.twig', array(
                         'participacionComunitarium' => $participacionComunitarium,
                         'edit_form' => $editForm->createView(),
@@ -185,7 +183,7 @@ class ParticipacionComunitariaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado la información de participación comunitaria de forma correcta');
+            $this->addFlash('success', 'Se ha modificado la información de participación comunitaria de forma correcta');
             
             return $this->redirectToRoute('planillas_show', array('id' => $participacionComunitarium->getPlanilla()->getId()));
         }
@@ -209,7 +207,7 @@ class ParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($participacionComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se han eliminado información de Participación Comunitaria');
+            $this->addFlash('success', 'Se han eliminado información de Participación Comunitaria');
             $entrada = new Bitacora($this->getUser(),'eliminó','información de Participación Comunitaria');
             $em->persist($entrada);
             $em->flush();

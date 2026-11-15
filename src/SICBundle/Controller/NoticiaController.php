@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Noticia;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\NoticiaType;
  * Noticia controller.
  *
  */
-class NoticiaController extends Controller
+class NoticiaController extends BaseController
 {
     /**
      * Lists all Noticia entities.
@@ -46,7 +46,7 @@ class NoticiaController extends Controller
             $noticium->setUsuario($this->getUser());
             $noticium->setFecha(new \DateTime('now'));
             $noticium->setFechaPub(new \DateTime('now'));
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado una nueva noticia, titulada "'.$noticium->getTitulo().'"');
+            $this->addFlash('success', 'Se ha agregado una nueva noticia, titulada "'.$noticium->getTitulo().'"');
             $entrada = new Bitacora($this->getUser(),'agregó','una Noticia nueva, titulada: '.$noticium->getTitulo().'.');
             $em->persist($noticium);
             $em->persist($entrada);
@@ -89,7 +89,7 @@ class NoticiaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($noticium);
-            $this->get('session')->getFlashBag()->add('success', 'Se han modificado una noticia');
+            $this->addFlash('success', 'Se han modificado una noticia');
             $entrada = new Bitacora($this->getUser(),'modificó','una la noticia '.$noticium->getTitulo().'.');
             $em->persist($entrada);
             $em->flush();
@@ -115,7 +115,7 @@ class NoticiaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se eliminó la noticia: '.$noticium->getTitulo());
+            $this->addFlash('success', 'Se eliminó la noticia: '.$noticium->getTitulo());
             $entrada = new Bitacora($this->getUser(),'eliminó','una Noticia '.$noticium->getTitulo());
             $em->remove($noticium);
             $em->persist($entrada);
@@ -261,12 +261,12 @@ class NoticiaController extends Controller
             if ($noticium->getVisibilidad() == '0') {
                 //a invisible
                 $noticium->setVisibilidad('1');
-                $this->get('session')->getFlashBag()->add('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como visible.');
+                $this->addFlash('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como visible.');
                 $entrada = new Bitacora($this->getUser(),'modificó','la visibilidad de '.$noticium->getTitulo().' haciendola visible');
             }else{
                 // a visible
                 $noticium->setVisibilidad('0');
-                $this->get('session')->getFlashBag()->add('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como invisible.');
+                $this->addFlash('success', 'Se ha colocado la noticia "'.$noticium->getTitulo().'" como invisible.');
                 $entrada = new Bitacora($this->getUser(),'modificó','la visibilidad de '.$noticium->getTitulo().' haciendola invisible');
             }
             $em->persist($noticium);

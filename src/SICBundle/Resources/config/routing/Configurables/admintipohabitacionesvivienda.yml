@@ -1,24 +1,24 @@
 configurable_tipo_habitaciones_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoHabitacionesVivienda:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoHabitacionesViviendaController::indexAction" }
     methods:  GET
 
 configurable_tipo_habitaciones_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoHabitacionesVivienda:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoHabitacionesViviendaController::showAction" }
     methods:  GET
 
 configurable_tipo_habitaciones_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoHabitacionesVivienda:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoHabitacionesViviendaController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipo_habitaciones_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoHabitacionesVivienda:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoHabitacionesViviendaController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipo_habitaciones_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoHabitacionesVivienda:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoHabitacionesViviendaController::deleteAction" }
     methods:  DELETE

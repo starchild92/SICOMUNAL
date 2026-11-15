@@ -1,24 +1,24 @@
 configurables_preguntas_participacion_comunitaria_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasParticipacionComunitariaController::indexAction" }
     methods:  GET
 
 configurables_preguntas_participacion_comunitaria_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasParticipacionComunitariaController::showAction" }
     methods:  GET
 
 configurables_preguntas_participacion_comunitaria_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasParticipacionComunitariaController::newAction" }
     methods:  [GET, POST]
 
 configurables_preguntas_participacion_comunitaria_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasParticipacionComunitariaController::editAction" }
     methods:  [GET, POST]
 
 configurables_preguntas_participacion_comunitaria_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminPreguntasParticipacionComunitaria:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasParticipacionComunitariaController::deleteAction" }
     methods:  DELETE

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\SituacionServicios;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\SituacionServiciosType;
  * SituacionServicios controller.
  *
  */
-class SituacionServiciosController extends Controller
+class SituacionServiciosController extends BaseController
 {
     private function obtenerStats()
     {
@@ -260,8 +260,7 @@ class SituacionServiciosController extends Controller
         $p = $planilla[0];
 
         if($p->getSituacionServicios() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -278,8 +277,7 @@ class SituacionServiciosController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha agregado la informacion de Servicios de forma exitosa');
+            $this->addFlash('success', 'Se ha agregado la informacion de Servicios de forma exitosa');
 
             return $this->redirectToRoute('participacioncomunitaria_new', array('id_planilla' => $id_planilla));
         }
@@ -322,8 +320,7 @@ class SituacionServiciosController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se han almacena los datos de Situación de Servicios de forma exitosa.');
+            $this->addFlash('success', 'Se han almacena los datos de Situación de Servicios de forma exitosa.');
             return $this->redirectToRoute('planillas_show', array('id' => $situacionServicio->getPlanilla()->getId()));
         }
 

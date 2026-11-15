@@ -1,24 +1,24 @@
 adminpreguntassitcom_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminPreguntasSitCom:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasSitComController::indexAction" }
     methods:  GET
 
 adminpreguntassitcom_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminPreguntasSitCom:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasSitComController::showAction" }
     methods:  GET
 
 adminpreguntassitcom_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminPreguntasSitCom:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasSitComController::newAction" }
     methods:  [GET, POST]
 
 adminpreguntassitcom_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminPreguntasSitCom:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasSitComController::editAction" }
     methods:  [GET, POST]
 
 adminpreguntassitcom_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminPreguntasSitCom:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasSitComController::deleteAction" }
     methods:  DELETE

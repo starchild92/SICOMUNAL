@@ -1,24 +1,24 @@
 configurable_tipo_enseres_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoEnseres:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoEnseresController::indexAction" }
     methods:  GET
 
 configurable_tipo_enseres_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoEnseres:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoEnseresController::showAction" }
     methods:  GET
 
 configurable_tipo_enseres_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoEnseres:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoEnseresController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipo_enseres_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoEnseres:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoEnseresController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipo_enseres_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoEnseres:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoEnseresController::deleteAction" }
     methods:  DELETE

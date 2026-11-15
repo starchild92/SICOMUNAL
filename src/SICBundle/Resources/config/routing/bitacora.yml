@@ -1,29 +1,29 @@
 bitacora_index:
     path:     /
-    defaults: { _controller: "SICBundle:Bitacora:index" }
+    defaults: { _controller: "SICBundle\\Controller\\BitacoraController::indexAction" }
     methods:  GET
 
 bitacora_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:Bitacora:show" }
+    defaults: { _controller: "SICBundle\\Controller\\BitacoraController::showAction" }
     methods:  GET
 
 bitacora_new:
     path:     /nueva
-    defaults: { _controller: "SICBundle:Bitacora:new" }
+    defaults: { _controller: "SICBundle\\Controller\\BitacoraController::newAction" }
     methods:  [GET, POST]
 
 bitacora_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:Bitacora:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\BitacoraController::editAction" }
     methods:  [GET, POST]
 
 bitacora_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:Bitacora:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\BitacoraController::deleteAction" }
     methods:  DELETE
 
 bitacora_filtrar:
     path:     /por
-    defaults: { _controller: "SICBundle:Bitacora:por" }
+    defaults: { _controller: "SICBundle\\Controller\\BitacoraController::porAction" }
     methods:  [POST, DELETE]

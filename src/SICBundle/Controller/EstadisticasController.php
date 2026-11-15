@@ -2,13 +2,13 @@
 
 namespace SICBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use SICBundle\Entity\Bitacora;
 
-class EstadisticasController extends Controller
+class EstadisticasController extends BaseController
 {
     public function egPersonasAction(Request $request){
     	$todos = $this->estadisticasPersonas();

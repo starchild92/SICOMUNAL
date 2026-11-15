@@ -1,24 +1,24 @@
 configurables_tipos_aguas_blancas_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminAguasBlancas:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAguasBlancasController::indexAction" }
     methods:  GET
 
 configurables_tipos_aguas_blancas_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminAguasBlancas:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAguasBlancasController::showAction" }
     methods:  GET
 
 configurables_tipos_aguas_blancas_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminAguasBlancas:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAguasBlancasController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipos_aguas_blancas_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminAguasBlancas:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAguasBlancasController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipos_aguas_blancas_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminAguasBlancas:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAguasBlancasController::deleteAction" }
     methods:  DELETE

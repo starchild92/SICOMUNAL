@@ -1,24 +1,24 @@
 configurables_tipo_transporte_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoTransporte:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTransporteController::indexAction" }
     methods:  GET
 
 configurables_tipo_transporte_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoTransporte:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTransporteController::showAction" }
     methods:  GET
 
 configurables_tipo_transporte_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoTransporte:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTransporteController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipo_transporte_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoTransporte:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTransporteController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipo_transporte_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoTransporte:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoTransporteController::deleteAction" }
     methods:  DELETE

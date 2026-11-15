@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\SituacionVivienda;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\SituacionViviendaType;
  * SituacionVivienda controller.
  *
  */
-class SituacionViviendaController extends Controller
+class SituacionViviendaController extends BaseController
 {
     private function obtenerStat()
     {
@@ -256,8 +256,7 @@ class SituacionViviendaController extends Controller
         $p = $planilla[0];
 
         if($p->getSituacionVivienda() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -274,8 +273,7 @@ class SituacionViviendaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha agregado la informacion de Situación de Vivienda de forma exitosa');
+            $this->addFlash('success', 'Se ha agregado la informacion de Situación de Vivienda de forma exitosa');
 
             return $this->redirectToRoute('situacionsalud_new', array('id_planilla' => $id_planilla));
             // return $this->redirectToRoute('situacionvivienda_show', array('id' => $situacionVivienda->getId()));
@@ -318,8 +316,7 @@ class SituacionViviendaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se han actualizado los datos de la Situación de Vivienda de forma exitosa.');
+            $this->addFlash('success', 'Se han actualizado los datos de la Situación de Vivienda de forma exitosa.');
 
             return $this->redirectToRoute('planillas_show', array('id' => $situacionVivienda->getPlanilla()->getId()));
             // return $this->redirectToRoute('situacionvivienda_edit', array('id' => $situacionVivienda->getId()));

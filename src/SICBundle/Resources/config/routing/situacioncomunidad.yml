@@ -1,24 +1,24 @@
 situacioncomunidad_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:SituacionComunidad:index" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionComunidadController::indexAction" }
     methods:  GET
 
 situacioncomunidad_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:SituacionComunidad:show" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionComunidadController::showAction" }
     methods:  GET
 
 situacioncomunidad_new:
     path:     /paso/9/{id_planilla}/
-    defaults: { _controller: "SICBundle:SituacionComunidad:new" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionComunidadController::newAction" }
     methods:  [GET, POST]
 
 situacioncomunidad_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:SituacionComunidad:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionComunidadController::editAction" }
     methods:  [GET, POST]
 
 situacioncomunidad_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:SituacionComunidad:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionComunidadController::deleteAction" }
     methods:  DELETE

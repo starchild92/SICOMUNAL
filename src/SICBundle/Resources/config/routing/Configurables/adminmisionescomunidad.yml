@@ -1,24 +1,24 @@
 configurables_tipos_misiones_comunidad_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminMisionesComunidad:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminMisionesComunidadController::indexAction" }
     methods:  GET
 
 configurables_tipos_misiones_comunidad_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminMisionesComunidad:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminMisionesComunidadController::showAction" }
     methods:  GET
 
 configurables_tipos_misiones_comunidad_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminMisionesComunidad:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminMisionesComunidadController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipos_misiones_comunidad_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminMisionesComunidad:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminMisionesComunidadController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipos_misiones_comunidad_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminMisionesComunidad:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminMisionesComunidadController::deleteAction" }
     methods:  DELETE

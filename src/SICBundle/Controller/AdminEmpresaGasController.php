@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminEmpresaGas;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminEmpresaGasType;
  * AdminEmpresaGas controller.
  *
  */
-class AdminEmpresaGasController extends Controller
+class AdminEmpresaGasController extends BaseController
 {
     /**
      * Lists all AdminEmpresaGas entities.
@@ -43,7 +43,7 @@ class AdminEmpresaGasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminEmpresaGa);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Proveedor de Gas a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -85,7 +85,7 @@ class AdminEmpresaGasController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminEmpresaGa);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Proveedor de Gas');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminEmpresaGasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminEmpresaGa);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminEmpresaGa->getNombre().' de los parámetros de Proveedor de Gas del sistema');
             $em->persist($bitacora);
             $em->flush();

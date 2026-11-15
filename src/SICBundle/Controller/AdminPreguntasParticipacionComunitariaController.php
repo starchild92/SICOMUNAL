@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminPreguntasParticipacionComunitaria;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminPreguntasParticipacionComunitariaType;
  * AdminPreguntasParticipacionComunitaria controller.
  *
  */
-class AdminPreguntasParticipacionComunitariaController extends Controller
+class AdminPreguntasParticipacionComunitariaController extends BaseController
 {
     /**
      * Lists all AdminPreguntasParticipacionComunitaria entities.
@@ -43,7 +43,7 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasParticipacionComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nueva Pregunta de Partición Comunitaria a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -85,7 +85,7 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPreguntasParticipacionComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Pregunta de Partición Comunitaria');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminPreguntasParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPreguntasParticipacionComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminPreguntasParticipacionComunitarium->getInterrogante().' de los parámetros de Pregunta Partición Comunitaria del sistema');
             $em->persist($bitacora);
             $em->flush();

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoSituacion;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoSituacionType;
  * AdminTipoSituacion controller.
  *
  */
-class AdminTipoSituacionController extends Controller
+class AdminTipoSituacionController extends BaseController
 {
     /**
      * Lists all AdminTipoSituacion entities.
@@ -43,7 +43,7 @@ class AdminTipoSituacionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoSituacion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Situación de Exclusión a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -85,7 +85,7 @@ class AdminTipoSituacionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoSituacion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un tipo de Situación de Exclusión a los parámetros del sistema');
             $em->persist($bitacora);
 
@@ -115,7 +115,7 @@ class AdminTipoSituacionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoSituacion);
             
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'eliminó','un tipo de Situación de Exclusión a los parámetros del sistema');
             $em->persist($bitacora);
 

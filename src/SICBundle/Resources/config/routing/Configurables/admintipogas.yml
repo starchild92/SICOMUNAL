@@ -1,24 +1,24 @@
 configurables_tipos_gas_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoGas:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoGasController::indexAction" }
     methods:  GET
 
 configurables_tipos_gas_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoGas:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoGasController::showAction" }
     methods:  GET
 
 configurables_tipos_gas_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoGas:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoGasController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipos_gas_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoGas:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoGasController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipos_gas_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoGas:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoGasController::deleteAction" }
     methods:  DELETE

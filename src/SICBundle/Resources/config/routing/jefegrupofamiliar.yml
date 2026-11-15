@@ -1,34 +1,34 @@
 jefegrupofamiliar_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:index" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::indexAction" }
     methods:  GET
 
 jefegrupofamiliar_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:show" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::showAction" }
     methods:  GET
 
 jefegrupofamiliar_new:
     path:     /paso/1/{id_planilla}
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:new" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::newAction" }
     methods:  [GET, POST]
 
 jefegrupofamiliar_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::editAction" }
     methods:  [GET, POST]
 
 jefegrupofamiliar_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::deleteAction" }
     methods:  DELETE
 
 resumen_documento_obtener:
     path:     /obtener/documento
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:obtenerDocumento" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::obtenerDocumentoAction" }
     methods:  GET
 
 jefegrupofamiliar_vista:
     path:     /vista
-    defaults: { _controller: "SICBundle:JefeGrupoFamiliar:vistaDoc" }
+    defaults: { _controller: "SICBundle\\Controller\\JefeGrupoFamiliarController::vistaDocAction" }
     methods:  GET
