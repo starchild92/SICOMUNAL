@@ -118,7 +118,7 @@ class ParticipacionComunitariaController extends BaseController
         }
 
         $participacionComunitarium = new ParticipacionComunitaria();
-        $form = $this->createForm('SICBundle\Form\ParticipacionComunitariaType', $participacionComunitarium);
+        $form = $this->createForm(ParticipacionComunitariaType::class, $participacionComunitarium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -161,7 +161,7 @@ class ParticipacionComunitariaController extends BaseController
     public function editAction(Request $request, ParticipacionComunitaria $participacionComunitarium)
     {
         $deleteForm = $this->createDeleteForm($participacionComunitarium);
-        $editForm = $this->createForm('SICBundle\Form\ParticipacionComunitariaType', $participacionComunitarium);
+        $editForm = $this->createForm(ParticipacionComunitariaType::class, $participacionComunitarium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

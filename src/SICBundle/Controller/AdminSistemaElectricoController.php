@@ -37,7 +37,7 @@ class AdminSistemaElectricoController extends BaseController
     public function newAction(Request $request)
     {
         $adminSistemaElectrico = new AdminSistemaElectrico();
-        $form = $this->createForm('SICBundle\Form\AdminSistemaElectricoType', $adminSistemaElectrico);
+        $form = $this->createForm(AdminSistemaElectricoType::class, $adminSistemaElectrico);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminSistemaElectricoController extends BaseController
     public function editAction(Request $request, AdminSistemaElectrico $adminSistemaElectrico)
     {
         $deleteForm = $this->createDeleteForm($adminSistemaElectrico);
-        $editForm = $this->createForm('SICBundle\Form\AdminSistemaElectricoType', $adminSistemaElectrico);
+        $editForm = $this->createForm(AdminSistemaElectricoType::class, $adminSistemaElectrico);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

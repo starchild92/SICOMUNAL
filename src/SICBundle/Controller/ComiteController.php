@@ -135,7 +135,7 @@ class ComiteController extends BaseController
     public function newAction(Request $request)
     {
         $comite = new Comite();
-        $form = $this->createForm('SICBundle\Form\ComiteType', $comite);
+        $form = $this->createForm(ComiteType::class, $comite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -206,7 +206,7 @@ class ComiteController extends BaseController
     public function editAction(Request $request, Comite $comite)
     {
         $deleteForm = $this->createDeleteForm($comite);
-        $editForm = $this->createForm('SICBundle\Form\ComiteType', $comite);
+        $editForm = $this->createForm(ComiteType::class, $comite);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

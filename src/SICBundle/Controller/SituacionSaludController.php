@@ -92,7 +92,7 @@ class SituacionSaludController extends BaseController
         }
 
         $situacionSalud = new SituacionSalud();
-        $form = $this->createForm('SICBundle\Form\SituacionSaludType', $situacionSalud);
+        $form = $this->createForm(SituacionSaludType::class, $situacionSalud);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -136,7 +136,7 @@ class SituacionSaludController extends BaseController
     public function editAction(Request $request, SituacionSalud $situacionSalud)
     {
         $deleteForm = $this->createDeleteForm($situacionSalud);
-        $editForm = $this->createForm('SICBundle\Form\SituacionSaludType', $situacionSalud);
+        $editForm = $this->createForm(SituacionSaludType::class, $situacionSalud);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

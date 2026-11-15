@@ -46,7 +46,7 @@ class BitacoraController extends BaseController
     public function newAction(Request $request)
     {
         $bitacora = new Bitacora();
-        $form = $this->createForm('SICBundle\Form\BitacoraType', $bitacora);
+        $form = $this->createForm(BitacoraType::class, $bitacora);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -84,7 +84,7 @@ class BitacoraController extends BaseController
     public function editAction(Request $request, Bitacora $bitacora)
     {
         $deleteForm = $this->createDeleteForm($bitacora);
-        $editForm = $this->createForm('SICBundle\Form\BitacoraType', $bitacora);
+        $editForm = $this->createForm(BitacoraType::class, $bitacora);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class NoticiaController extends BaseController
     public function newAction(Request $request)
     {
         $noticium = new Noticia();
-        $form = $this->createForm('SICBundle\Form\NoticiaType', $noticium);
+        $form = $this->createForm(NoticiaType::class, $noticium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,7 +83,7 @@ class NoticiaController extends BaseController
     public function editAction(Request $request, Noticia $noticium)
     {
         $deleteForm = $this->createDeleteForm($noticium);
-        $editForm = $this->createForm('SICBundle\Form\NoticiaType', $noticium);
+        $editForm = $this->createForm(NoticiaType::class, $noticium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

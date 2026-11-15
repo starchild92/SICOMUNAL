@@ -37,7 +37,7 @@ class AdminCapacidadBombonaController extends BaseController
     public function newAction(Request $request)
     {
         $adminCapacidadBombona = new AdminCapacidadBombona();
-        $form = $this->createForm('SICBundle\Form\AdminCapacidadBombonaType', $adminCapacidadBombona);
+        $form = $this->createForm(AdminCapacidadBombonaType::class, $adminCapacidadBombona);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,7 +78,7 @@ class AdminCapacidadBombonaController extends BaseController
     public function editAction(Request $request, AdminCapacidadBombona $adminCapacidadBombona)
     {
         $deleteForm = $this->createDeleteForm($adminCapacidadBombona);
-        $editForm = $this->createForm('SICBundle\Form\AdminCapacidadBombonaType', $adminCapacidadBombona);
+        $editForm = $this->createForm(AdminCapacidadBombonaType::class, $adminCapacidadBombona);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

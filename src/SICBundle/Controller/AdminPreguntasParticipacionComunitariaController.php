@@ -37,7 +37,7 @@ class AdminPreguntasParticipacionComunitariaController extends BaseController
     public function newAction(Request $request)
     {
         $adminPreguntasParticipacionComunitarium = new AdminPreguntasParticipacionComunitaria();
-        $form = $this->createForm('SICBundle\Form\AdminPreguntasParticipacionComunitariaType', $adminPreguntasParticipacionComunitarium);
+        $form = $this->createForm(AdminPreguntasParticipacionComunitariaType::class, $adminPreguntasParticipacionComunitarium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminPreguntasParticipacionComunitariaController extends BaseController
     public function editAction(Request $request, AdminPreguntasParticipacionComunitaria $adminPreguntasParticipacionComunitarium)
     {
         $deleteForm = $this->createDeleteForm($adminPreguntasParticipacionComunitarium);
-        $editForm = $this->createForm('SICBundle\Form\AdminPreguntasParticipacionComunitariaType', $adminPreguntasParticipacionComunitarium);
+        $editForm = $this->createForm(AdminPreguntasParticipacionComunitariaType::class, $adminPreguntasParticipacionComunitarium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

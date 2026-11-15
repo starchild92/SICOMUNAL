@@ -37,7 +37,7 @@ class AdminRespCerradaController extends BaseController
     public function newAction(Request $request)
     {
         $adminRespCerrada = new AdminRespCerrada();
-        $form = $this->createForm('SICBundle\Form\AdminRespCerradaType', $adminRespCerrada);
+        $form = $this->createForm(AdminRespCerradaType::class, $adminRespCerrada);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminRespCerradaController extends BaseController
     public function editAction(Request $request, AdminRespCerrada $adminRespCerrada)
     {
         $deleteForm = $this->createDeleteForm($adminRespCerrada);
-        $editForm = $this->createForm('SICBundle\Form\AdminRespCerradaType', $adminRespCerrada);
+        $editForm = $this->createForm(AdminRespCerradaType::class, $adminRespCerrada);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

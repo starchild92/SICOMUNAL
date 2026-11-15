@@ -37,7 +37,7 @@ class AdminClasIngresoFamiliarController extends BaseController
     public function newAction(Request $request)
     {
         $adminClasIngresoFamiliar = new AdminClasIngresoFamiliar();
-        $form = $this->createForm('SICBundle\Form\AdminClasIngresoFamiliarType', $adminClasIngresoFamiliar);
+        $form = $this->createForm(AdminClasIngresoFamiliarType::class, $adminClasIngresoFamiliar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminClasIngresoFamiliarController extends BaseController
     public function editAction(Request $request, AdminClasIngresoFamiliar $adminClasIngresoFamiliar)
     {
         $deleteForm = $this->createDeleteForm($adminClasIngresoFamiliar);
-        $editForm = $this->createForm('SICBundle\Form\AdminClasIngresoFamiliarType', $adminClasIngresoFamiliar);
+        $editForm = $this->createForm(AdminClasIngresoFamiliarType::class, $adminClasIngresoFamiliar);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

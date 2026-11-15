@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class UsuarioType extends AbstractType
 {
@@ -23,12 +26,12 @@ class UsuarioType extends AbstractType
         
         $builder
             ->add('primerNombre')
-            ->add('segundoNombre', 'text', array(
+            ->add('segundoNombre', TextType::class, array(
                 'label'     => 'Segundo Nombre',
                 'required'  => false,
             ))
             ->add('primerApellido')
-            ->add('segundoApellido', 'text', array(
+            ->add('segundoApellido', TextType::class, array(
                 'label'     => 'Segundo Apellido',
                 'required'  => false,
             ))
@@ -39,8 +42,7 @@ class UsuarioType extends AbstractType
                 'label' => 'Fecha de Nacimiento',
                 'attr' => ['class' => 'js-datepicker', 'placeholder' => 'AAAA-MM-DD'],
             ))
-            ->add('telefono',
-                    'collection',array(
+            ->add('telefono', CollectionType::class,array(
                         'required' => false,
                         'type' => new TelefonoType(),
                         'cascade_validation' => true,
@@ -51,12 +53,12 @@ class UsuarioType extends AbstractType
                         'data_class' => null,
                         'label' => 'Número(s) teléfonicos',
                         ))
-            ->add('enabled', 'choice', array(
+            ->add('enabled', ChoiceType::class, array(
                 'label' => 'Estado de la Cuenta',
                 'choices'   => array(
                     '1' => 'Cuenta Activa',
                     '0' => 'Cuenta Inactiva')))
-            ->add('roles','choice',array(
+            ->add('roles', ChoiceType::class,array(
                     'label'   => 'Elija el Rol',
                     'choices' => $permissions,
                     'multiple' => true,

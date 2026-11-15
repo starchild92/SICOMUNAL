@@ -109,7 +109,7 @@ class SituacionEconomicaController extends BaseController
         }
 
         $situacionEconomica = new SituacionEconomica();
-        $form = $this->createForm('SICBundle\Form\SituacionEconomicaType', $situacionEconomica);
+        $form = $this->createForm(SituacionEconomicaType::class, $situacionEconomica);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -152,7 +152,7 @@ class SituacionEconomicaController extends BaseController
     public function editAction(Request $request, SituacionEconomica $situacionEconomica)
     {
         $deleteForm = $this->createDeleteForm($situacionEconomica);
-        $editForm = $this->createForm('SICBundle\Form\SituacionEconomicaType', $situacionEconomica);
+        $editForm = $this->createForm(SituacionEconomicaType::class, $situacionEconomica);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

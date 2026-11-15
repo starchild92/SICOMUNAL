@@ -37,7 +37,7 @@ class AdminMisionesComunidadController extends BaseController
     public function newAction(Request $request)
     {
         $adminMisionesComunidad = new AdminMisionesComunidad();
-        $form = $this->createForm('SICBundle\Form\AdminMisionesComunidadType', $adminMisionesComunidad);
+        $form = $this->createForm(AdminMisionesComunidadType::class, $adminMisionesComunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +76,7 @@ class AdminMisionesComunidadController extends BaseController
     public function editAction(Request $request, AdminMisionesComunidad $adminMisionesComunidad)
     {
         $deleteForm = $this->createDeleteForm($adminMisionesComunidad);
-        $editForm = $this->createForm('SICBundle\Form\AdminMisionesComunidadType', $adminMisionesComunidad);
+        $editForm = $this->createForm(AdminMisionesComunidadType::class, $adminMisionesComunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

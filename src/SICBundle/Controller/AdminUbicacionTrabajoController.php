@@ -37,7 +37,7 @@ class AdminUbicacionTrabajoController extends BaseController
     public function newAction(Request $request)
     {
         $adminUbicacionTrabajo = new AdminUbicacionTrabajo();
-        $form = $this->createForm('SICBundle\Form\AdminUbicacionTrabajoType', $adminUbicacionTrabajo);
+        $form = $this->createForm(AdminUbicacionTrabajoType::class, $adminUbicacionTrabajo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminUbicacionTrabajoController extends BaseController
     public function editAction(Request $request, AdminUbicacionTrabajo $adminUbicacionTrabajo)
     {
         $deleteForm = $this->createDeleteForm($adminUbicacionTrabajo);
-        $editForm = $this->createForm('SICBundle\Form\AdminUbicacionTrabajoType', $adminUbicacionTrabajo);
+        $editForm = $this->createForm(AdminUbicacionTrabajoType::class, $adminUbicacionTrabajo);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

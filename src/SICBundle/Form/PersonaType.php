@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use SICBundle\Form\GeneroType;
 use SICBundle\Form\TelefonoType;
@@ -21,9 +22,9 @@ class PersonaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre','text',array(
+            ->add('nombre', TextType::class,array(
                 'label'     => 'Nombre(s)'))
-            ->add('apellido','text',array(
+            ->add('apellido', TextType::class,array(
                 'label'     => 'Apellidos(s)'))
 
             ->add('sexo', GeneroType::class, array(
@@ -42,11 +43,11 @@ class PersonaType extends AbstractType
                  // 'expanded' => true,
             ))
             
-            ->add('cedula','text', array(
+            ->add('cedula', TextType::class, array(
                 'label'     => 'Cédula de Identidad',
                 'required' => false,))
             
-            ->add('email','text',array(
+            ->add('email', TextType::class,array(
                 'required' => false,
                 'label' => 'Correo Electronico',
                 'attr' => array(
@@ -60,11 +61,11 @@ class PersonaType extends AbstractType
                 'label'     => 'Fecha de Nacimiento'
             ))
 
-            ->add('edad', 'text', array(
+            ->add('edad', TextType::class, array(
                 'attr' => array(
                     'readonly' => true)))
 
-            ->add('parentesco', 'text', array(
+            ->add('parentesco', TextType::class, array(
                 'label'     => 'Parentesco que guarda con el Jefe del Grupo Familiar'))
             
             ->add('gradoInstruccion', EntityType::class, array(
@@ -140,7 +141,7 @@ class PersonaType extends AbstractType
                     'required'  => false)
             ))
 
-            ->add('ingresoMensual','text', array(
+            ->add('ingresoMensual', TextType::class, array(
                 'label' => 'Estimado de Ingreso Mensual',
                 'attr' => array(
                     'value' => 0)

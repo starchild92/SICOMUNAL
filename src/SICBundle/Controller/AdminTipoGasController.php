@@ -37,7 +37,7 @@ class AdminTipoGasController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoGa = new AdminTipoGas();
-        $form = $this->createForm('SICBundle\Form\AdminTipoGasType', $adminTipoGa);
+        $form = $this->createForm(AdminTipoGasType::class, $adminTipoGa);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoGasController extends BaseController
     public function editAction(Request $request, AdminTipoGas $adminTipoGa)
     {
         $deleteForm = $this->createDeleteForm($adminTipoGa);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoGasType', $adminTipoGa);
+        $editForm = $this->createForm(AdminTipoGasType::class, $adminTipoGa);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

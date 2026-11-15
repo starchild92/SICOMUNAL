@@ -36,7 +36,7 @@ class VoceroController extends BaseController
     public function newAction(Request $request)
     {
         $vocero = new Vocero();
-        $form = $this->createForm('SICBundle\Form\VoceroType', $vocero);
+        $form = $this->createForm(VoceroType::class, $vocero);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -74,7 +74,7 @@ class VoceroController extends BaseController
     public function editAction(Request $request, Vocero $vocero)
     {
         $deleteForm = $this->createDeleteForm($vocero);
-        $editForm = $this->createForm('SICBundle\Form\VoceroType', $vocero);
+        $editForm = $this->createForm(VoceroType::class, $vocero);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

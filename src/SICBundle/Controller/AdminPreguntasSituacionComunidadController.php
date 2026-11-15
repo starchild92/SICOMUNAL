@@ -37,7 +37,7 @@ class AdminPreguntasSituacionComunidadController extends BaseController
     public function newAction(Request $request)
     {
         $adminPreguntasSituacionComunidad = new AdminPreguntasSituacionComunidad();
-        $form = $this->createForm('SICBundle\Form\AdminPreguntasSituacionComunidadType', $adminPreguntasSituacionComunidad);
+        $form = $this->createForm(AdminPreguntasSituacionComunidadType::class, $adminPreguntasSituacionComunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminPreguntasSituacionComunidadController extends BaseController
     public function editAction(Request $request, AdminPreguntasSituacionComunidad $adminPreguntasSituacionComunidad)
     {
         $deleteForm = $this->createDeleteForm($adminPreguntasSituacionComunidad);
-        $editForm = $this->createForm('SICBundle\Form\AdminPreguntasSituacionComunidadType', $adminPreguntasSituacionComunidad);
+        $editForm = $this->createForm(AdminPreguntasSituacionComunidadType::class, $adminPreguntasSituacionComunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

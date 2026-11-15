@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AdminTipoSituacionExclusionType extends AbstractType
 {
@@ -15,7 +16,7 @@ class AdminTipoSituacionExclusionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('situacion', 'entity', array(
+            ->add('situacion', EntityType::class, array(
                 'class'     => 'SICBundle:AdminTipoSituacion',
                 'label'     => 'Tipo Situación',
                 'placeholder'   => 'Seleccione una',

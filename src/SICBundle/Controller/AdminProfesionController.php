@@ -37,7 +37,7 @@ class AdminProfesionController extends BaseController
     public function newAction(Request $request)
     {
         $adminProfesion = new AdminProfesion();
-        $form = $this->createForm('SICBundle\Form\AdminProfesionType', $adminProfesion);
+        $form = $this->createForm(AdminProfesionType::class, $adminProfesion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminProfesionController extends BaseController
     public function editAction(Request $request, AdminProfesion $adminProfesion)
     {
         $deleteForm = $this->createDeleteForm($adminProfesion);
-        $editForm = $this->createForm('SICBundle\Form\AdminProfesionType', $adminProfesion);
+        $editForm = $this->createForm(AdminProfesionType::class, $adminProfesion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

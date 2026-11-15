@@ -37,7 +37,7 @@ class AdminPreguntasSitComController extends BaseController
     public function newAction(Request $request)
     {
         $adminPreguntasSitCom = new AdminPreguntasSitCom();
-        $form = $this->createForm('SICBundle\Form\AdminPreguntasSitComType', $adminPreguntasSitCom);
+        $form = $this->createForm(AdminPreguntasSitComType::class, $adminPreguntasSitCom);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminPreguntasSitComController extends BaseController
     public function editAction(Request $request, AdminPreguntasSitCom $adminPreguntasSitCom)
     {
         $deleteForm = $this->createDeleteForm($adminPreguntasSitCom);
-        $editForm = $this->createForm('SICBundle\Form\AdminPreguntasSitComType', $adminPreguntasSitCom);
+        $editForm = $this->createForm(AdminPreguntasSitComType::class, $adminPreguntasSitCom);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

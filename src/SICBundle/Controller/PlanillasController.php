@@ -55,7 +55,7 @@ class PlanillasController extends BaseController
     public function newAction(Request $request)
     {
         $planilla = new Planillas();
-        $form = $this->createForm('SICBundle\Form\PlanillasType', $planilla);
+        $form = $this->createForm(PlanillasType::class, $planilla);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -100,7 +100,7 @@ class PlanillasController extends BaseController
     public function editAction(Request $request, Planillas $planilla)
     {
         $deleteForm = $this->createDeleteForm($planilla);
-        $editForm = $this->createForm('SICBundle\Form\PlanillasType', $planilla);
+        $editForm = $this->createForm(PlanillasType::class, $planilla);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

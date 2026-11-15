@@ -37,7 +37,7 @@ class AdminServiciosComunalesController extends BaseController
     public function newAction(Request $request)
     {
         $adminServiciosComunale = new AdminServiciosComunales();
-        $form = $this->createForm('SICBundle\Form\AdminServiciosComunalesType', $adminServiciosComunale);
+        $form = $this->createForm(AdminServiciosComunalesType::class, $adminServiciosComunale);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminServiciosComunalesController extends BaseController
     public function editAction(Request $request, AdminServiciosComunales $adminServiciosComunale)
     {
         $deleteForm = $this->createDeleteForm($adminServiciosComunale);
-        $editForm = $this->createForm('SICBundle\Form\AdminServiciosComunalesType', $adminServiciosComunale);
+        $editForm = $this->createForm(AdminServiciosComunalesType::class, $adminServiciosComunale);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

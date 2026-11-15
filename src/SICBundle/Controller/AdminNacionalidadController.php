@@ -37,7 +37,7 @@ class AdminNacionalidadController extends BaseController
     public function newAction(Request $request)
     {
         $adminNacionalidad = new AdminNacionalidad();
-        $form = $this->createForm('SICBundle\Form\AdminNacionalidadType', $adminNacionalidad);
+        $form = $this->createForm(AdminNacionalidadType::class, $adminNacionalidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminNacionalidadController extends BaseController
     public function editAction(Request $request, AdminNacionalidad $adminNacionalidad)
     {
         $deleteForm = $this->createDeleteForm($adminNacionalidad);
-        $editForm = $this->createForm('SICBundle\Form\AdminNacionalidadType', $adminNacionalidad);
+        $editForm = $this->createForm(AdminNacionalidadType::class, $adminNacionalidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

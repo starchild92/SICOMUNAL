@@ -37,7 +37,7 @@ class AdminTipoTechoController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoTecho = new AdminTipoTecho();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTechoType', $adminTipoTecho);
+        $form = $this->createForm(AdminTipoTechoType::class, $adminTipoTecho);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoTechoController extends BaseController
     public function editAction(Request $request, AdminTipoTecho $adminTipoTecho)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTecho);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTechoType', $adminTipoTecho);
+        $editForm = $this->createForm(AdminTipoTechoType::class, $adminTipoTecho);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

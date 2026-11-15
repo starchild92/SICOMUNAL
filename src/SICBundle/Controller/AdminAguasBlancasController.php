@@ -37,7 +37,7 @@ class AdminAguasBlancasController extends BaseController
     public function newAction(Request $request)
     {
         $adminAguasBlanca = new AdminAguasBlancas();
-        $form = $this->createForm('SICBundle\Form\AdminAguasBlancasType', $adminAguasBlanca);
+        $form = $this->createForm(AdminAguasBlancasType::class, $adminAguasBlanca);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminAguasBlancasController extends BaseController
     public function editAction(Request $request, AdminAguasBlancas $adminAguasBlanca)
     {
         $deleteForm = $this->createDeleteForm($adminAguasBlanca);
-        $editForm = $this->createForm('SICBundle\Form\AdminAguasBlancasType', $adminAguasBlanca);
+        $editForm = $this->createForm(AdminAguasBlancasType::class, $adminAguasBlanca);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class AdminTipoViviendaController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoVivienda = new AdminTipoVivienda();
-        $form = $this->createForm('SICBundle\Form\AdminTipoViviendaType', $adminTipoVivienda);
+        $form = $this->createForm(AdminTipoViviendaType::class, $adminTipoVivienda);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoViviendaController extends BaseController
     public function editAction(Request $request, AdminTipoVivienda $adminTipoVivienda)
     {
         $deleteForm = $this->createDeleteForm($adminTipoVivienda);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoViviendaType', $adminTipoVivienda);
+        $editForm = $this->createForm(AdminTipoViviendaType::class, $adminTipoVivienda);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class AdminTipoSituacionExclusionController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoSituacionExclusion = new AdminTipoSituacionExclusion();
-        $form = $this->createForm('SICBundle\Form\AdminTipoSituacionExclusionType', $adminTipoSituacionExclusion);
+        $form = $this->createForm(AdminTipoSituacionExclusionType::class, $adminTipoSituacionExclusion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoSituacionExclusionController extends BaseController
     public function editAction(Request $request, AdminTipoSituacionExclusion $adminTipoSituacionExclusion)
     {
         $deleteForm = $this->createDeleteForm($adminTipoSituacionExclusion);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoSituacionExclusionType', $adminTipoSituacionExclusion);
+        $editForm = $this->createForm(AdminTipoSituacionExclusionType::class, $adminTipoSituacionExclusion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

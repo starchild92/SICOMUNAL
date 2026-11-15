@@ -37,7 +37,7 @@ class AdminOrgComunitariaController extends BaseController
     public function newAction(Request $request)
     {
         $adminOrgComunitarium = new AdminOrgComunitaria();
-        $form = $this->createForm('SICBundle\Form\AdminOrgComunitariaType', $adminOrgComunitarium);
+        $form = $this->createForm(AdminOrgComunitariaType::class, $adminOrgComunitarium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminOrgComunitariaController extends BaseController
     public function editAction(Request $request, AdminOrgComunitaria $adminOrgComunitarium)
     {
         $deleteForm = $this->createDeleteForm($adminOrgComunitarium);
-        $editForm = $this->createForm('SICBundle\Form\AdminOrgComunitariaType', $adminOrgComunitarium);
+        $editForm = $this->createForm(AdminOrgComunitariaType::class, $adminOrgComunitarium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

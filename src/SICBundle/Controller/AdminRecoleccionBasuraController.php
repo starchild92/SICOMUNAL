@@ -37,7 +37,7 @@ class AdminRecoleccionBasuraController extends BaseController
     public function newAction(Request $request)
     {
         $adminRecoleccionBasura = new AdminRecoleccionBasura();
-        $form = $this->createForm('SICBundle\Form\AdminRecoleccionBasuraType', $adminRecoleccionBasura);
+        $form = $this->createForm(AdminRecoleccionBasuraType::class, $adminRecoleccionBasura);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminRecoleccionBasuraController extends BaseController
     public function editAction(Request $request, AdminRecoleccionBasura $adminRecoleccionBasura)
     {
         $deleteForm = $this->createDeleteForm($adminRecoleccionBasura);
-        $editForm = $this->createForm('SICBundle\Form\AdminRecoleccionBasuraType', $adminRecoleccionBasura);
+        $editForm = $this->createForm(AdminRecoleccionBasuraType::class, $adminRecoleccionBasura);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class ComunidadController extends BaseController
     public function newAction(Request $request)
     {
         $comunidad = new Comunidad();
-        $form = $this->createForm('SICBundle\Form\ComunidadType', $comunidad);
+        $form = $this->createForm(ComunidadType::class, $comunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,7 +80,7 @@ class ComunidadController extends BaseController
     public function editAction(Request $request, Comunidad $comunidad)
     {
         $deleteForm = $this->createDeleteForm($comunidad);
-        $editForm = $this->createForm('SICBundle\Form\ComunidadType', $comunidad);
+        $editForm = $this->createForm(ComunidadType::class, $comunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class AdminNivelInstruccionController extends BaseController
     public function newAction(Request $request)
     {
         $adminNivelInstruccion = new AdminNivelInstruccion();
-        $form = $this->createForm('SICBundle\Form\AdminNivelInstruccionType', $adminNivelInstruccion);
+        $form = $this->createForm(AdminNivelInstruccionType::class, $adminNivelInstruccion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminNivelInstruccionController extends BaseController
     public function editAction(Request $request, AdminNivelInstruccion $adminNivelInstruccion)
     {
         $deleteForm = $this->createDeleteForm($adminNivelInstruccion);
-        $editForm = $this->createForm('SICBundle\Form\AdminNivelInstruccionType', $adminNivelInstruccion);
+        $editForm = $this->createForm(AdminNivelInstruccionType::class, $adminNivelInstruccion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class ComunicadoController extends BaseController
     public function newAction(Request $request)
     {
         $comunicado = new Comunicado();
-        $form = $this->createForm('SICBundle\Form\ComunicadoType', $comunicado);
+        $form = $this->createForm(ComunicadoType::class, $comunicado);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -104,7 +104,7 @@ class ComunicadoController extends BaseController
     public function editAction(Request $request, Comunicado $comunicado)
     {
         $deleteForm = $this->createDeleteForm($comunicado);
-        $editForm = $this->createForm('SICBundle\Form\ComunicadoType', $comunicado);
+        $editForm = $this->createForm(ComunicadoType::class, $comunicado);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

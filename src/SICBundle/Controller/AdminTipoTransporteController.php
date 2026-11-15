@@ -37,7 +37,7 @@ class AdminTipoTransporteController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoTransporte = new AdminTipoTransporte();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTransporteType', $adminTipoTransporte);
+        $form = $this->createForm(AdminTipoTransporteType::class, $adminTipoTransporte);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoTransporteController extends BaseController
     public function editAction(Request $request, AdminTipoTransporte $adminTipoTransporte)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTransporte);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTransporteType', $adminTipoTransporte);
+        $editForm = $this->createForm(AdminTipoTransporteType::class, $adminTipoTransporte);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

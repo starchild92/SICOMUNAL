@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SituacionViviendaType extends AbstractType
 {
@@ -16,31 +18,31 @@ class SituacionViviendaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cantidadHabitaciones','text',array(
+            ->add('cantidadHabitaciones', TextType::class,array(
                 'label'     => '¿Cantidad de habitaciones con las que dispone en su Hogar?'))
 
-            ->add('tipo','entity', array(
+            ->add('tipo', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoVivienda',
                 'placeholder'   => 'Seleccione una',
                 'label'     => '¿Su vivienda es ...?',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('tenencia','entity', array(
+            ->add('tenencia', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoTenencia',
                 'placeholder'   =>  'Seleccione una',
                 'label'     => 'Forma Tenencia',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('terrenoPropio', 'entity', array(
+            ->add('terrenoPropio', EntityType::class, array(
                 'class' => 'SICBundle:AdminRespCerrada',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('ovc', 'entity', array(
+            ->add('ovc', EntityType::class, array(
                 'class' => 'SICBundle:AdminRespCerrada',
                 'label'   => 'Organizaciones Civiles de Viviendas (OCV)',
                 'placeholder'   => '¿Pertenece a una OCV?',
@@ -49,7 +51,7 @@ class SituacionViviendaType extends AbstractType
                     'class' => 'ui dropdown'))
             )
 
-            ->add('habitaciones','entity', array(
+            ->add('habitaciones', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoHabitacionesVivienda',
                 'multiple' => true,
                 'label'     => '¿Cuales tipo de Habitaciones componen su hogar?',
@@ -57,32 +59,32 @@ class SituacionViviendaType extends AbstractType
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
 
-            ->add('paredes','entity', array(
+            ->add('paredes', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoParedes',
                 'placeholder'       => 'Seleccione una',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('techo','entity', array(
+            ->add('techo', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoTecho',
                 'placeholder'       => 'Seleccione una',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('enseres','entity', array(
+            ->add('enseres', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoEnseres',
                 'multiple' => true,
                 'attr'  =>  array(
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
 
-            ->add('salubridad','entity', array(
+            ->add('salubridad', EntityType::class, array(
                 'class' => 'SICBundle:AdminSalubridadVivienda',
                 'placeholder'       => 'Seleccione una',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('presenciaInsectos','entity', array(
+            ->add('presenciaInsectos', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoPlagas',
                 'multiple' => true,
                 'required'  => false,
@@ -90,7 +92,7 @@ class SituacionViviendaType extends AbstractType
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
 
-            ->add('mascota','entity', array(
+            ->add('mascota', EntityType::class, array(
                 'class' => 'SICBundle:AdminTipoMascotas',
                 'multiple' => true,
                 'required'  => false,
@@ -98,7 +100,7 @@ class SituacionViviendaType extends AbstractType
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
 
-            ->add('leypoliticahabitacional', 'entity', array(
+            ->add('leypoliticahabitacional', EntityType::class, array(
                 'label' => '¿Cotiza Ley Política Habitacional?',
                 'class' => 'SICBundle:AdminRespCerrada',
                 'placeholder' => 'Selecciona una',
@@ -106,7 +108,7 @@ class SituacionViviendaType extends AbstractType
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('sivih', 'entity', array(
+            ->add('sivih', EntityType::class, array(
                 'label' => '¿Está inscrita en el SIVIH?',
                 'class' => 'SICBundle:AdminRespCerrada',
                 'placeholder' => 'Selecciona una',
@@ -114,7 +116,7 @@ class SituacionViviendaType extends AbstractType
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
-            ->add('condicionesTerreno', 'entity', array(
+            ->add('condicionesTerreno', EntityType::class, array(
                 'label' => 'Condiciones del Terreno',
                 'class' => 'SICBundle:AdminTipoCondicionTerreno',
                 'placeholder' => 'Selecciona una',

@@ -37,7 +37,7 @@ class UsuarioController extends BaseController
     public function newAction(Request $request)
     {
         $usuario = new Usuario();
-        $form = $this->createForm('SICBundle\Form\UsuarioType', $usuario);
+        $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +75,7 @@ class UsuarioController extends BaseController
     public function editAction(Request $request, Usuario $usuario)
     {
         $deleteForm = $this->createDeleteForm($usuario);
-        $editForm = $this->createForm('SICBundle\Form\UsuarioType', $usuario);
+        $editForm = $this->createForm(UsuarioType::class, $usuario);
 
         $you = $this->getUser();
         $roles = $you->getRoles();        

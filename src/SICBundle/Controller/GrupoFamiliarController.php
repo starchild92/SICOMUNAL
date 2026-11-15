@@ -50,7 +50,7 @@ class GrupoFamiliarController extends BaseController
             $grupoFamiliar = new GrupoFamiliar();
             if ($grupoFamiliar->getApellidos() == '') { $grupoFamiliar->setApellidos($p->getJefeGrupoFamiliar()->getApellidos()); } //Si no hay apellido, coloco los del JGF
 
-            $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
+            $form = $this->createForm(GrupoFamiliarType::class, $grupoFamiliar);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -104,7 +104,7 @@ class GrupoFamiliarController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($grupoFamiliar);
-        $editForm = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
+        $editForm = $this->createForm(GrupoFamiliarType::class, $grupoFamiliar);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

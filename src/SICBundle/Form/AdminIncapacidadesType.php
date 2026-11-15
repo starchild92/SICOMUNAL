@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AdminIncapacidadesType extends AbstractType
 {
@@ -15,7 +16,7 @@ class AdminIncapacidadesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('incapacidad','text',array(
+            ->add('incapacidad', TextType::class,array(
                 'label'     => 'Discapacidad'))
         ;
     }

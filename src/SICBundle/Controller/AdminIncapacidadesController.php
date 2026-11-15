@@ -37,7 +37,7 @@ class AdminIncapacidadesController extends BaseController
     public function newAction(Request $request)
     {
         $adminIncapacidade = new AdminIncapacidades();
-        $form = $this->createForm('SICBundle\Form\AdminIncapacidadesType', $adminIncapacidade);
+        $form = $this->createForm(AdminIncapacidadesType::class, $adminIncapacidade);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminIncapacidadesController extends BaseController
     public function editAction(Request $request, AdminIncapacidades $adminIncapacidade)
     {
         $deleteForm = $this->createDeleteForm($adminIncapacidade);
-        $editForm = $this->createForm('SICBundle\Form\AdminIncapacidadesType', $adminIncapacidade);
+        $editForm = $this->createForm(AdminIncapacidadesType::class, $adminIncapacidade);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

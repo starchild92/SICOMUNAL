@@ -37,7 +37,7 @@ class AdminTipoMascotasController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoMascota = new AdminTipoMascotas();
-        $form = $this->createForm('SICBundle\Form\AdminTipoMascotasType', $adminTipoMascota);
+        $form = $this->createForm(AdminTipoMascotasType::class, $adminTipoMascota);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoMascotasController extends BaseController
     public function editAction(Request $request, AdminTipoMascotas $adminTipoMascota)
     {
         $deleteForm = $this->createDeleteForm($adminTipoMascota);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoMascotasType', $adminTipoMascota);
+        $editForm = $this->createForm(AdminTipoMascotasType::class, $adminTipoMascota);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

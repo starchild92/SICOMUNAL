@@ -47,7 +47,7 @@ class SituacionComunidadController extends BaseController
         }
 
         $situacionComunidad = new SituacionComunidad();
-        $form = $this->createForm('SICBundle\Form\SituacionComunidadType', $situacionComunidad);
+        $form = $this->createForm(SituacionComunidadType::class, $situacionComunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,7 +92,7 @@ class SituacionComunidadController extends BaseController
     public function editAction(Request $request, SituacionComunidad $situacionComunidad)
     {
         $deleteForm = $this->createDeleteForm($situacionComunidad);
-        $editForm = $this->createForm('SICBundle\Form\SituacionComunidadType', $situacionComunidad);
+        $editForm = $this->createForm(SituacionComunidadType::class, $situacionComunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

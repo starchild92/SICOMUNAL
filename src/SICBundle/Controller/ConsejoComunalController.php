@@ -37,7 +37,7 @@ class ConsejoComunalController extends BaseController
     public function newAction(Request $request)
     {
         $consejoComunal = new ConsejoComunal();
-        $form = $this->createForm('SICBundle\Form\ConsejoComunalType', $consejoComunal);
+        $form = $this->createForm(ConsejoComunalType::class, $consejoComunal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class ConsejoComunalController extends BaseController
     public function editAction(Request $request, ConsejoComunal $consejoComunal)
     {
         $deleteForm = $this->createDeleteForm($consejoComunal);
-        $editForm = $this->createForm('SICBundle\Form\ConsejoComunalType', $consejoComunal);
+        $editForm = $this->createForm(ConsejoComunalType::class, $consejoComunal);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

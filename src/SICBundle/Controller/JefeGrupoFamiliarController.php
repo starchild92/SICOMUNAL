@@ -59,7 +59,7 @@ class JefeGrupoFamiliarController extends BaseController
         }
 
         $jefeGrupoFamiliar = new JefeGrupoFamiliar();
-        $form = $this->createForm('SICBundle\Form\JefeGrupoFamiliarType', $jefeGrupoFamiliar);
+        $form = $this->createForm(JefeGrupoFamiliarType::class, $jefeGrupoFamiliar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -112,7 +112,7 @@ class JefeGrupoFamiliarController extends BaseController
     public function editAction(Request $request, JefeGrupoFamiliar $jefeGrupoFamiliar)
     {
         $deleteForm = $this->createDeleteForm($jefeGrupoFamiliar);
-        $editForm = $this->createForm('SICBundle\Form\JefeGrupoFamiliarType', $jefeGrupoFamiliar);
+        $editForm = $this->createForm(JefeGrupoFamiliarType::class, $jefeGrupoFamiliar);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

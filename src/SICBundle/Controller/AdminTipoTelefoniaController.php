@@ -37,7 +37,7 @@ class AdminTipoTelefoniaController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoTelefonium = new AdminTipoTelefonia();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTelefoniaType', $adminTipoTelefonium);
+        $form = $this->createForm(AdminTipoTelefoniaType::class, $adminTipoTelefonium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoTelefoniaController extends BaseController
     public function editAction(Request $request, AdminTipoTelefonia $adminTipoTelefonium)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTelefonium);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTelefoniaType', $adminTipoTelefonium);
+        $editForm = $this->createForm(AdminTipoTelefoniaType::class, $adminTipoTelefonium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

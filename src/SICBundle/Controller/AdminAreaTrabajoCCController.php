@@ -37,7 +37,7 @@ class AdminAreaTrabajoCCController extends BaseController
     public function newAction(Request $request)
     {
         $adminAreaTrabajoCC = new AdminAreaTrabajoCC();
-        $form = $this->createForm('SICBundle\Form\AdminAreaTrabajoCCType', $adminAreaTrabajoCC);
+        $form = $this->createForm(AdminAreaTrabajoCCType::class, $adminAreaTrabajoCC);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminAreaTrabajoCCController extends BaseController
     public function editAction(Request $request, AdminAreaTrabajoCC $adminAreaTrabajoCC)
     {
         $deleteForm = $this->createDeleteForm($adminAreaTrabajoCC);
-        $editForm = $this->createForm('SICBundle\Form\AdminAreaTrabajoCCType', $adminAreaTrabajoCC);
+        $editForm = $this->createForm(AdminAreaTrabajoCCType::class, $adminAreaTrabajoCC);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -37,7 +37,7 @@ class AdminAguasServidasController extends BaseController
     public function newAction(Request $request)
     {
         $adminAguasServida = new AdminAguasServidas();
-        $form = $this->createForm('SICBundle\Form\AdminAguasServidasType', $adminAguasServida);
+        $form = $this->createForm(AdminAguasServidasType::class, $adminAguasServida);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminAguasServidasController extends BaseController
     public function editAction(Request $request, AdminAguasServidas $adminAguasServida)
     {
         $deleteForm = $this->createDeleteForm($adminAguasServida);
-        $editForm = $this->createForm('SICBundle\Form\AdminAguasServidasType', $adminAguasServida);
+        $editForm = $this->createForm(AdminAguasServidasType::class, $adminAguasServida);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

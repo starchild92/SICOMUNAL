@@ -265,7 +265,7 @@ class SituacionServiciosController extends BaseController
         }
 
         $situacionServicio = new SituacionServicios();
-        $form = $this->createForm('SICBundle\Form\SituacionServiciosType', $situacionServicio);
+        $form = $this->createForm(SituacionServiciosType::class, $situacionServicio);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -310,7 +310,7 @@ class SituacionServiciosController extends BaseController
     public function editAction(Request $request, SituacionServicios $situacionServicio)
     {
         $deleteForm = $this->createDeleteForm($situacionServicio);
-        $editForm = $this->createForm('SICBundle\Form\SituacionServiciosType', $situacionServicio);
+        $editForm = $this->createForm(SituacionServiciosType::class, $situacionServicio);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

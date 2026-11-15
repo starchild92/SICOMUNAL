@@ -261,7 +261,7 @@ class SituacionViviendaController extends BaseController
         }
 
         $situacionVivienda = new SituacionVivienda();
-        $form = $this->createForm('SICBundle\Form\SituacionViviendaType', $situacionVivienda);
+        $form = $this->createForm(SituacionViviendaType::class, $situacionVivienda);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -306,7 +306,7 @@ class SituacionViviendaController extends BaseController
     public function editAction(Request $request, SituacionVivienda $situacionVivienda)
     {
         $deleteForm = $this->createDeleteForm($situacionVivienda);
-        $editForm = $this->createForm('SICBundle\Form\SituacionViviendaType', $situacionVivienda);
+        $editForm = $this->createForm(SituacionViviendaType::class, $situacionVivienda);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

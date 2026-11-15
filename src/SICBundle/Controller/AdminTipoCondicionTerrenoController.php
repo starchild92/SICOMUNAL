@@ -37,7 +37,7 @@ class AdminTipoCondicionTerrenoController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoCondicionTerreno = new AdminTipoCondicionTerreno();
-        $form = $this->createForm('SICBundle\Form\AdminTipoCondicionTerrenoType', $adminTipoCondicionTerreno);
+        $form = $this->createForm(AdminTipoCondicionTerrenoType::class, $adminTipoCondicionTerreno);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -78,7 +78,7 @@ class AdminTipoCondicionTerrenoController extends BaseController
     public function editAction(Request $request, AdminTipoCondicionTerreno $adminTipoCondicionTerreno)
     {
         $deleteForm = $this->createDeleteForm($adminTipoCondicionTerreno);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoCondicionTerrenoType', $adminTipoCondicionTerreno);
+        $editForm = $this->createForm(AdminTipoCondicionTerrenoType::class, $adminTipoCondicionTerreno);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

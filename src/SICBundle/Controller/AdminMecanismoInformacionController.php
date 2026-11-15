@@ -37,7 +37,7 @@ class AdminMecanismoInformacionController extends BaseController
     public function newAction(Request $request)
     {
         $adminMecanismoInformacion = new AdminMecanismoInformacion();
-        $form = $this->createForm('SICBundle\Form\AdminMecanismoInformacionType', $adminMecanismoInformacion);
+        $form = $this->createForm(AdminMecanismoInformacionType::class, $adminMecanismoInformacion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminMecanismoInformacionController extends BaseController
     public function editAction(Request $request, AdminMecanismoInformacion $adminMecanismoInformacion)
     {
         $deleteForm = $this->createDeleteForm($adminMecanismoInformacion);
-        $editForm = $this->createForm('SICBundle\Form\AdminMecanismoInformacionType', $adminMecanismoInformacion);
+        $editForm = $this->createForm(AdminMecanismoInformacionType::class, $adminMecanismoInformacion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

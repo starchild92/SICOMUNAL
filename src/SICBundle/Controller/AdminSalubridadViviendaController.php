@@ -37,7 +37,7 @@ class AdminSalubridadViviendaController extends BaseController
     public function newAction(Request $request)
     {
         $adminSalubridadVivienda = new AdminSalubridadVivienda();
-        $form = $this->createForm('SICBundle\Form\AdminSalubridadViviendaType', $adminSalubridadVivienda);
+        $form = $this->createForm(AdminSalubridadViviendaType::class, $adminSalubridadVivienda);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminSalubridadViviendaController extends BaseController
     public function editAction(Request $request, AdminSalubridadVivienda $adminSalubridadVivienda)
     {
         $deleteForm = $this->createDeleteForm($adminSalubridadVivienda);
-        $editForm = $this->createForm('SICBundle\Form\AdminSalubridadViviendaType', $adminSalubridadVivienda);
+        $editForm = $this->createForm(AdminSalubridadViviendaType::class, $adminSalubridadVivienda);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

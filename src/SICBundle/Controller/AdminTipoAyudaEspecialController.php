@@ -37,7 +37,7 @@ class AdminTipoAyudaEspecialController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoAyudaEspecial = new AdminTipoAyudaEspecial();
-        $form = $this->createForm('SICBundle\Form\AdminTipoAyudaEspecialType', $adminTipoAyudaEspecial);
+        $form = $this->createForm(AdminTipoAyudaEspecialType::class, $adminTipoAyudaEspecial);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoAyudaEspecialController extends BaseController
     public function editAction(Request $request, AdminTipoAyudaEspecial $adminTipoAyudaEspecial)
     {
         $deleteForm = $this->createDeleteForm($adminTipoAyudaEspecial);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoAyudaEspecialType', $adminTipoAyudaEspecial);
+        $editForm = $this->createForm(AdminTipoAyudaEspecialType::class, $adminTipoAyudaEspecial);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

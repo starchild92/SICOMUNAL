@@ -37,7 +37,7 @@ class AdminPensionadoInstitucionController extends BaseController
     public function newAction(Request $request)
     {
         $adminPensionadoInstitucion = new AdminPensionadoInstitucion();
-        $form = $this->createForm('SICBundle\Form\AdminPensionadoInstitucionType', $adminPensionadoInstitucion);
+        $form = $this->createForm(AdminPensionadoInstitucionType::class, $adminPensionadoInstitucion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminPensionadoInstitucionController extends BaseController
     public function editAction(Request $request, AdminPensionadoInstitucion $adminPensionadoInstitucion)
     {
         $deleteForm = $this->createDeleteForm($adminPensionadoInstitucion);
-        $editForm = $this->createForm('SICBundle\Form\AdminPensionadoInstitucionType', $adminPensionadoInstitucion);
+        $editForm = $this->createForm(AdminPensionadoInstitucionType::class, $adminPensionadoInstitucion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

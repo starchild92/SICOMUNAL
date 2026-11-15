@@ -37,7 +37,7 @@ class AdminEmpresaGasController extends BaseController
     public function newAction(Request $request)
     {
         $adminEmpresaGa = new AdminEmpresaGas();
-        $form = $this->createForm('SICBundle\Form\AdminEmpresaGasType', $adminEmpresaGa);
+        $form = $this->createForm(AdminEmpresaGasType::class, $adminEmpresaGa);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminEmpresaGasController extends BaseController
     public function editAction(Request $request, AdminEmpresaGas $adminEmpresaGa)
     {
         $deleteForm = $this->createDeleteForm($adminEmpresaGa);
-        $editForm = $this->createForm('SICBundle\Form\AdminEmpresaGasType', $adminEmpresaGa);
+        $editForm = $this->createForm(AdminEmpresaGasType::class, $adminEmpresaGa);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

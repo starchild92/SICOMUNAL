@@ -175,7 +175,7 @@ class PersonaController extends BaseController
     public function newAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
-        $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $form = $this->createForm(PersonaType::class, $persona);
         $form->handleRequest($request);
         
         $em = $this->getDoctrine()->getManager();
@@ -248,7 +248,7 @@ class PersonaController extends BaseController
     public function editAction(Request $request, Persona $persona)
     {
         $deleteForm = $this->createDeleteForm($persona);
-        $editForm = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $editForm = $this->createForm(PersonaType::class, $persona);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -341,7 +341,7 @@ class PersonaController extends BaseController
     public function nuevoMiembroAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
-        $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $form = $this->createForm(PersonaType::class, $persona);
         $form->handleRequest($request);
         
         $em = $this->getDoctrine()->getManager();

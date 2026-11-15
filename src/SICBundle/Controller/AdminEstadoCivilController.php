@@ -37,7 +37,7 @@ class AdminEstadoCivilController extends BaseController
     public function newAction(Request $request)
     {
         $adminEstadoCivil = new AdminEstadoCivil();
-        $form = $this->createForm('SICBundle\Form\AdminEstadoCivilType', $adminEstadoCivil);
+        $form = $this->createForm(AdminEstadoCivilType::class, $adminEstadoCivil);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminEstadoCivilController extends BaseController
     public function editAction(Request $request, AdminEstadoCivil $adminEstadoCivil)
     {
         $deleteForm = $this->createDeleteForm($adminEstadoCivil);
-        $editForm = $this->createForm('SICBundle\Form\AdminEstadoCivilType', $adminEstadoCivil);
+        $editForm = $this->createForm(AdminEstadoCivilType::class, $adminEstadoCivil);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

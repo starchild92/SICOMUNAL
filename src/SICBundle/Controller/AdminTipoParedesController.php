@@ -37,7 +37,7 @@ class AdminTipoParedesController extends BaseController
     public function newAction(Request $request)
     {
         $adminTipoParede = new AdminTipoParedes();
-        $form = $this->createForm('SICBundle\Form\AdminTipoParedesType', $adminTipoParede);
+        $form = $this->createForm(AdminTipoParedesType::class, $adminTipoParede);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,7 +79,7 @@ class AdminTipoParedesController extends BaseController
     public function editAction(Request $request, AdminTipoParedes $adminTipoParede)
     {
         $deleteForm = $this->createDeleteForm($adminTipoParede);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoParedesType', $adminTipoParede);
+        $editForm = $this->createForm(AdminTipoParedesType::class, $adminTipoParede);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
