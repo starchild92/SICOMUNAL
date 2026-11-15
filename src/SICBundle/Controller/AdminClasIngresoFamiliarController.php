@@ -23,7 +23,7 @@ class AdminClasIngresoFamiliarController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminClasIngresoFamiliars = $em->getRepository('SICBundle:AdminClasIngresoFamiliar')->findAll();
+        $adminClasIngresoFamiliars = $em->getRepository(\SICBundle\Entity\AdminClasIngresoFamiliar::class)->findAll();
 
         return $this->render('adminclasingresofamiliar/index.html.twig', array(
             'adminClasIngresoFamiliars' => $adminClasIngresoFamiliars,

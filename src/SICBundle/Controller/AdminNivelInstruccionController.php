@@ -23,7 +23,7 @@ class AdminNivelInstruccionController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminNivelInstruccions = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $adminNivelInstruccions = $em->getRepository(\SICBundle\Entity\AdminNivelInstruccion::class)->findAll();
 
         return $this->render('adminnivelinstruccion/index.html.twig', array(
             'adminNivelInstruccions' => $adminNivelInstruccions,

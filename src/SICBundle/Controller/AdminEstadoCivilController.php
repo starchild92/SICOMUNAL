@@ -23,7 +23,7 @@ class AdminEstadoCivilController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminEstadoCivils = $em->getRepository('SICBundle:AdminEstadoCivil')->findAll();
+        $adminEstadoCivils = $em->getRepository(\SICBundle\Entity\AdminEstadoCivil::class)->findAll();
 
         return $this->render('adminestadocivil/index.html.twig', array(
             'adminEstadoCivils' => $adminEstadoCivils,

@@ -23,7 +23,7 @@ class AdminTipoPadecenciaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoPadecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
+        $adminTipoPadecencias = $em->getRepository(\SICBundle\Entity\AdminTipoPadecencia::class)->findAll();
 
         return $this->render('admintipopadecencia/index.html.twig', array(
             'adminTipoPadecencias' => $adminTipoPadecencias,

@@ -23,7 +23,7 @@ class ComunidadController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comunidads = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $comunidads = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
 
         return $this->render('comunidad/index.html.twig', array(
             'comunidads' => $comunidads,

@@ -23,7 +23,7 @@ class AdminMisionesComunidadController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminMisionesComunidads = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $adminMisionesComunidads = $em->getRepository(\SICBundle\Entity\AdminMisionesComunidad::class)->findAll();
 
         return $this->render('adminmisionescomunidad/index.html.twig', array(
             'adminMisionesComunidads' => $adminMisionesComunidads,

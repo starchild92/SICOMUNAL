@@ -23,7 +23,7 @@ class AdminPreguntasSituacionComunidadController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminPreguntasSituacionComunidads = $em->getRepository('SICBundle:AdminPreguntasSituacionComunidad')->findAll();
+        $adminPreguntasSituacionComunidads = $em->getRepository(\SICBundle\Entity\AdminPreguntasSituacionComunidad::class)->findAll();
 
         return $this->render('adminpreguntassituacioncomunidad/index.html.twig', array(
             'adminPreguntasSituacionComunidads' => $adminPreguntasSituacionComunidads,

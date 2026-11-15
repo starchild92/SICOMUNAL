@@ -23,7 +23,7 @@ class AdminTipoMascotasController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoMascotas = $em->getRepository('SICBundle:AdminTipoMascotas')->findAll();
+        $adminTipoMascotas = $em->getRepository(\SICBundle\Entity\AdminTipoMascotas::class)->findAll();
 
         return $this->render('admintipomascotas/index.html.twig', array(
             'adminTipoMascotas' => $adminTipoMascotas,

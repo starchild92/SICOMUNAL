@@ -23,7 +23,7 @@ class AdminTipoCondicionTerrenoController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoCondicionTerrenos = $em->getRepository('SICBundle:AdminTipoCondicionTerreno')->findAll();
+        $adminTipoCondicionTerrenos = $em->getRepository(\SICBundle\Entity\AdminTipoCondicionTerreno::class)->findAll();
 
         return $this->render('admintipocondicionterreno/index.html.twig', array(
             'adminTipoCondicionTerrenos' => $adminTipoCondicionTerrenos,

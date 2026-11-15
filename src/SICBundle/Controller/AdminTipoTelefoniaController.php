@@ -23,7 +23,7 @@ class AdminTipoTelefoniaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoTelefonias = $em->getRepository('SICBundle:AdminTipoTelefonia')->findAll();
+        $adminTipoTelefonias = $em->getRepository(\SICBundle\Entity\AdminTipoTelefonia::class)->findAll();
 
         return $this->render('admintipotelefonia/index.html.twig', array(
             'adminTipoTelefonias' => $adminTipoTelefonias,

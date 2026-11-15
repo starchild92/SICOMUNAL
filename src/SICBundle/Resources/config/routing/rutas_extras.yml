@@ -6,7 +6,7 @@ sic_homepage:
 sic_homepage_login:
     path:     /login
     defaults: { _controller: "SICBundle\\Controller\\InicioController::loginAction" }
-    methods:  GET
+    methods:  [GET, POST]
 
 sic_administacion_entidades:
     path:     /administrar/datos/cc

@@ -23,7 +23,7 @@ class SituacionComunidadController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $situacionComunidads = $em->getRepository('SICBundle:SituacionComunidad')->findAll();
+        $situacionComunidads = $em->getRepository(\SICBundle\Entity\SituacionComunidad::class)->findAll();
 
         return $this->render('situacioncomunidad/index.html.twig', array(
             'situacionComunidads' => $situacionComunidads,
@@ -38,7 +38,7 @@ class SituacionComunidadController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getSituacionComunidad() != NULL){

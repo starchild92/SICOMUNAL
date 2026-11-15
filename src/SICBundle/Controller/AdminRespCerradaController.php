@@ -23,7 +23,7 @@ class AdminRespCerradaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminRespCerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $adminRespCerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
 
         return $this->render('adminrespcerrada/index.html.twig', array(
             'adminRespCerradas' => $adminRespCerradas,

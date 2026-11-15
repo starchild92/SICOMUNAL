@@ -23,7 +23,7 @@ class AdminAguasBlancasController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminAguasBlancas = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
+        $adminAguasBlancas = $em->getRepository(\SICBundle\Entity\AdminAguasBlancas::class)->findAll();
 
         return $this->render('adminaguasblancas/index.html.twig', array(
             'adminAguasBlancas' => $adminAguasBlancas,

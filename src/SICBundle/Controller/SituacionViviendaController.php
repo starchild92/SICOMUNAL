@@ -18,73 +18,73 @@ class SituacionViviendaController extends BaseController
     private function obtenerStat()
     {
         $em = $this->getDoctrine()->getManager();
-        $situacionViviendas = $em->getRepository('SICBundle:SituacionVivienda')->findAll();
+        $situacionViviendas = $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findAll();
         $total = sizeof($situacionViviendas);
 
-        $tipo_vivienda = $em->getRepository('SICBundle:AdminTipoVivienda')->findAll();
+        $tipo_vivienda = $em->getRepository(\SICBundle\Entity\AdminTipoVivienda::class)->findAll();
         $stat_tipo_vivienda = array();
         foreach ($tipo_vivienda as $elemento) {
             array_push(
                 $stat_tipo_vivienda, 
                 array(
                     'tipo_vivienda' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('tipo' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $tipo_tenencia = $em->getRepository('SICBundle:AdminTipoTenencia')->findAll();
+        $tipo_tenencia = $em->getRepository(\SICBundle\Entity\AdminTipoTenencia::class)->findAll();
         $stat_tipo_tenencia = array();
         foreach ($tipo_tenencia as $elemento) {
             array_push(
                 $stat_tipo_tenencia, 
                 array(
                     'tipo_tenencia' => $elemento->getForma(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('tenencia' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $terreno = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $terreno = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_terreno = array();
         foreach ($terreno as $elemento) {
             array_push(
                 $stat_terreno, 
                 array(
                     'resp' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('terrenoPropio' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $ovc = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $ovc = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_ovc = array();
         foreach ($ovc as $elemento) {
             array_push(
                 $stat_ovc, 
                 array(
                     'resp' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('ovc' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $habitaciones = $em->getRepository('SICBundle:AdminTipoHabitacionesVivienda')->findAll();
+        $habitaciones = $em->getRepository(\SICBundle\Entity\AdminTipoHabitacionesVivienda::class)->findAll();
         $stat_habitaciones = array();
         foreach ($habitaciones as $elemento) {
             array_push(
                 $stat_habitaciones, 
                 array(
                     'habitaciones' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByHabitaciones($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByHabitaciones($elemento)))
             );
         }
 
@@ -97,116 +97,116 @@ class SituacionViviendaController extends BaseController
             }
         }
 
-        $paredes = $em->getRepository('SICBundle:AdminTipoParedes')->findAll();
+        $paredes = $em->getRepository(\SICBundle\Entity\AdminTipoParedes::class)->findAll();
         $stat_paredes = array();
         foreach ($paredes as $elemento) {
             array_push(
                 $stat_paredes, 
                 array(
                     'paredes' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('paredes' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $techo = $em->getRepository('SICBundle:AdminTipoTecho')->findAll();
+        $techo = $em->getRepository(\SICBundle\Entity\AdminTipoTecho::class)->findAll();
         $stat_techo = array();
         foreach ($techo as $elemento) {
             array_push(
                 $stat_techo, 
                 array(
                     'techo' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('techo' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $enseres = $em->getRepository('SICBundle:AdminTipoEnseres')->findAll();
+        $enseres = $em->getRepository(\SICBundle\Entity\AdminTipoEnseres::class)->findAll();
         $stat_enseres = array();
         foreach ($enseres as $elemento) {
             array_push(
                 $stat_enseres, 
                 array(
                     'enseres' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByEnseres($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByEnseres($elemento)))
             );
         }
 
-        $salubridad = $em->getRepository('SICBundle:AdminSalubridadVivienda')->findAll();
+        $salubridad = $em->getRepository(\SICBundle\Entity\AdminSalubridadVivienda::class)->findAll();
         $stat_salubridad = array();
         foreach ($salubridad as $elemento) {
             array_push(
                 $stat_salubridad, 
                 array(
                     'salubridad' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('salubridad' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $plagas = $em->getRepository('SICBundle:AdminTipoPlagas')->findAll();
+        $plagas = $em->getRepository(\SICBundle\Entity\AdminTipoPlagas::class)->findAll();
         $stat_plagas = array();
         foreach ($plagas as $elemento) {
             array_push(
                 $stat_plagas, 
                 array(
                     'plagas' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByPresenciaInsectos($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByPresenciaInsectos($elemento)))
             );
         }
 
-        $mascotas = $em->getRepository('SICBundle:AdminTipoMascotas')->findAll();
+        $mascotas = $em->getRepository(\SICBundle\Entity\AdminTipoMascotas::class)->findAll();
         $stat_mascotas = array();
         foreach ($mascotas as $elemento) {
             array_push(
                 $stat_mascotas, 
                 array(
                     'mascotas' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findByMascota($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByMascota($elemento)))
             );
         }
 
-        $condicion_terreno = $em->getRepository('SICBundle:AdminTipoCondicionTerreno')->findAll();
+        $condicion_terreno = $em->getRepository(\SICBundle\Entity\AdminTipoCondicionTerreno::class)->findAll();
         $stat_condicion_terreno = array();
         foreach ($condicion_terreno as $elemento) {
             array_push(
                 $stat_condicion_terreno, 
                 array(
                     'condicion_terreno' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('condicionesTerreno' => $elemento->getId()))
                                     ))
             );
         }
 
-        $sivih = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $sivih = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_sivih = array();
         foreach ($sivih as $elemento) {
             array_push(
                 $stat_sivih, 
                 array(
                     'resp' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('sivih' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $leypoliticahabitacional = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $leypoliticahabitacional = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_leypoliticahabitacional = array();
         foreach ($leypoliticahabitacional as $elemento) {
             array_push(
                 $stat_leypoliticahabitacional, 
                 array(
                     'resp' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionVivienda')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(
                                         array('leypoliticahabitacional' => $elemento->getId())
                                         ))
                     )
@@ -252,7 +252,7 @@ class SituacionViviendaController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getSituacionVivienda() != NULL){

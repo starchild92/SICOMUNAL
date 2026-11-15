@@ -23,7 +23,7 @@ class AdminTipoPlagasController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoPlagas = $em->getRepository('SICBundle:AdminTipoPlagas')->findAll();
+        $adminTipoPlagas = $em->getRepository(\SICBundle\Entity\AdminTipoPlagas::class)->findAll();
 
         return $this->render('admintipoplagas/index.html.twig', array(
             'adminTipoPlagas' => $adminTipoPlagas,

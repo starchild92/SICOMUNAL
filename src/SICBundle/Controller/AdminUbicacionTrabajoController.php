@@ -23,7 +23,7 @@ class AdminUbicacionTrabajoController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminUbicacionTrabajos = $em->getRepository('SICBundle:AdminUbicacionTrabajo')->findAll();
+        $adminUbicacionTrabajos = $em->getRepository(\SICBundle\Entity\AdminUbicacionTrabajo::class)->findAll();
 
         return $this->render('adminubicaciontrabajo/index.html.twig', array(
             'adminUbicacionTrabajos' => $adminUbicacionTrabajos,

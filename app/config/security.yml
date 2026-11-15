@@ -31,7 +31,7 @@ security:
             provider: app_user_provider
             form_login:
                 login_path: /login
-                check_path: /login_check
+                check_path: /login
                 enable_csrf: true
             logout:
                 path: /logout

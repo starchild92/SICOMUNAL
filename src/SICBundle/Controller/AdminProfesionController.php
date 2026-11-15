@@ -23,7 +23,7 @@ class AdminProfesionController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminProfesions = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $adminProfesions = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findAll();
 
         return $this->render('adminprofesion/index.html.twig', array(
             'adminProfesions' => $adminProfesions,

@@ -23,7 +23,7 @@ class AdminTipoAyudaEspecialController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoAyudaEspecials = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $adminTipoAyudaEspecials = $em->getRepository(\SICBundle\Entity\AdminTipoAyudaEspecial::class)->findAll();
 
         return $this->render('admintipoayudaespecial/index.html.twig', array(
             'adminTipoAyudaEspecials' => $adminTipoAyudaEspecials,

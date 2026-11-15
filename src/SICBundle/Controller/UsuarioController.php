@@ -23,7 +23,7 @@ class UsuarioController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usuarios = $em->getRepository('SICBundle:Usuario')->findAll();
+        $usuarios = $em->getRepository(\SICBundle\Entity\Usuario::class)->findAll();
 
         return $this->render('usuario/index.html.twig', array(
             'usuarios' => $usuarios,

@@ -19,39 +19,39 @@ class SituacionSaludController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $situacionSaluds = $em->getRepository('SICBundle:SituacionSalud')->findAll();
+        $situacionSaluds = $em->getRepository(\SICBundle\Entity\SituacionSalud::class)->findAll();
         $total = sizeof($situacionSaluds);
 
-        $padecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
+        $padecencias = $em->getRepository(\SICBundle\Entity\AdminTipoPadecencia::class)->findAll();
         $stat_padecencias = array();
         foreach ($padecencias as $elemento) {
             array_push(
                 $stat_padecencias, 
                 array(
                     'padecencias' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->padecencia($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionSalud::class)->padecencia($elemento)))
             );
         }
 
-        $ayuda_especial = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $ayuda_especial = $em->getRepository(\SICBundle\Entity\AdminTipoAyudaEspecial::class)->findAll();
         $stat_ayuda_especial = array();
         foreach ($ayuda_especial as $elemento) {
             array_push(
                 $stat_ayuda_especial, 
                 array(
                     'ayuda_especial' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionSalud')->ayudaEspecial($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionSalud::class)->ayudaEspecial($elemento)))
             );
         }
 
-        $situaciones = $em->getRepository('SICBundle:AdminTipoSituacion')->findAll();
+        $situaciones = $em->getRepository(\SICBundle\Entity\AdminTipoSituacion::class)->findAll();
         $stat_situaciones = array();
         foreach ($situaciones as $elemento) {
             array_push(
                 $stat_situaciones, 
                 array(
                     'situacion_exclusion' => $elemento->getSituacion(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionSalud')->situacionExclusion($elemento))
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionSalud::class)->situacionExclusion($elemento))
                     )
             );
         }
@@ -83,7 +83,7 @@ class SituacionSaludController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getSituacionSalud() != NULL){

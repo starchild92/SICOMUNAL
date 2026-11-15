@@ -23,7 +23,7 @@ class AdminTipoSituacionController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoSituacions = $em->getRepository('SICBundle:AdminTipoSituacion')->findAll();
+        $adminTipoSituacions = $em->getRepository(\SICBundle\Entity\AdminTipoSituacion::class)->findAll();
 
         return $this->render('admintiposituacion/index.html.twig', array(
             'adminTipoSituacions' => $adminTipoSituacions,

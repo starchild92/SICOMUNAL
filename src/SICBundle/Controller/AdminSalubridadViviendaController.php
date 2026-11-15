@@ -23,7 +23,7 @@ class AdminSalubridadViviendaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminSalubridadViviendas = $em->getRepository('SICBundle:AdminSalubridadVivienda')->findAll();
+        $adminSalubridadViviendas = $em->getRepository(\SICBundle\Entity\AdminSalubridadVivienda::class)->findAll();
 
         return $this->render('adminsalubridadvivienda/index.html.twig', array(
             'adminSalubridadViviendas' => $adminSalubridadViviendas,

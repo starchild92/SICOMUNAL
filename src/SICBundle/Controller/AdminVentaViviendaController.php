@@ -23,7 +23,7 @@ class AdminVentaViviendaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminVentaViviendas = $em->getRepository('SICBundle:AdminVentaVivienda')->findAll();
+        $adminVentaViviendas = $em->getRepository(\SICBundle\Entity\AdminVentaVivienda::class)->findAll();
 
         return $this->render('adminventavivienda/index.html.twig', array(
             'adminVentaViviendas' => $adminVentaViviendas,

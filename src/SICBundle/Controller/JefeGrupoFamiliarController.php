@@ -29,11 +29,11 @@ class JefeGrupoFamiliarController extends BaseController
     public function getPersonaByCedula($cedula)
     {
         $em = $this->getDoctrine()->getManager();
-        $resultado = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+        $resultado = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $cedula));
         if (sizeof($resultado) > 0) {
             return $resultado[0];
         }else{
-            $resultado = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+            $resultado = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $cedula));
             if (sizeof($resultado) > 0) {
                 return $resultado[0];
             }else{
@@ -50,7 +50,7 @@ class JefeGrupoFamiliarController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getJefeGrupoFamiliar() != NULL){
@@ -180,17 +180,17 @@ class JefeGrupoFamiliarController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $jefeGrupoFamiliars = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
+        $jefeGrupoFamiliars = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findAll();
         $total = sizeof($jefeGrupoFamiliars);
 
-        $nacionalidades = $em->getRepository('SICBundle:AdminNacionalidad')->findAll();
+        $nacionalidades = $em->getRepository(\SICBundle\Entity\AdminNacionalidad::class)->findAll();
         $stat_nacionalidad = array();
         foreach ($nacionalidades as $nacionalidad) {
             array_push(
                 $stat_nacionalidad, 
                 array(
                     'nacionalidad' => $nacionalidad->getNacionalidad(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('nacionalidad' => $nacionalidad->getId())
                                         ))
                     )
@@ -202,7 +202,7 @@ class JefeGrupoFamiliarController extends BaseController
             $stat_sexo, 
             array(
                 'sexo' => 'Masculino',
-                'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                     array('sexo' => 'Masculino')
                                     ))
                 )
@@ -211,20 +211,20 @@ class JefeGrupoFamiliarController extends BaseController
             $stat_sexo, 
             array(
                 'sexo' => 'Femenino',
-                'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                     array('sexo' => 'Femenino')
                                     ))
                 )
         );
 
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_cne = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_cne, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId())))));
+            array_push($stat_cne, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cne' => $resp->getId())))));
         }
         $stat_embarazada = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_embarazada, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('embarazada' => $resp->getId())))));
+            array_push($stat_embarazada, array('resp' => $resp->getRespuesta(),'cantidad'=> sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('embarazada' => $resp->getId())))));
         }
         
         $stat_empleado = array();
@@ -233,87 +233,87 @@ class JefeGrupoFamiliarController extends BaseController
                 $stat_empleado, 
                 array(
                     'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('trabajaActualmente' => $resp->getId())
                                         ))
                     )
             );
         }
 
-        $edo_civil = $em->getRepository('SICBundle:AdminEstadoCivil')->findAll();
+        $edo_civil = $em->getRepository(\SICBundle\Entity\AdminEstadoCivil::class)->findAll();
         $stat_edo_civil = array();
         foreach ($edo_civil as $elemento) {
             array_push(
                 $stat_edo_civil, 
                 array(
                     'edo_civil' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('estadoCivil' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $instruccion = $em->getRepository(\SICBundle\Entity\AdminNivelInstruccion::class)->findAll();
         $stat_instruccion = array();
         foreach ($instruccion as $elemento) {
             array_push(
                 $stat_instruccion, 
                 array(
                     'instruccion' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('nivelInstruccion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $profesiones = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findAll();
         $stat_profesiones = array();
         foreach ($profesiones as $elemento) {
             array_push(
                 $stat_profesiones, 
                 array(
                     'profesiones' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('profesion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $incapacidades = $em->getRepository(\SICBundle\Entity\AdminIncapacidades::class)->findAll();
         $stat_incapacidades = array();
         foreach ($incapacidades as $elemento) {
             array_push(
                 $stat_incapacidades, 
                 array(
                     'incapacidades' => $elemento->getIncapacidad(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('incapacitadoTipo' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $pensionados = $em->getRepository(\SICBundle\Entity\AdminPensionadoInstitucion::class)->findAll();
         $stat_pensionados = array();
         foreach ($pensionados as $elemento) {
             array_push(
                 $stat_pensionados, 
                 array(
                     'pensionados' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(
                                         array('pensionadoInstitucion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $ingresofam = $em->getRepository('SICBundle:AdminClasIngresoFamiliar')->findAll();
+        $ingresofam = $em->getRepository(\SICBundle\Entity\AdminClasIngresoFamiliar::class)->findAll();
         $stat_ingresofam = array();
         foreach ($ingresofam as $elemento) {
-            array_push($stat_ingresofam, array('ingresofam' => $elemento->getNombre(),'cantidad' => sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('ingresoFamiliar' => $elemento->getId())))));
+            array_push($stat_ingresofam, array('ingresofam' => $elemento->getNombre(),'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('ingresoFamiliar' => $elemento->getId())))));
         }
 
 

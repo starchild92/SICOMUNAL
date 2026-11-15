@@ -23,7 +23,7 @@ class AdminRecoleccionBasuraController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminRecoleccionBasuras = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findAll();
+        $adminRecoleccionBasuras = $em->getRepository(\SICBundle\Entity\AdminRecoleccionBasura::class)->findAll();
 
         return $this->render('adminrecoleccionbasura/index.html.twig', array(
             'adminRecoleccionBasuras' => $adminRecoleccionBasuras,

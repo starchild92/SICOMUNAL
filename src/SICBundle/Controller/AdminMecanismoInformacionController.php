@@ -23,7 +23,7 @@ class AdminMecanismoInformacionController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminMecanismoInformacions = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findAll();
+        $adminMecanismoInformacions = $em->getRepository(\SICBundle\Entity\AdminMecanismoInformacion::class)->findAll();
 
         return $this->render('adminmecanismoinformacion/index.html.twig', array(
             'adminMecanismoInformacions' => $adminMecanismoInformacions,

@@ -23,7 +23,7 @@ class AdminEmpresaGasController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminEmpresaGas = $em->getRepository('SICBundle:AdminEmpresaGas')->findAll();
+        $adminEmpresaGas = $em->getRepository(\SICBundle\Entity\AdminEmpresaGas::class)->findAll();
 
         return $this->render('adminempresagas/index.html.twig', array(
             'adminEmpresaGas' => $adminEmpresaGas,

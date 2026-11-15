@@ -18,7 +18,7 @@ class PersonaController extends BaseController
     private function obtenerStats(){
         $em = $this->getDoctrine()->getManager();
 
-        $personas = $em->getRepository('SICBundle:Persona')->findAll();
+        $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->findAll();
 
         $total = sizeof($personas);
         $stat_edad = array();
@@ -51,7 +51,7 @@ class PersonaController extends BaseController
             $stat_sexo, 
             array(
                 'sexo' => 'Masculino',
-                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                     array('sexo' => 'Masculino')
                                     ))
                 )
@@ -60,19 +60,19 @@ class PersonaController extends BaseController
             $stat_sexo, 
             array(
                 'sexo' => 'Femenino',
-                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                     array('sexo' => 'Femenino')
                                     ))
                 )
         );
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_cne = array();
         foreach ($resp_cerradas as $resp) {
             array_push(
                 $stat_cne, 
                 array(
                     'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('cne' => $resp->getId())
                                         ))
                     )
@@ -84,61 +84,61 @@ class PersonaController extends BaseController
                 $stat_embarazo, 
                 array(
                     'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('embarazoTemprano' => $resp->getId())
                                         ))
                     )
             );
         }
-        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $instruccion = $em->getRepository(\SICBundle\Entity\AdminNivelInstruccion::class)->findAll();
         $stat_instruccion = array();
         foreach ($instruccion as $elemento) {
             array_push(
                 $stat_instruccion, 
                 array(
                     'instruccion' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('gradoInstruccion' => $elemento->getId())
                                         ))
                     )
             );
         }
-        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $profesiones = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findAll();
         $stat_profesiones = array();
         foreach ($profesiones as $elemento) {
             array_push(
                 $stat_profesiones, 
                 array(
                     'profesiones' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('profesion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $incapacidades = $em->getRepository(\SICBundle\Entity\AdminIncapacidades::class)->findAll();
         $stat_incapacidades = array();
         foreach ($incapacidades as $elemento) {
             array_push(
                 $stat_incapacidades, 
                 array(
                     'incapacidades' => $elemento->getIncapacidad(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('incapacitadoTipo' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $pensionados = $em->getRepository(\SICBundle\Entity\AdminPensionadoInstitucion::class)->findAll();
         $stat_pensionados = array();
         foreach ($pensionados as $elemento) {
             array_push(
                 $stat_pensionados, 
                 array(
                     'pensionados' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('pensionadoInstitucion' => $elemento->getId())
                                         ))
                     )
@@ -179,7 +179,7 @@ class PersonaController extends BaseController
         $form->handleRequest($request);
         
         $em = $this->getDoctrine()->getManager();
-        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        $GrupoFam = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findById($id_grupofamiliar);
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
@@ -324,8 +324,8 @@ class PersonaController extends BaseController
     public function agendaAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
-        $personass = $em->getRepository('SICBundle:Persona')->findAll();
+        $jefes = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findAll();
+        $personass = $em->getRepository(\SICBundle\Entity\Persona::class)->findAll();
 
         $personas = array();
         foreach ($jefes as $j) { array_push($personas, $j); }
@@ -345,7 +345,7 @@ class PersonaController extends BaseController
         $form->handleRequest($request);
         
         $em = $this->getDoctrine()->getManager();
-        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        $GrupoFam = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findById($id_grupofamiliar);
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
@@ -396,7 +396,7 @@ class PersonaController extends BaseController
     public function obtener_parentescos()
     {
         $em = $this->getDoctrine()->getManager();
-        $parentescos = $em->getRepository('SICBundle:Persona')->findParentescos();
+        $parentescos = $em->getRepository(\SICBundle\Entity\Persona::class)->findParentescos();
         return $parentescos;
     }
 }

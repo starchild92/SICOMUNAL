@@ -21,41 +21,41 @@ class SituacionEconomicaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $situacionEconomicas = $em->getRepository('SICBundle:SituacionEconomica')->findAll();
+        $situacionEconomicas = $em->getRepository(\SICBundle\Entity\SituacionEconomica::class)->findAll();
         $total = sizeof($situacionEconomicas);
 
-        $ubic_trabajo = $em->getRepository('SICBundle:AdminUbicacionTrabajo')->findAll();
+        $ubic_trabajo = $em->getRepository(\SICBundle\Entity\AdminUbicacionTrabajo::class)->findAll();
         $stat_ubic_trabajo = array();
         foreach ($ubic_trabajo as $elemento) {
             array_push(
                 $stat_ubic_trabajo, 
                 array(
                     'trabajo' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\SituacionEconomica::class)->findBy(
                                         array('dondeTrabaja' => $elemento->getId())
                                         )))
             );
         }
 
-        $venta_vivienda = $em->getRepository('SICBundle:AdminVentaVivienda')->findAll();
+        $venta_vivienda = $em->getRepository(\SICBundle\Entity\AdminVentaVivienda::class)->findAll();
         $stat_venta_vivienda = array();
         foreach ($venta_vivienda as $elemento) {
             array_push(
                 $stat_venta_vivienda, 
                 array(
                     'venta_vivienda' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findByActividadComercialVivienda($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionEconomica::class)->findByActividadComercialVivienda($elemento)))
             );
         }
 
-        $tipo_ingreso = $em->getRepository('SICBundle:AdminTipoIngresos')->findAll();
+        $tipo_ingreso = $em->getRepository(\SICBundle\Entity\AdminTipoIngresos::class)->findAll();
         $stat_tipo_ingreso = array();
         foreach ($tipo_ingreso as $elemento) {
             array_push(
                 $stat_tipo_ingreso, 
                 array(
                     'tipo_ingreso' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:SituacionEconomica')->findBy(
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\SituacionEconomica::class)->findBy(
                                   array('ingresoFamiliarEspecifico' => $elemento->getId())
                                   )))
             );
@@ -100,7 +100,7 @@ class SituacionEconomicaController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getSituacionEconomica() != NULL){

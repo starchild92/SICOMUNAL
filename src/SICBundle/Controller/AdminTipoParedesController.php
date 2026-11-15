@@ -23,7 +23,7 @@ class AdminTipoParedesController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoParedes = $em->getRepository('SICBundle:AdminTipoParedes')->findAll();
+        $adminTipoParedes = $em->getRepository(\SICBundle\Entity\AdminTipoParedes::class)->findAll();
 
         return $this->render('admintipoparedes/index.html.twig', array(
             'adminTipoParedes' => $adminTipoParedes,

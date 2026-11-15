@@ -23,7 +23,7 @@ class AdminPreguntasController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminPreguntas = $em->getRepository('SICBundle:AdminPreguntas')->findAll();
+        $adminPreguntas = $em->getRepository(\SICBundle\Entity\AdminPreguntas::class)->findAll();
 
         return $this->render('adminpreguntas/index.html.twig', array(
             'adminPreguntas' => $adminPreguntas,

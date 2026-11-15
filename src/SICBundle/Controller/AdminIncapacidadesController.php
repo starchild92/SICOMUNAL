@@ -23,7 +23,7 @@ class AdminIncapacidadesController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminIncapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $adminIncapacidades = $em->getRepository(\SICBundle\Entity\AdminIncapacidades::class)->findAll();
 
         return $this->render('adminincapacidades/index.html.twig', array(
             'adminIncapacidades' => $adminIncapacidades,

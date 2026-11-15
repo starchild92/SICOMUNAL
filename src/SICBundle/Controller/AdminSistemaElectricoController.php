@@ -23,7 +23,7 @@ class AdminSistemaElectricoController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminSistemaElectricos = $em->getRepository('SICBundle:AdminSistemaElectrico')->findAll();
+        $adminSistemaElectricos = $em->getRepository(\SICBundle\Entity\AdminSistemaElectrico::class)->findAll();
 
         return $this->render('adminsistemaelectrico/index.html.twig', array(
             'adminSistemaElectricos' => $adminSistemaElectricos,

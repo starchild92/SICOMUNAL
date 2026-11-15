@@ -23,7 +23,7 @@ class AdminOrgComunitariaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminOrgComunitarias = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $adminOrgComunitarias = $em->getRepository(\SICBundle\Entity\AdminOrgComunitaria::class)->findAll();
 
         return $this->render('adminorgcomunitaria/index.html.twig', array(
             'adminOrgComunitarias' => $adminOrgComunitarias,

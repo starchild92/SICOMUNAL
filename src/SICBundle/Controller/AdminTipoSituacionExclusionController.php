@@ -23,7 +23,7 @@ class AdminTipoSituacionExclusionController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoSituacionExclusions = $em->getRepository('SICBundle:AdminTipoSituacionExclusion')->findAll();
+        $adminTipoSituacionExclusions = $em->getRepository(\SICBundle\Entity\AdminTipoSituacionExclusion::class)->findAll();
 
         return $this->render('admintiposituacionexclusion/index.html.twig', array(
             'adminTipoSituacionExclusions' => $adminTipoSituacionExclusions,

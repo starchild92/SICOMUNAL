@@ -22,7 +22,7 @@ class BitacoraController extends BaseController
     {   
         $ini = new \DateTime('today');
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SICBundle:Bitacora')->findRango($ini->format('Y-m-d').' 00:00:00',$ini->format('Y-m-d').' 23:59:59', 'todos');
+        $entities = $em->getRepository(\SICBundle\Entity\Bitacora::class)->findRango($ini->format('Y-m-d').' 00:00:00',$ini->format('Y-m-d').' 23:59:59', 'todos');
         return $this->render('bitacora/index.html.twig', array(
             'entities' => $entities,
         ));
@@ -33,7 +33,7 @@ class BitacoraController extends BaseController
         $form = $request->request->all();
 
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SICBundle:Bitacora')->findRango($form['fechaInicio'].' 00:00:00', $form['fechaFinal'].' 23:59:59', $form['criteria']);
+        $entities = $em->getRepository(\SICBundle\Entity\Bitacora::class)->findRango($form['fechaInicio'].' 00:00:00', $form['fechaFinal'].' 23:59:59', $form['criteria']);
         return $this->render('bitacora/index.html.twig', array(
             'entities' => $entities,
         ));

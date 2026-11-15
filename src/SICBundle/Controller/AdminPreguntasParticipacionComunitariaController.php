@@ -23,7 +23,7 @@ class AdminPreguntasParticipacionComunitariaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminPreguntasParticipacionComunitarias = $em->getRepository('SICBundle:AdminPreguntasParticipacionComunitaria')->findAll();
+        $adminPreguntasParticipacionComunitarias = $em->getRepository(\SICBundle\Entity\AdminPreguntasParticipacionComunitaria::class)->findAll();
 
         return $this->render('adminpreguntasparticipacioncomunitaria/index.html.twig', array(
             'adminPreguntasParticipacionComunitarias' => $adminPreguntasParticipacionComunitarias,

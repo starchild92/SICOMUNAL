@@ -23,7 +23,7 @@ class AdminTipoTransporteController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoTransportes = $em->getRepository('SICBundle:AdminTipoTransporte')->findAll();
+        $adminTipoTransportes = $em->getRepository(\SICBundle\Entity\AdminTipoTransporte::class)->findAll();
 
         return $this->render('admintipotransporte/index.html.twig', array(
             'adminTipoTransportes' => $adminTipoTransportes,

@@ -23,7 +23,7 @@ class AdminTipoIngresosController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoIngresos = $em->getRepository('SICBundle:AdminTipoIngresos')->findAll();
+        $adminTipoIngresos = $em->getRepository(\SICBundle\Entity\AdminTipoIngresos::class)->findAll();
 
         return $this->render('admintipoingresos/index.html.twig', array(
             'adminTipoIngresos' => $adminTipoIngresos,

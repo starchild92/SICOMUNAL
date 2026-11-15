@@ -22,7 +22,7 @@ class VoceroController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $voceros = $em->getRepository('SICBundle:Vocero')->findAll();
+        $voceros = $em->getRepository(\SICBundle\Entity\Vocero::class)->findAll();
 
         return $this->render('vocero/index.html.twig', array(
             'voceros' => $voceros,

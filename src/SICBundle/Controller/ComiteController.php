@@ -18,11 +18,11 @@ class ComiteController extends BaseController
     public function getPersonaByCedula($cedula)
     {
         $em = $this->getDoctrine()->getManager();
-        $resultado = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+        $resultado = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $cedula));
         if (sizeof($resultado) > 0) {
             return $resultado[0];
         }else{
-            $resultado = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+            $resultado = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $cedula));
             if (sizeof($resultado) > 0) {
                 return $resultado[0];
             }else{
@@ -37,7 +37,7 @@ class ComiteController extends BaseController
 
         if ($comite->getTipoUnidad() == "Unidad Ejecutiva") {
             if ($comite->getNombre() != "") {
-                $comites = $em->getRepository('SICBundle:Comite')->findBy(array(
+                $comites = $em->getRepository(\SICBundle\Entity\Comite::class)->findBy(array(
                     'tipoUnidad' => "Unidad Ejecutiva", "nombre" => $comite->getNombre()));
                 if (sizeof($comites) > 0) {
                     $this->addFlash('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de Nombre: "'.$comite->getNombre().'" en el sistema.');
@@ -48,7 +48,7 @@ class ComiteController extends BaseController
                 return true;
             }
         }else{
-            $comites = $em->getRepository('SICBundle:Comite')->findAll();
+            $comites = $em->getRepository(\SICBundle\Entity\Comite::class)->findAll();
             foreach ($comites as $key) {
                 if ($comite->getId() != $key->getId()) {
                     if ($comite->getTipoUnidad() == $key->getTipoUnidad()) {
@@ -66,7 +66,7 @@ class ComiteController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
         //En la entidad el atributo es unique, esto debe ser binario
-        $vocero = $em->getRepository('SICBundle:Vocero')->findBy(array('persona' => $cedula));
+        $vocero = $em->getRepository(\SICBundle\Entity\Vocero::class)->findBy(array('persona' => $cedula));
         
         if (sizeof($vocero) > 0) {
             $comites = $vocero[0]->getComite();
@@ -121,7 +121,7 @@ class ComiteController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comites = $em->getRepository('SICBundle:Comite')->findAll();
+        $comites = $em->getRepository(\SICBundle\Entity\Comite::class)->findAll();
 
         return $this->render('comite/index.html.twig', array(
             'comites' => $comites,

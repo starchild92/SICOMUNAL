@@ -23,7 +23,7 @@ class NoticiaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $noticias = $em->getRepository('SICBundle:Noticia')->findAll();
+        $noticias = $em->getRepository(\SICBundle\Entity\Noticia::class)->findAll();
 
         return $this->render('noticia/index.html.twig', array(
             'noticias' => $noticias,
@@ -145,7 +145,7 @@ class NoticiaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
         /* Obtiene las últimas 5 noticias en orden descendiente y que están visibles */
-        $noticias = $em->getRepository('SICBundle:Noticia')->NoticiasOrdenDesc(); //solo las noticias que están visibles
+        $noticias = $em->getRepository(\SICBundle\Entity\Noticia::class)->NoticiasOrdenDesc(); //solo las noticias que están visibles
 
         return $this->render('noticia/newsletter.html.twig', array(
             'noticias' => $noticias,
@@ -159,21 +159,21 @@ class NoticiaController extends BaseController
     public function voceriasAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $cc = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $cc = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
 
         $unidades_eje = array();
-        $unidad_ejecutiva = $em->getRepository('SICBundle:Comite')->findBy(array('tipoUnidad' => 'Unidad Ejecutiva'));
+        $unidad_ejecutiva = $em->getRepository(\SICBundle\Entity\Comite::class)->findBy(array('tipoUnidad' => 'Unidad Ejecutiva'));
         foreach ($unidad_ejecutiva as $ue) {
             $personas = array();
             $voceros = $ue->getVoceros();
 
             foreach ($voceros as $v) {
-                $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
+                $r = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $v->getPersona()));
                 if (sizeof($r)>0) {
                     $voce = $r[0];
                 }else{
-                    $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $v->getPersona()));
+                    $r = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $v->getPersona()));
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
@@ -203,18 +203,18 @@ class NoticiaController extends BaseController
         $em->flush();
 
         $unidades_restantes = array();
-        $unid_res = $em->getRepository('SICBundle:Comite')->findAll();
+        $unid_res = $em->getRepository(\SICBundle\Entity\Comite::class)->findAll();
         foreach ($unid_res as $ue) {
             if ($ue->getTipoUnidad() != 'Unidad Ejecutiva') {            
                 $personas = array();
                 $voceros = $ue->getVoceros();
                 foreach ($voceros as $v) {
                     $cedula = filter_var($v->getPersona(), FILTER_SANITIZE_NUMBER_INT);
-                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+                    $r = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $cedula));
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
-                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+                        $r = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $cedula));
                         if (sizeof($r)>0) {
                             $voce = $r[0];
                         }else{
@@ -283,8 +283,8 @@ class NoticiaController extends BaseController
     public function correosAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunicados = $em->getRepository('SICBundle:Comunicado')->findAll();
-        $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
+        $comunicados = $em->getRepository(\SICBundle\Entity\Comunicado::class)->findAll();
+        $usuarios_reciben_correo = $em->getRepository(\SICBundle\Entity\Noticia::class)->CantidadPersonasCorreo();
 
         return $this->render('noticia/correos.html.twig', array(
             'comunicados' => $comunicados,
@@ -295,9 +295,9 @@ class NoticiaController extends BaseController
     public function correosUsuariosAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $jfg = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
-        $persona = $em->getRepository('SICBundle:Persona')->findAll();
-        $usuarios_reciben_correo = $em->getRepository('SICBundle:Noticia')->CantidadPersonasCorreo();
+        $jfg = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findAll();
+        $persona = $em->getRepository(\SICBundle\Entity\Persona::class)->findAll();
+        $usuarios_reciben_correo = $em->getRepository(\SICBundle\Entity\Noticia::class)->CantidadPersonasCorreo();
 
         return $this->render('noticia/correos.usuarios.html.twig', array(
             'jfg' => $jfg,
@@ -310,8 +310,8 @@ class NoticiaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $jfg = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('email' => $correo));
-        $personas = $em->getRepository('SICBundle:Persona')->findBy(array('email' => $correo));
+        $jfg = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('email' => $correo));
+        $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('email' => $correo));
 
         if (sizeof($jfg) > 0) {
             $persona = $jfg[0];

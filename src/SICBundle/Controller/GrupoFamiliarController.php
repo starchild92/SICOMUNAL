@@ -23,7 +23,7 @@ class GrupoFamiliarController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $grupoFamiliars = $em->getRepository('SICBundle:GrupoFamiliar')->findAll();
+        $grupoFamiliars = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findAll();
 
         return $this->render('grupofamiliar/index.html.twig', array(
             'grupoFamiliars' => $grupoFamiliars,
@@ -38,7 +38,7 @@ class GrupoFamiliarController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         if (sizeof($planilla) > 0) {
             $p = $planilla[0];
 
@@ -72,8 +72,8 @@ class GrupoFamiliarController extends BaseController
 
             return $this->render('grupofamiliar/new.html.twig', array(
                 'grupoFamiliar' => $grupoFamiliar,
-                'grupos_calle' => $em->getRepository('SICBundle:GrupoFamiliar')->findCalles(),
-                'grupos_avenida' => $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(),
+                'grupos_calle' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findCalles(),
+                'grupos_avenida' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findSectores(),
                 'form' => $form->createView(),
             ));
         }
@@ -120,8 +120,8 @@ class GrupoFamiliarController extends BaseController
 
         return $this->render('grupofamiliar/edit.html.twig', array(
             'grupoFamiliar' => $grupoFamiliar,
-            'grupos_calle' => $em->getRepository('SICBundle:GrupoFamiliar')->findCalles(),
-            'grupos_avenida' => $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(),
+            'grupos_calle' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findCalles(),
+            'grupos_avenida' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findSectores(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

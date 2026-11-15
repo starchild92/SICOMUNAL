@@ -23,7 +23,7 @@ class AdminServiciosComunalesController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminServiciosComunales = $em->getRepository('SICBundle:AdminServiciosComunales')->findAll();
+        $adminServiciosComunales = $em->getRepository(\SICBundle\Entity\AdminServiciosComunales::class)->findAll();
 
         return $this->render('adminservicioscomunales/index.html.twig', array(
             'adminServiciosComunales' => $adminServiciosComunales,

@@ -23,7 +23,7 @@ class AdminCapacidadBombonaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminCapacidadBombonas = $em->getRepository('SICBundle:AdminCapacidadBombona')->findAll();
+        $adminCapacidadBombonas = $em->getRepository(\SICBundle\Entity\AdminCapacidadBombona::class)->findAll();
 
         return $this->render('admincapacidadbombona/index.html.twig', array(
             'adminCapacidadBombonas' => $adminCapacidadBombonas,

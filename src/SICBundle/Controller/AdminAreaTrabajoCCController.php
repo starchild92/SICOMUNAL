@@ -23,7 +23,7 @@ class AdminAreaTrabajoCCController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminAreaTrabajoCCs = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $adminAreaTrabajoCCs = $em->getRepository(\SICBundle\Entity\AdminAreaTrabajoCC::class)->findAll();
 
         return $this->render('adminareatrabajocc/index.html.twig', array(
             'adminAreaTrabajoCCs' => $adminAreaTrabajoCCs,

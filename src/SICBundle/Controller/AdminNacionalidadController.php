@@ -23,7 +23,7 @@ class AdminNacionalidadController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminNacionalidads = $em->getRepository('SICBundle:AdminNacionalidad')->findAll();
+        $adminNacionalidads = $em->getRepository(\SICBundle\Entity\AdminNacionalidad::class)->findAll();
 
         return $this->render('adminnacionalidad/index.html.twig', array(
             'adminNacionalidads' => $adminNacionalidads,

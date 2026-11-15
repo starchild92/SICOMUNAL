@@ -23,7 +23,7 @@ class ComunicadoController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comunicados = $em->getRepository('SICBundle:Comunicado')->findAll();
+        $comunicados = $em->getRepository(\SICBundle\Entity\Comunicado::class)->findAll();
 
         return $this->render('comunicado/index.html.twig', array(
             'comunicados' => $comunicados,
@@ -47,7 +47,7 @@ class ComunicadoController extends BaseController
             $comunicado->setFecha(new \DateTime('now'));
 
             //obtener los usuarios a los que se enviará el correo y la cantidad
-            $destinatarios = $em->getRepository('SICBundle:Comunicado')->PersonasCorreo();
+            $destinatarios = $em->getRepository(\SICBundle\Entity\Comunicado::class)->PersonasCorreo();
             $comunicado->setNumDestinatarios(sizeof($destinatarios));
 
             foreach ($destinatarios as $p) {
@@ -160,13 +160,13 @@ class ComunicadoController extends BaseController
     public function desactivarSubscripcionAction($correo)
     {
         $em = $this->getDoctrine()->getManager();
-        $persona = $em->getRepository('SICBundle:Persona')->findBy(array('email' => $correo));
+        $persona = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('email' => $correo));
         if (sizeof($persona)>0) {
             $p = $persona[0];
             $p->setRecibirCorreo(false); //No recibirá correos
             $em->persist($p);
         }else{
-            $persona = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('email' => $correo));
+            $persona = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('email' => $correo));
             if (sizeof($persona)>0) {
                 $p = $persona[0];
                 $p->setRecibirCorreo(false); //No recibirá correos
@@ -181,7 +181,7 @@ class ComunicadoController extends BaseController
     public function subscripcionEstatusAction($correo)
     {
         $em = $this->getDoctrine()->getManager();
-        $noticias = $em->getRepository('SICBundle:Noticia')->NoticiasOrdenDesc();
+        $noticias = $em->getRepository(\SICBundle\Entity\Noticia::class)->NoticiasOrdenDesc();
         return $this->render('comunicado/subscripcion_estatus.html.twig', array(
             'correo' => $correo,
             'noticias' => $noticias,

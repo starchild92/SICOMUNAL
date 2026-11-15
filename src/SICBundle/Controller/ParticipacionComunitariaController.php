@@ -19,66 +19,66 @@ class ParticipacionComunitariaController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
+        $participacionComunitarias = $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findAll();
         $total = sizeof($participacionComunitarias);
-        $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $orgs = $em->getRepository(\SICBundle\Entity\AdminOrgComunitaria::class)->findAll();
         $stat_orgs = array();
         foreach ($orgs as $elemento) {
             array_push(
                 $stat_orgs, 
                 array(
                     'orgs' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->existenOrganizaciones($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->existenOrganizaciones($elemento)))
             );
         }
 
-        $participacion = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $participacion = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_participacion = array();
         foreach ($participacion as $elemento) {
             array_push(
                 $stat_participacion, 
                 array(
                     'participacion' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findBy(
                                         array('participaOrganizacion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $parte_miembros = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $parte_miembros = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_parte_miembros = array();
         foreach ($parte_miembros as $elemento) {
             array_push(
                 $stat_parte_miembros, 
                 array(
                     'parte_miembros' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findBy(
                                         array('participaMiembroOrganizacion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $misiones = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $misiones = $em->getRepository(\SICBundle\Entity\AdminMisionesComunidad::class)->findAll();
         $stat_misiones = array();
         foreach ($misiones as $elemento) {
             array_push(
                 $stat_misiones, 
                 array(
                     'misiones' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->misionesComunidad($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->misionesComunidad($elemento)))
             );
         }
 
-        $areatrabajo = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $areatrabajo = $em->getRepository(\SICBundle\Entity\AdminAreaTrabajoCC::class)->findAll();
         $stat_areatrabajo = array();
         foreach ($areatrabajo as $elemento) {
             array_push(
                 $stat_areatrabajo, 
                 array(
                     'areatrabajo' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->areaTabajoCC($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->areaTabajoCC($elemento)))
             );
         }
 
@@ -109,7 +109,7 @@ class ParticipacionComunitariaController extends BaseController
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getParticipacionComunitaria() != NULL){

@@ -23,7 +23,7 @@ class ConsejoComunalController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $consejoComunals = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $consejoComunals = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
 
         return $this->render('consejocomunal/index.html.twig', array(
             'consejoComunals' => $consejoComunals,

@@ -23,7 +23,7 @@ class AdminPensionadoInstitucionController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminPensionadoInstitucions = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $adminPensionadoInstitucions = $em->getRepository(\SICBundle\Entity\AdminPensionadoInstitucion::class)->findAll();
 
         return $this->render('adminpensionadoinstitucion/index.html.twig', array(
             'adminPensionadoInstitucions' => $adminPensionadoInstitucions,
