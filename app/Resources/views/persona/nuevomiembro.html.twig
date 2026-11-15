@@ -10,8 +10,8 @@
     {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
         <div class="row">
             <div class="col-sm-6">
-                <div class="card border-primary">
-                    <div class="card-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.nombre) }}</div>
                             <div class="col-sm-6">{{ form_row(form.apellido) }}</div>
@@ -34,8 +34,8 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card border-primary">
-                    <div class="card-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
                         {{ form_row(form.parentesco) }}
                         {{ form_row(form.gradoInstruccion) }}
                         {{ form_row(form.cne) }}

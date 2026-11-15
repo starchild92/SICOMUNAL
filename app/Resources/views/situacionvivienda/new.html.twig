@@ -2,8 +2,8 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-6"><small class="text-info">ant. Situación Económica</small></div>
-        <div class="col-6 text-right"><small class="text-info">sig. Situación Salud</small></div>
+        <div class="col-xs-6"><small class="text-info">ant. Situación Económica</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Salud</small></div>
     </div>
     <div class="progress">
       <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
@@ -16,8 +16,8 @@
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
-                <div class="card border-primary">
-                    <div class="card-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.condicionesTerreno) }}</div>
                             <div class="col-sm-6">{{ form_row(form.tenencia) }}</div>
@@ -34,8 +34,8 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card border-primary">
-                    <div class="card-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">{{ form_row(form.paredes) }}</div>
                             <div class="col-sm-6">{{ form_row(form.techo) }}</div>

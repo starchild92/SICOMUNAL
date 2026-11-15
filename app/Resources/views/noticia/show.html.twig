@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2 class="text-center"><i class="fa fa-archive"></i> Detalles de la Noticia <a class="btn btn-primary float-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h2>
+    <h2 class="text-center"><i class="fa fa-archive"></i> Detalles de la Noticia <a class="btn btn-primary pull-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h2>
     <hr>
     
     <div class="row">
         <div class="col-sm-10">
-            <div class="card border-primary">
-                <div class="card-header">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
                     <span class="text-right">{% if noticium.visibilidad %} <i class="fa fa-eye"></i> Noticia visible para todos. {% else %} <i class="fa fa-eye-slash"></i> Noticia oculta para todos. {% endif %}</span>
                 </div>
-                <div class="card-body">
+                <div class="panel-body">
                     <h3>{{ noticium.titulo }} <small class="negritas"> por {{ noticium.usuario.nombreyapellido() }}</small></h3>
                     <hr class="little">
                     <p>{{ noticium.cuerpo|raw }}</p>
                 </div>
-                <div class="card-footer">
+                <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-6"><span class="negritas">Publicado:</span> {% if noticium.fechaPub %}{{ noticium.fechaPubyhora() }}{% endif %}</div>
                         <div class="col-sm-6 text-right"><span class="negritas">Modificado el:</span> {{ noticium.fechayhora() }}</div>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="col-sm-2">
-            {# <a class="btn btn-block btn-outline-secondary" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver Todas</a> #}
+            {# <a class="btn btn-block btn-default" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver Todas</a> #}
             <a class="btn btn-block btn-primary" href="{{ path('noticia_edit', { 'id': noticium.id }) }}"> <i class="fa fa-edit"></i> Modificar detalles</a>
             <hr class="little">
             {{ form_start(delete_form) }}

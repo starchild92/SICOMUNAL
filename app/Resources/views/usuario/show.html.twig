@@ -20,13 +20,15 @@
 					{% if usuario.telefono|length == 0 %}No tiene ningun número de teléfono{% endif %}
 					{% for telf in usuario.telefono %}{{ telf.codigo }} - {{ telf.numero }}<br>{% endfor %}
 					</td></tr>
-				<tr><th>Rol en el Sistema <br> <small class="text-info">Posee los siguientes roles en el sistema</small></th><td>{% for role in usuario.roles %}{% if role == 'ROLE_ADMIN' %}<span class="badge badge-success"><i class="fa fa-star fa-fw"></i> ADMINISTRADOR</span>{% endif %} {% if role == 'ROLE_USER' %}<span class="badge badge-info"><i class="fa fa-user fa-fw"></i> EMPADRONADOR</span>{% endif %}{% endfor %}</td></tr>
+				<tr><th>Rol en el Sistema <br> <small class="text-info">Posee los siguientes roles en el sistema</small></th><td>{% for role in usuario.roles %}{% if role == 'ROLE_ADMIN' %}<span class="label label-success"><i class="fa fa-star fa-fw"></i> ADMINISTRADOR</span>{% endif %} {% if role == 'ROLE_USER' %}<span class="label label-info"><i class="fa fa-user fa-fw"></i> EMPADRONADOR</span>{% endif %}{% endfor %}</td></tr>
+				<tr><th></th><td>{% if usuario.expired %}Cuenta vencida{% else %} <i class="fa fa-calendar-check-o"></i> No ha vencido su cuenta{% endif %}</td></tr>
+				<tr><th>Estatus de la Cuenta</th><td>{% if usuario.locked %}Está bloqueado{% else %} <i class="fa fa-unlock-alt"></i> No está bloqueado{% endif %}</td></tr>
 	        </tbody>
 	    </table>
 	</div>
 	<div class="col-sm-3">
-		<a class="btn btn-primary btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
-        <a class="btn btn-primary btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"> <i class="fa fa-edit"></i> Modificar Datos</a>
+		<a class="btn btn-default btn-primary btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
+        <a class="btn btn-default btn-primary btn-block" href="{{ path('usuarios_edit', { 'id': usuario.id }) }}"> <i class="fa fa-edit"></i> Modificar Datos</a>
         <hr class="little">
 		{{ form_start(delete_form, { 'attr' : { 'id' : 'formulario_eliminar' }}) }}<a class="btn btn-block btn-danger" id="formulario_eliminar"><i class="fa fa-trash"></i> Deshabilitar Usuario</a>{{ form_end(delete_form) }}
 	</div>

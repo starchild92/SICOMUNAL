@@ -10,15 +10,15 @@
         {% for comite in comites %}
             <div class="col-sm-4">
             {% if comite.tipoUnidad != "Unidad Ejecutiva" %}
-            <div class="card border-primary">
-                <div class="card-header">{{ comite.tipoUnidad }}</div>
-                <div class="card-body">
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ comite.tipoUnidad }}</div>
+                <div class="panel-body">
                     <p class="negritas"></p>
                     <p>{{ comite.cantVoceros }} voceros, los cuales son: </p>
                     {% for v in comite.voceros %}
                         <p>{{ v.votosElecto }} votos - {{ v.persona }} - ({{ v.tipo }})</p>
                     {% endfor %}
-                    <div class="btn-group float-right">
+                    <div class="btn-group pull-right">
                         <button type="button" role="button" class="btn btn-primary dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-cogs"></i> Opciones<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">

@@ -10,9 +10,9 @@
         {{ form_start(edit_form, { 'attr' : { 'id' : 'form_usuario' }}) }}
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="card border-primary">
-                        <div class="card-header text-center">Datos Personales del Usuario</div>
-                        <div class="card-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Datos Personales del Usuario</div>
+                        <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-6">{{ form_row(edit_form.primerNombre) }}</div>
                                 <div class="col-sm-6">{{ form_row(edit_form.segundoNombre) }}</div>
@@ -30,9 +30,9 @@
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card border-primary">
-                        <div class="card-header text-center">Datos de Acceso al Sistema</div>
-                        <div class="card-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Datos de Acceso al Sistema</div>
+                        <div class="panel-body">
                             {{ form_row(edit_form.username) }}
                             {% if edit_form.plainPassword is defined %}
                                 {{ form_row(edit_form.plainPassword) }}
@@ -46,18 +46,18 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="card border-primary">
-                        <div class="card-header text-center">Teléfonos</div>
-                        <div class="card-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Teléfonos</div>
+                        <div class="panel-body">
                             {{ form_widget(edit_form.telefono) }}
                         </div>
                     </div>
                 </div>
                 
                 <div class="col-sm-6">
-                    <div class="card border-primary">
-                        <div class="card-header text-center">Estado de la Cuenta y Rol del Sistema</div>
-                        <div class="card-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading text-center">Estado de la Cuenta y Rol del Sistema</div>
+                        <div class="panel-body">
                         {% if edit_form.enabled is defined %}
                             {{ form_row(edit_form.enabled) }}
                             {{ form_row(edit_form.roles) }}
@@ -74,7 +74,7 @@
         {{ form_end(edit_form) }}
     </div>
     <div class="col-sm-2">
-        <a class="btn btn-outline-secondary button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
+        <a class="btn btn-default button-line btn-block" href="{{ path('usuarios_index') }}">Ver Todos</a>
         <hr class="little">
         {{ form_start(delete_form, { 'attr' : { 'id' : 'formulario_eliminar' }}) }}<a class="btn btn-block btn-danger" id="formulario_eliminar"><i class="fa fa-trash"></i> Deshabilitar Usuario</a>{{ form_end(delete_form) }}
     </div>

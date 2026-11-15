@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2 class="text-center"><i class="fa fa-edit"></i> Modificar Noticia <a class="btn btn-primary float-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h2>
+    <h2 class="text-center"><i class="fa fa-edit"></i> Modificar Noticia <a class="btn btn-primary pull-right" href="{{ path('noticia_index') }}"><i class="fa fa-arrow-left"></i> Ver todas</a></h2>
     <hr>
     
     {{ form_start(edit_form, {'id':'appbundle_correo'}) }}

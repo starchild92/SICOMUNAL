@@ -118,7 +118,7 @@
 			     </div>
 			</div>
 		</div>
-		<div class="col-lg-10 col-md-9 col-sm-8 col-12">
+		<div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
 			<h2>Parámetros del Sistema <small>modifique las opciones que aparecen en el formulario</small></h2>
 			<hr>
 			<span id="cuerpoGrupo1">Cargando Tabla...</span>
@@ -128,11 +128,11 @@
 	<!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
-        	<div class="card border-primary">
-        		<div class="card-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        	<div class="panel panel-primary">
+        		<div class="panel-heading"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Elemento</h4></div>
-        		<div class="card-body">
-        			<span id="modal-body" class="negritas text-center"><div class="card card-body bg-light-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
+        		<div class="panel-body">
+        			<span id="modal-body" class="negritas text-center"><div class="well-sm text-center"><img src="{{ asset('images/FlatIcons/hourglass.png') }}" height='60' alt="espere">
 						<hr>
 						<br>Cargando el formulario</div></span>
         		</div>
@@ -196,8 +196,8 @@
                 cancelButtonClass: 'btn-success',
                 // theme: 'black',
                 confirm: function(){
-                    html = "<div class='card-body'><span id='modal-body'><div class='card card-body bg-light-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
-					$('.card-body').replaceWith(html);
+                    html = "<div class='panel-body'><span id='modal-body'><div class='well-sm text-center'><img src='{{ asset('images/FlatIcons/hourglass.png') }}' height='60' alt='espere'><hr><br>Cargando el formulario</div></span></div>";
+					$('.panel-body').replaceWith(html);
                 },
                 cancel: function(){
                     e.preventDefault();

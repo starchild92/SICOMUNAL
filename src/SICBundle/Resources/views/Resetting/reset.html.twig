@@ -6,8 +6,8 @@
     label{ color: white; }
 </style>
 <div class="row">
-    <div class="col-lg-5 col-sm-8 col-12 offer" style="float: none; margin: 117px auto; text-align: center;">
-        <div class="pb-2 mt-4 mb-2 border-bottom blanco" style="text-align: center;">
+    <div class="col-lg-5 col-sm-8 col-xs-12 offer" style="float: none; margin: 117px auto; text-align: center;">
+        <div class="page-header blanco" style="text-align: center;">
             <img src="{{ asset('images/logo.png') }}" >
         </div>
         {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'form-group' } }) }}

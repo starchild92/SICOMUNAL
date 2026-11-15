@@ -2,8 +2,8 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-6"><small class="text-info">ant. Situación Vivienda</small></div>
-        <div class="col-6 text-right"><small class="text-info">sig. Situación Servicios</small></div>
+        <div class="col-xs-6"><small class="text-info">ant. Situación Vivienda</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Servicios</small></div>
     </div>
     <div class="progress">
       <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
@@ -16,18 +16,18 @@
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-4">
-                <div class="card border-primary">
-                    <div class="card-body">{{ form_row(form.padecencia) }}</div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">{{ form_row(form.padecencia) }}</div>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="card border-primary">
-                    <div class="card-body">{{ form_row(form.ayudaEspecial) }}</div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">{{ form_row(form.ayudaEspecial) }}</div>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="card border-primary">
-                    <div class="card-body">{{ form_row(form.situacionExclusion) }}</div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">{{ form_row(form.situacionExclusion) }}</div>
                 </div>
             </div>
         </div>

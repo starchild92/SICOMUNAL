@@ -5,22 +5,22 @@
 		{% include 'estadisticas/menu-opciones-estadisticas-generales.html.twig' %}
 		<script>var menu_element = document.getElementById('salud').className = 'list-group-item active';</script>
 		<div class="col-lg-9 col-sm-9">
-			<h3 class="text-center text-info">Estadísticas Generales - Situación Salud <i class="fa fa-bar-chart fa-sm float-left"></i></h3>
+			<h3 class="text-center text-info">Estadísticas Generales - Situación Salud <i class="fa fa-bar-chart fa-sm pull-left"></i></h3>
 			<hr>
 			<div class="row grid">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-12">
-					<div class="card border-primary">
-						<p class="card-title text-center negritas">Padecencias</p>
-						<div class="card-body">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Padecencias</p>
+						<div class="panel-body">
 							<h3 class="text-center text-danger"><small><i class="fa fa-exclamation fa-lg"></i> No necesariamente son padecidas por los Jefe de Grupo Familiar, estas sólo indican que en el grupo existe alguien que la padece.</small> </h3>
 						</div>
 						
 						{% for object in situacion.stat_padecencias %}
 							{% if object.situacion|length > 0 %}
-							<div class="card-body">
+							<div class="panel-body">
 								<h4 class="bottom-line">{{ object.elemento }}</h4>
 								{% for situacion in object.situacion %}
-								<a class="badge badge-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 							{% endif %}
@@ -28,15 +28,15 @@
 					</div>
 				</div>
 
-				<div class="col-lg-6 col-md-6 col-sm-6 col-12">
-					<div class="card border-primary">
-						<p class="card-title text-center negritas">Ayudas Especiales</p>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Ayudas Especiales</p>
 						{% for object in situacion.stat_ayuda_especial %}
 							{% if object.situacion|length > 0 %}
-							<div class="card-body">
+							<div class="panel-body">
 								<h4 class="bottom-line">{{ object.elemento }}</h4>
 								{% for situacion in object.situacion %}
-								<a class="badge badge-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 							{% endif %}
@@ -44,15 +44,15 @@
 					</div>
 				</div>
 
-				<div class="col-lg-6 col-md-6 col-sm-6 col-12">
-					<div class="card border-primary">
-						<p class="card-title text-center negritas">Situaciones de Exclusión</p>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="panel panel-primary">
+						<p class="panel-title text-center negritas">Situaciones de Exclusión</p>
 						{% for object in situacion.stat_situacion_exclusion %}
 							{% if object.situacion|length > 0 %}
-							<div class="card-body">
+							<div class="panel-body">
 								<h4 class="bottom-line">{{ object.elemento }} <small>indicada por: </small></h4>
 								{% for situacion in object.situacion %}
-								<a class="badge badge-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
+								<a class="label label-primary" target="_blank" href="{{ path('jefegrupofamiliar_show', {'id' : situacion.planilla.jefeGrupoFamiliar.id }) }}">{{ situacion.planilla.jefeGrupoFamiliar.nombreyapellido() }} <i class="fa fa-external-link"></i></a>
 								{% endfor %}
 							</div>
 							{% endif %}

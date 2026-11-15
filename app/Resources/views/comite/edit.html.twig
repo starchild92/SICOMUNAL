@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Modificar Comité <a href="{{ path('comites_index') }}" class="btn btn-primary float-right"><i class="fa fa-arrow-left"></i> Ver Todos</a></h1>
+    <h1>Modificar Comité <a href="{{ path('comites_index') }}" class="btn btn-primary pull-right"><i class="fa fa-arrow-left"></i> Ver Todos</a></h1>
     <hr>
 
     {{ form_start(edit_form, { 'attr' : { 'id' : 'formulario_guardar'}}) }}

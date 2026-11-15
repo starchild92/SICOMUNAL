@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="pb-2 mt-4 mb-2 border-bottom">
+	<div class="page-header">
 		<h2>
 			Usuarios del Sistema de Información Comunal
-			<a class="btn btn-primary float-right" href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a>
+			<a class="btn btn-primary pull-right" href="{{ path('usuarios_new') }}"><i class="fa fa-plus"></i> Agregar Usuario</a>
 		</h2>
 	</div>
 	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<table id="dataTable" class="table table-bordered table-striped table-hover">
 				<thead class="thead-info">
 					<tr>
@@ -31,18 +31,18 @@
 						<td>{{ usuario.email }}</td>
 						<td>
 							{% if usuario.enabled %}
-								<span class="badge badge-success"><i class="fa fa-check"></i> Activo</span>
+								<span class="label label-success"><i class="fa fa-check"></i> Activo</span>
 							{% else %}
-								<span class="badge badge-danger"><i class="fa fa-times"></i> Inactivo</span><br><small>No puede ingresar al sistema.</small>
+								<span class="label label-danger"><i class="fa fa-times"></i> Inactivo</span><br><small>No puede ingresar al sistema.</small>
 							{% endif %}
 						</td>
 						<td>
-							{% if usuario.roles|length == 2 %}<span class="badge badge-success"><i class="fa fa-star fa-fw"></i> Administrador</span>{% else %}<span class="badge badge-info"><i class="fa fa-user fa-fw"></i> Empadronador</span>{% endif %}
+							{% if usuario.roles|length == 2 %}<span class="label label-success"><i class="fa fa-star fa-fw"></i> Administrador</span>{% else %}<span class="label label-info"><i class="fa fa-user fa-fw"></i> Empadronador</span>{% endif %}
 						</td>
 						<td>{% for tlf in usuario.telefono %}{{ tlf.codigo }} - {{ tlf.numero }}<br>{% endfor %}</td>
 						<td>
 							<div class="btn-group">
-								<button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-cogs"></i> Opciones <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right">

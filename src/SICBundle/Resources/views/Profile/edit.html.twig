@@ -8,9 +8,9 @@
 
     <div class="row">
         <div class="col-sm-8">
-            <div class="card border-primary">
-                <div class="card-header">Informacionde Inicio de Sesión</div>
-                <div class="card-body">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Informacionde Inicio de Sesión</div>
+                <div class="panel-body">
                     {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
                         {{ form_row(form.username ,{'label':'Nombre de Usuario'}) }}
                         {{ form_row(form.email ,{'label':'Correo Electronico'}) }}
@@ -22,9 +22,9 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="card border-info">
-                <div class="card-header text-center"><i class="fa fa-exclamation"></i> Información</div>
-                <div class="card-body">
+            <div class="panel panel-info">
+                <div class="panel-heading text-center"><i class="fa fa-exclamation"></i> Información</div>
+                <div class="panel-body">
                     <span class="text-center">Aqui puedes modificar su dirección de correo electronico o nombre de usuario. Para completar cualquier cambio debe ingresar su contraseña actual.</span>
                 </div>
             </div>

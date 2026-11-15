@@ -2,8 +2,8 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-6"><small class="text-info">ant. Servicios</small></div>
-        <div class="col-6 text-right"><small class="text-info">sig. Situación Comunitaria</small></div>
+        <div class="col-xs-6"><small class="text-info">ant. Servicios</small></div>
+        <div class="col-xs-6 text-right"><small class="text-info">sig. Situación Comunitaria</small></div>
     </div>
     <div class="progress">
       <div class="progress-bar active progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
@@ -16,8 +16,8 @@
     {{ form_start(form) }}
         <div class="row">
             <div class="col-sm-6">
-                <div class="card border-primary">
-                    <div class="card-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
                         {{ form_row(form.existenOrganizaciones) }}
                         {{ form_row(form.participaOrganizacion) }}
                         {{ form_row(form.participaMiembroOrganizacion) }}
@@ -25,8 +25,8 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card border-primary">
-                    <div class="card-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
                         {{ form_row(form.misionesComunidad) }}
                         {{ form_row(form.preguntasParticipacionComunitaria) }}
                         {{ form_row(form.areaTabajoCC) }}

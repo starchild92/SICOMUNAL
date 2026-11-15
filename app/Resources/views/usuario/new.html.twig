@@ -7,8 +7,8 @@
         {{ form_errors(form) }}
         {{ form_start(form) }}
         <div class="col-lg-6">
-            <div class="card border-primary">
-                <div class="card-body">
+            <div class="panel panel-primary">
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-6">{{ form_row(form.primerNombre) }}</div>
                         <div class="col-sm-6">{{ form_row(form.segundoNombre) }}</div>
@@ -26,8 +26,8 @@
             </div>     
         </div>
         <div class="col-lg-6">
-            <div class="card border-primary">
-                <div class="card-body">
+            <div class="panel panel-primary">
+                <div class="panel-body">
                     {{ form_row(form.email, { 'label': 'Correo Electronico' }) }}
                     {{ form_row(form.username, { 'label': 'Nombre de Usuario' }) }}
                     <div class="row">
@@ -44,8 +44,8 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-sm-6 col-12"><button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Agregar Usuario </button></div>{{ form_end(form) }}
-        <div class="col-lg-6 col-sm-6 col-12"><a class="btn btn-outline-secondary btn-block" href="{{ path('usuarios_index') }}"><i class="fa fa-list-ul fa-fw"></i> Ver todos los Usuarios </a></div>
+        <div class="col-lg-6 col-sm-6 col-xs-12"><button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save fa-fw"></i> Agregar Usuario </button></div>{{ form_end(form) }}
+        <div class="col-lg-6 col-sm-6 col-xs-12"><a class="btn btn-default btn-block" href="{{ path('usuarios_index') }}"><i class="fa fa-list-ul fa-fw"></i> Ver todos los Usuarios </a></div>
     </div>
 {% endblock %}
 
