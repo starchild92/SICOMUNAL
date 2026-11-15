@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminEstadoCivil;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminEstadoCivilType;
  * AdminEstadoCivil controller.
  *
  */
-class AdminEstadoCivilController extends Controller
+class AdminEstadoCivilController extends BaseController
 {
     /**
      * Lists all AdminEstadoCivil entities.
@@ -23,7 +23,7 @@ class AdminEstadoCivilController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminEstadoCivils = $em->getRepository('SICBundle:AdminEstadoCivil')->findAll();
+        $adminEstadoCivils = $em->getRepository(\SICBundle\Entity\AdminEstadoCivil::class)->findAll();
 
         return $this->render('adminestadocivil/index.html.twig', array(
             'adminEstadoCivils' => $adminEstadoCivils,
@@ -37,12 +37,12 @@ class AdminEstadoCivilController extends Controller
     public function newAction(Request $request)
     {
         $adminEstadoCivil = new AdminEstadoCivil();
-        $form = $this->createForm('SICBundle\Form\AdminEstadoCivilType', $adminEstadoCivil);
+        $form = $this->createForm(AdminEstadoCivilType::class, $adminEstadoCivil);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Estado Civil a los parámetros del sistema');
             $em->persist($bitacora);
             $em->persist($adminEstadoCivil);
@@ -79,12 +79,12 @@ class AdminEstadoCivilController extends Controller
     public function editAction(Request $request, AdminEstadoCivil $adminEstadoCivil)
     {
         $deleteForm = $this->createDeleteForm($adminEstadoCivil);
-        $editForm = $this->createForm('SICBundle\Form\AdminEstadoCivilType', $adminEstadoCivil);
+        $editForm = $this->createForm(AdminEstadoCivilType::class, $adminEstadoCivil);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Estado Civil');
             $em->persist($bitacora);
             $em->persist($adminEstadoCivil);
@@ -112,7 +112,7 @@ class AdminEstadoCivilController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminEstadoCivil->getNombre().' de los parámetros de Estado Civil del sistema');
             $em->persist($bitacora);
             $em->remove($adminEstadoCivil);

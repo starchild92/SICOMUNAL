@@ -1,24 +1,24 @@
 configurable_estado_civil_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminEstadoCivil:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEstadoCivilController::indexAction" }
     methods:  GET
 
 configurable_estado_civil_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminEstadoCivil:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEstadoCivilController::showAction" }
     methods:  GET
 
 configurable_estado_civil_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminEstadoCivil:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEstadoCivilController::newAction" }
     methods:  [GET, POST]
 
 configurable_estado_civil_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminEstadoCivil:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEstadoCivilController::editAction" }
     methods:  [GET, POST]
 
 configurable_estado_civil_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminEstadoCivil:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEstadoCivilController::deleteAction" }
     methods:  DELETE

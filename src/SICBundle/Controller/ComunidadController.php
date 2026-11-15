@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Comunidad;
 use SICBundle\Form\ComunidadType;
@@ -13,7 +13,7 @@ use SICBundle\Entity\Bitacora;
  * Comunidad controller.
  *
  */
-class ComunidadController extends Controller
+class ComunidadController extends BaseController
 {
     /**
      * Lists all Comunidad entities.
@@ -23,7 +23,7 @@ class ComunidadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comunidads = $em->getRepository('SICBundle:Comunidad')->findAll();
+        $comunidads = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
 
         return $this->render('comunidad/index.html.twig', array(
             'comunidads' => $comunidads,
@@ -37,7 +37,7 @@ class ComunidadController extends Controller
     public function newAction(Request $request)
     {
         $comunidad = new Comunidad();
-        $form = $this->createForm('SICBundle\Form\ComunidadType', $comunidad);
+        $form = $this->createForm(ComunidadType::class, $comunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -48,7 +48,7 @@ class ComunidadController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado la información de la Comunidad de forma exitosa.');
+            $this->addFlash('success', 'Se ha agregado la información de la Comunidad de forma exitosa.');
 
             return $this->redirectToRoute('sic_administacion_entidades');
         }
@@ -80,7 +80,7 @@ class ComunidadController extends Controller
     public function editAction(Request $request, Comunidad $comunidad)
     {
         $deleteForm = $this->createDeleteForm($comunidad);
-        $editForm = $this->createForm('SICBundle\Form\ComunidadType', $comunidad);
+        $editForm = $this->createForm(ComunidadType::class, $comunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -91,7 +91,7 @@ class ComunidadController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha actualizado la información de la Comunidad de forma exitosa.');
+            $this->addFlash('success', 'Se ha actualizado la información de la Comunidad de forma exitosa.');
 
             return $this->redirectToRoute('sic_administacion_entidades');
         }

@@ -1,24 +1,24 @@
 adminempresagas_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminEmpresaGas:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEmpresaGasController::indexAction" }
     methods:  GET
 
 adminempresagas_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminEmpresaGas:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEmpresaGasController::showAction" }
     methods:  GET
 
 adminempresagas_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminEmpresaGas:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEmpresaGasController::newAction" }
     methods:  [GET, POST]
 
 adminempresagas_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminEmpresaGas:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEmpresaGasController::editAction" }
     methods:  [GET, POST]
 
 adminempresagas_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminEmpresaGas:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminEmpresaGasController::deleteAction" }
     methods:  DELETE

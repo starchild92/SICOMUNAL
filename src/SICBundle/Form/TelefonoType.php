@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TelefonoType extends AbstractType
 {
@@ -15,10 +16,10 @@ class TelefonoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo', 'text', array(
+            ->add('codigo', TextType::class, array(
                 'label' => 'Código',
                 'attr'  => array('placeholder' => '0***')))
-            ->add('numero', 'text', array(
+            ->add('numero', TextType::class, array(
                 'label' => 'Número',
                 'attr'  => array('placeholder' => '1234567')))
         ;

@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SituacionComunidadType extends AbstractType
 {
@@ -15,7 +16,7 @@ class SituacionComunidadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('preguntasSituacionComunidad','collection',array(
+            ->add('preguntasSituacionComunidad', CollectionType::class,array(
                     'required' => true,
                     'type' => new AdminPreguntasSituacionComunidadType(),
                     'cascade_validation' => true,

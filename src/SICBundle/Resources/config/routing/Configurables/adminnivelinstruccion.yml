@@ -1,24 +1,24 @@
 configurable_nivel_instruccion_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminNivelInstruccion:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminNivelInstruccionController::indexAction" }
     methods:  GET
 
 configurable_nivel_instruccion_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminNivelInstruccion:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminNivelInstruccionController::showAction" }
     methods:  GET
 
 configurable_nivel_instruccion_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminNivelInstruccion:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminNivelInstruccionController::newAction" }
     methods:  [GET, POST]
 
 configurable_nivel_instruccion_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminNivelInstruccion:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminNivelInstruccionController::editAction" }
     methods:  [GET, POST]
 
 configurable_nivel_instruccion_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminNivelInstruccion:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminNivelInstruccionController::deleteAction" }
     methods:  DELETE

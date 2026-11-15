@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class ComunicadoType extends AbstractType
 {
@@ -18,7 +19,7 @@ class ComunicadoType extends AbstractType
             // ->add('emisor')
             ->add('titulo')
             ->add('cuerpo')
-            // ->add('fecha', 'datetime')
+            // ->add('fecha', DateTimeType::class)
             // ->add('numDestinatarios')
         ;
     }

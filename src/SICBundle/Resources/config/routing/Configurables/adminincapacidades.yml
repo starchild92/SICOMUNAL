@@ -1,24 +1,24 @@
 configurable_incapacidades_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminIncapacidades:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminIncapacidadesController::indexAction" }
     methods:  GET
 
 configurable_incapacidades_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminIncapacidades:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminIncapacidadesController::showAction" }
     methods:  GET
 
 configurable_incapacidades_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminIncapacidades:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminIncapacidadesController::newAction" }
     methods:  [GET, POST]
 
 configurable_incapacidades_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminIncapacidades:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminIncapacidadesController::editAction" }
     methods:  [GET, POST]
 
 configurable_incapacidades_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminIncapacidades:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminIncapacidadesController::deleteAction" }
     methods:  DELETE

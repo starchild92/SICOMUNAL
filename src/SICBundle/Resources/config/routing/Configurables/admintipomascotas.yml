@@ -1,24 +1,24 @@
 configurable_tipo_mascotas_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoMascotas:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoMascotasController::indexAction" }
     methods:  GET
 
 configurable_tipo_mascotas_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoMascotas:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoMascotasController::showAction" }
     methods:  GET
 
 configurable_tipo_mascotas_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoMascotas:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoMascotasController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipo_mascotas_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoMascotas:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoMascotasController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipo_mascotas_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoMascotas:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoMascotasController::deleteAction" }
     methods:  DELETE

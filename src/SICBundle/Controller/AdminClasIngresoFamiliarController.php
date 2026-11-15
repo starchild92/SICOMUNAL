@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminClasIngresoFamiliar;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminClasIngresoFamiliarType;
  * AdminClasIngresoFamiliar controller.
  *
  */
-class AdminClasIngresoFamiliarController extends Controller
+class AdminClasIngresoFamiliarController extends BaseController
 {
     /**
      * Lists all AdminClasIngresoFamiliar entities.
@@ -23,7 +23,7 @@ class AdminClasIngresoFamiliarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminClasIngresoFamiliars = $em->getRepository('SICBundle:AdminClasIngresoFamiliar')->findAll();
+        $adminClasIngresoFamiliars = $em->getRepository(\SICBundle\Entity\AdminClasIngresoFamiliar::class)->findAll();
 
         return $this->render('adminclasingresofamiliar/index.html.twig', array(
             'adminClasIngresoFamiliars' => $adminClasIngresoFamiliars,
@@ -37,12 +37,12 @@ class AdminClasIngresoFamiliarController extends Controller
     public function newAction(Request $request)
     {
         $adminClasIngresoFamiliar = new AdminClasIngresoFamiliar();
-        $form = $this->createForm('SICBundle\Form\AdminClasIngresoFamiliarType', $adminClasIngresoFamiliar);
+        $form = $this->createForm(AdminClasIngresoFamiliarType::class, $adminClasIngresoFamiliar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de la Clasificación del Ingreso Familiar a los parámetros del sistema');
             $em->persist($bitacora);
             $em->persist($adminClasIngresoFamiliar);
@@ -79,12 +79,12 @@ class AdminClasIngresoFamiliarController extends Controller
     public function editAction(Request $request, AdminClasIngresoFamiliar $adminClasIngresoFamiliar)
     {
         $deleteForm = $this->createDeleteForm($adminClasIngresoFamiliar);
-        $editForm = $this->createForm('SICBundle\Form\AdminClasIngresoFamiliarType', $adminClasIngresoFamiliar);
+        $editForm = $this->createForm(AdminClasIngresoFamiliarType::class, $adminClasIngresoFamiliar);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de la Clasificación del Ingreso Familiar');
             $em->persist($bitacora);
             $em->persist($adminClasIngresoFamiliar);
@@ -112,7 +112,7 @@ class AdminClasIngresoFamiliarController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminClasIngresoFamiliar->getNombre().' de los parámetros de la Clasificación Ingreso Familiar del sistema');
             $em->persist($bitacora);
             $em->remove($adminClasIngresoFamiliar);

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoAyudaEspecial;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoAyudaEspecialType;
  * AdminTipoAyudaEspecial controller.
  *
  */
-class AdminTipoAyudaEspecialController extends Controller
+class AdminTipoAyudaEspecialController extends BaseController
 {
     /**
      * Lists all AdminTipoAyudaEspecial entities.
@@ -23,7 +23,7 @@ class AdminTipoAyudaEspecialController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoAyudaEspecials = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $adminTipoAyudaEspecials = $em->getRepository(\SICBundle\Entity\AdminTipoAyudaEspecial::class)->findAll();
 
         return $this->render('admintipoayudaespecial/index.html.twig', array(
             'adminTipoAyudaEspecials' => $adminTipoAyudaEspecials,
@@ -37,13 +37,13 @@ class AdminTipoAyudaEspecialController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoAyudaEspecial = new AdminTipoAyudaEspecial();
-        $form = $this->createForm('SICBundle\Form\AdminTipoAyudaEspecialType', $adminTipoAyudaEspecial);
+        $form = $this->createForm(AdminTipoAyudaEspecialType::class, $adminTipoAyudaEspecial);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoAyudaEspecial);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Ayuda Especial a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoAyudaEspecialController extends Controller
     public function editAction(Request $request, AdminTipoAyudaEspecial $adminTipoAyudaEspecial)
     {
         $deleteForm = $this->createDeleteForm($adminTipoAyudaEspecial);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoAyudaEspecialType', $adminTipoAyudaEspecial);
+        $editForm = $this->createForm(AdminTipoAyudaEspecialType::class, $adminTipoAyudaEspecial);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoAyudaEspecial);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Ayuda Especial');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoAyudaEspecialController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoAyudaEspecial);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoAyudaEspecial->getNombre().' de los parámetros de Tipo de Ayuda Especial del sistema');
             $em->persist($bitacora);
             $em->flush();

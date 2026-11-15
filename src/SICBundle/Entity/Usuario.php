@@ -2,8 +2,9 @@
 
 namespace SICBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Usuario
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usuario")
  * @ORM\Entity()
  */
-class Usuario extends BaseUser
+class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var int
@@ -21,6 +22,56 @@ class Usuario extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\Column(name="username", type="string", length=180, unique=true)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(name="username_canonical", type="string", length=180, unique=true)
+     */
+    private $usernameCanonical;
+
+    /**
+     * @ORM\Column(name="email", type="string", length=180, unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(name="email_canonical", type="string", length=180, unique=true)
+     */
+    private $emailCanonical;
+
+    /**
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled = false;
+
+    /**
+     * @ORM\Column(name="password", type="string")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @ORM\Column(name="confirmation_token", type="string", length=180, unique=true, nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @ORM\Column(name="roles", type="json")
+     */
+    private $roles = [];
 
     /**
      * @var string
@@ -93,332 +144,142 @@ class Usuario extends BaseUser
      */
     private $comunicados;
 
-    public function cedula(){ return number_format($this->cedula, 0, '', '.'); }
+    // --- UserInterface ---
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
+    public function getUserIdentifier(): string
     {
-        return $this->id;
+        return $this->username;
     }
 
-    public function nombreyapellido()
+    public function getUsername(): string
     {
-        return $this->primerNombre.' '.$this->primerApellido;
+        return $this->username;
     }
 
-    /**
-     * Set primerNombre
-     *
-     * @param string $primerNombre
-     * @return Usuario
-     */
-    public function setPrimerNombre($primerNombre)
+    public function getRoles(): array
     {
-        $this->primerNombre = $primerNombre;
+        $roles = $this->roles;
+        if (is_string($roles)) {
+            // Compatibilidad con el formato serializado de PHP antiguo
+            $roles = unserialize($roles) ?: [];
+        }
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
 
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    public function eraseCredentials(): void {}
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    // --- Getters / Setters ---
+
+    public function getId(): ?int { return $this->id; }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+        $this->usernameCanonical = strtolower($username);
         return $this;
     }
 
-    /**
-     * Get primerNombre
-     *
-     * @return string 
-     */
-    public function getPrimerNombre()
+    public function setEmail(string $email): self
     {
-        return $this->primerNombre;
-    }
-
-    /**
-     * Set segundoNombre
-     *
-     * @param string $segundoNombre
-     * @return Usuario
-     */
-    public function setSegundoNombre($segundoNombre)
-    {
-        $this->segundoNombre = $segundoNombre;
-
+        $this->email = $email;
+        $this->emailCanonical = strtolower($email);
         return $this;
     }
 
-    /**
-     * Get segundoNombre
-     *
-     * @return string 
-     */
-    public function getSegundoNombre()
-    {
-        return $this->segundoNombre;
-    }
+    public function getEmail(): ?string { return $this->email; }
 
-    /**
-     * Set primerApellido
-     *
-     * @param string $primerApellido
-     * @return Usuario
-     */
-    public function setPrimerApellido($primerApellido)
+    public function setPassword(string $password): self
     {
-        $this->primerApellido = $primerApellido;
-
+        $this->password = $password;
         return $this;
     }
 
-    /**
-     * Get primerApellido
-     *
-     * @return string 
-     */
-    public function getPrimerApellido()
+    public function setEnabled(bool $enabled): self
     {
-        return $this->primerApellido;
-    }
-
-    /**
-     * Set segundoApellido
-     *
-     * @param string $segundoApellido
-     * @return Usuario
-     */
-    public function setSegundoApellido($segundoApellido)
-    {
-        $this->segundoApellido = $segundoApellido;
-
+        $this->enabled = $enabled;
         return $this;
     }
 
-    /**
-     * Get segundoApellido
-     *
-     * @return string 
-     */
-    public function getSegundoApellido()
+    public function setRoles(array $roles): self
     {
-        return $this->segundoApellido;
-    }
-
-    /**
-     * Add telefono
-     *
-     * @param \SICBundle\Entity\Telefono $telefono
-     * @return Usuario
-     */
-    public function addTelefono(\SICBundle\Entity\Telefono $telefono)
-    {
-        $this->telefono[] = $telefono;
-
+        $this->roles = $roles;
         return $this;
     }
 
-    /**
-     * Remove telefono
-     *
-     * @param \SICBundle\Entity\Telefono $telefono
-     */
-    public function removeTelefono(\SICBundle\Entity\Telefono $telefono)
+    public function hasRole(string $role): bool
     {
-        $this->telefono->removeElement($telefono);
+        return in_array($role, $this->getRoles(), true);
     }
 
-    /**
-     * Get telefono
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTelefono()
+    public function nombreyapellido(): string
     {
-        return $this->telefono;
+        return $this->primerNombre . ' ' . $this->primerApellido;
     }
 
-    /**
-     * Add planillas
-     *
-     * @param \SICBundle\Entity\Planillas $planillas
-     * @return Usuario
-     */
-    public function addPlanilla(\SICBundle\Entity\Planillas $planillas)
+    public function cedula(): string
     {
-        $this->planillas[] = $planillas;
-
-        return $this;
+        return number_format($this->cedula, 0, '', '.');
     }
 
-    /**
-     * Remove planillas
-     *
-     * @param \SICBundle\Entity\Planillas $planillas
-     */
-    public function removePlanilla(\SICBundle\Entity\Planillas $planillas)
-    {
-        $this->planillas->removeElement($planillas);
-    }
+    public function getPrimerNombre(): ?string { return $this->primerNombre; }
+    public function setPrimerNombre(string $primerNombre): self { $this->primerNombre = $primerNombre; return $this; }
 
-    /**
-     * Get planillas
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPlanillas()
-    {
-        return $this->planillas;
-    }
+    public function getSegundoNombre(): ?string { return $this->segundoNombre; }
+    public function setSegundoNombre(?string $segundoNombre): self { $this->segundoNombre = $segundoNombre; return $this; }
 
-    /**
-     * Set cedula
-     *
-     * @param string $cedula
-     * @return Usuario
-     */
-    public function setCedula($cedula)
-    {
-        $this->cedula = $cedula;
+    public function getPrimerApellido(): ?string { return $this->primerApellido; }
+    public function setPrimerApellido(string $primerApellido): self { $this->primerApellido = $primerApellido; return $this; }
 
-        return $this;
-    }
+    public function getSegundoApellido(): ?string { return $this->segundoApellido; }
+    public function setSegundoApellido(?string $segundoApellido): self { $this->segundoApellido = $segundoApellido; return $this; }
 
-    /**
-     * Get cedula
-     *
-     * @return string 
-     */
-    public function getCedula()
-    {
-        return $this->cedula;
-    }
+    public function getCedula(): ?string { return $this->cedula; }
+    public function setCedula(string $cedula): self { $this->cedula = $cedula; return $this; }
 
-    /**
-     * Set fechaNacimiento
-     *
-     * @param \DateTime $fechaNacimiento
-     * @return Usuario
-     */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->fechaNacimiento = $fechaNacimiento;
+    public function getFechaNacimiento(): ?\DateTime { return $this->fechaNacimiento; }
+    public function setFechaNacimiento(\DateTime $fechaNacimiento): self { $this->fechaNacimiento = $fechaNacimiento; return $this; }
 
-        return $this;
-    }
-
-    /**
-     * Get fechaNacimiento
-     *
-     * @return \DateTime 
-     */
-    public function getFechaNacimiento()
-    {
-        return $this->fechaNacimiento;
-    }
-    
-    public function fechaNacimiento()
+    public function fechaNacimiento(): string
     {
         $fecha = $this->getFechaNacimiento();
-        $dias = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-
-        return $dias[$fecha->format('w')].", ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " ".$fecha->format('Y');
+        $dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+        $meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+        return $dias[$fecha->format('w')] . ", " . $fecha->format('d') . " de " . $meses[$fecha->format('n')-1] . " " . $fecha->format('Y');
     }
 
-    /**
-     * Add noticias
-     *
-     * @param \SICBundle\Entity\Noticia $noticias
-     * @return Usuario
-     */
-    public function addNoticia(\SICBundle\Entity\Noticia $noticias)
-    {
-        $this->noticias[] = $noticias;
+    public function addTelefono(\SICBundle\Entity\Telefono $telefono): self { $this->telefono[] = $telefono; return $this; }
+    public function removeTelefono(\SICBundle\Entity\Telefono $telefono): void { $this->telefono->removeElement($telefono); }
+    public function getTelefono() { return $this->telefono; }
 
-        return $this;
-    }
+    public function addPlanilla(\SICBundle\Entity\Planillas $planillas): self { $this->planillas[] = $planillas; return $this; }
+    public function removePlanilla(\SICBundle\Entity\Planillas $planillas): void { $this->planillas->removeElement($planillas); }
+    public function getPlanillas() { return $this->planillas; }
 
-    /**
-     * Remove noticias
-     *
-     * @param \SICBundle\Entity\Noticia $noticias
-     */
-    public function removeNoticia(\SICBundle\Entity\Noticia $noticias)
-    {
-        $this->noticias->removeElement($noticias);
-    }
+    public function addNoticia(\SICBundle\Entity\Noticia $noticias): self { $this->noticias[] = $noticias; return $this; }
+    public function removeNoticia(\SICBundle\Entity\Noticia $noticias): void { $this->noticias->removeElement($noticias); }
+    public function getNoticias() { return $this->noticias; }
 
-    /**
-     * Get noticias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getNoticias()
-    {
-        return $this->noticias;
-    }
+    public function addBitacora(\SICBundle\Entity\Bitacora $bitacora): self { $this->bitacora[] = $bitacora; return $this; }
+    public function removeBitacora(\SICBundle\Entity\Bitacora $bitacora): void { $this->bitacora->removeElement($bitacora); }
+    public function getBitacora() { return $this->bitacora; }
 
-    /**
-     * Add bitacora
-     *
-     * @param \SICBundle\Entity\Bitacora $bitacora
-     * @return Usuario
-     */
-    public function addBitacora(\SICBundle\Entity\Bitacora $bitacora)
-    {
-        $this->bitacora[] = $bitacora;
-
-        return $this;
-    }
-
-    /**
-     * Remove bitacora
-     *
-     * @param \SICBundle\Entity\Bitacora $bitacora
-     */
-    public function removeBitacora(\SICBundle\Entity\Bitacora $bitacora)
-    {
-        $this->bitacora->removeElement($bitacora);
-    }
-
-    /**
-     * Get bitacora
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBitacora()
-    {
-        return $this->bitacora;
-    }
-
-    /**
-     * Add comunicados
-     *
-     * @param \SICBundle\Entity\Comunicado $comunicados
-     * @return Usuario
-     */
-    public function addComunicado(\SICBundle\Entity\Comunicado $comunicados)
-    {
-        $this->comunicados[] = $comunicados;
-
-        return $this;
-    }
-
-    /**
-     * Remove comunicados
-     *
-     * @param \SICBundle\Entity\Comunicado $comunicados
-     */
-    public function removeComunicado(\SICBundle\Entity\Comunicado $comunicados)
-    {
-        $this->comunicados->removeElement($comunicados);
-    }
-
-    /**
-     * Get comunicados
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComunicados()
-    {
-        return $this->comunicados;
-    }
+    public function addComunicado(\SICBundle\Entity\Comunicado $comunicados): self { $this->comunicados[] = $comunicados; return $this; }
+    public function removeComunicado(\SICBundle\Entity\Comunicado $comunicados): void { $this->comunicados->removeElement($comunicados); }
+    public function getComunicados() { return $this->comunicados; }
 }

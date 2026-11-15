@@ -1,24 +1,24 @@
 comunidades_index:
     path:     /
-    defaults: { _controller: "SICBundle:Comunidad:index" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunidadController::indexAction" }
     methods:  GET
 
 comunidades_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:Comunidad:show" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunidadController::showAction" }
     methods:  GET
 
 comunidades_new:
     path:     /nuevo
-    defaults: { _controller: "SICBundle:Comunidad:new" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunidadController::newAction" }
     methods:  [GET, POST]
 
 comunidades_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:Comunidad:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunidadController::editAction" }
     methods:  [GET, POST]
 
 comunidades_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:Comunidad:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\ComunidadController::deleteAction" }
     methods:  DELETE

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoIngresos;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoIngresosType;
  * AdminTipoIngresos controller.
  *
  */
-class AdminTipoIngresosController extends Controller
+class AdminTipoIngresosController extends BaseController
 {
     /**
      * Lists all AdminTipoIngresos entities.
@@ -23,7 +23,7 @@ class AdminTipoIngresosController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoIngresos = $em->getRepository('SICBundle:AdminTipoIngresos')->findAll();
+        $adminTipoIngresos = $em->getRepository(\SICBundle\Entity\AdminTipoIngresos::class)->findAll();
 
         return $this->render('admintipoingresos/index.html.twig', array(
             'adminTipoIngresos' => $adminTipoIngresos,
@@ -37,13 +37,13 @@ class AdminTipoIngresosController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoIngreso = new AdminTipoIngresos();
-        $form = $this->createForm('SICBundle\Form\AdminTipoIngresosType', $adminTipoIngreso);
+        $form = $this->createForm(AdminTipoIngresosType::class, $adminTipoIngreso);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoIngreso);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo Ingreso a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoIngresosController extends Controller
     public function editAction(Request $request, AdminTipoIngresos $adminTipoIngreso)
     {
         $deleteForm = $this->createDeleteForm($adminTipoIngreso);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoIngresosType', $adminTipoIngreso);
+        $editForm = $this->createForm(AdminTipoIngresosType::class, $adminTipoIngreso);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoIngreso);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Ingreso');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoIngresosController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoIngreso);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoIngreso->getNombre().' de los parámetros de Tipo de Ingreso del sistema');
             $em->persist($bitacora);
             $em->flush();

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoTelefonia;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoTelefoniaType;
  * AdminTipoTelefonia controller.
  *
  */
-class AdminTipoTelefoniaController extends Controller
+class AdminTipoTelefoniaController extends BaseController
 {
     /**
      * Lists all AdminTipoTelefonia entities.
@@ -23,7 +23,7 @@ class AdminTipoTelefoniaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoTelefonias = $em->getRepository('SICBundle:AdminTipoTelefonia')->findAll();
+        $adminTipoTelefonias = $em->getRepository(\SICBundle\Entity\AdminTipoTelefonia::class)->findAll();
 
         return $this->render('admintipotelefonia/index.html.twig', array(
             'adminTipoTelefonias' => $adminTipoTelefonias,
@@ -37,13 +37,13 @@ class AdminTipoTelefoniaController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoTelefonium = new AdminTipoTelefonia();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTelefoniaType', $adminTipoTelefonium);
+        $form = $this->createForm(AdminTipoTelefoniaType::class, $adminTipoTelefonium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTelefonium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Telefonía a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoTelefoniaController extends Controller
     public function editAction(Request $request, AdminTipoTelefonia $adminTipoTelefonium)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTelefonium);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTelefoniaType', $adminTipoTelefonium);
+        $editForm = $this->createForm(AdminTipoTelefoniaType::class, $adminTipoTelefonium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTelefonium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Telefonía');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoTelefoniaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoTelefonium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoTelefonium->getNombre().' de los parámetros de Tipo de Telefonía del sistema');
             $em->persist($bitacora);
             $em->flush();

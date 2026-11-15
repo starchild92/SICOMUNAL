@@ -1,29 +1,29 @@
 noticia_index:
     path:     /
-    defaults: { _controller: "SICBundle:Noticia:index" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::indexAction" }
     methods:  GET
 
 noticia_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:Noticia:show" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::showAction" }
     methods:  GET
 
 noticia_new:
     path:     /nuevo
-    defaults: { _controller: "SICBundle:Noticia:new" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::newAction" }
     methods:  [GET, POST]
 
 noticia_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:Noticia:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::editAction" }
     methods:  [GET, POST]
 
 noticia_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:Noticia:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::deleteAction" }
     methods:  DELETE
 
 noticia_toggle_visibilidad:
     path:     /{id}/alternar/visibilidad
-    defaults: { _controller: "SICBundle:Noticia:alternarVisibilidad" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::alternarVisibilidadAction" }
     methods:  GET

@@ -1,24 +1,24 @@
 participacioncomunitaria_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:ParticipacionComunitaria:index" }
+    defaults: { _controller: "SICBundle\\Controller\\ParticipacionComunitariaController::indexAction" }
     methods:  GET
 
 participacioncomunitaria_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:ParticipacionComunitaria:show" }
+    defaults: { _controller: "SICBundle\\Controller\\ParticipacionComunitariaController::showAction" }
     methods:  GET
 
 participacioncomunitaria_new:
     path:     /paso/8/{id_planilla}/
-    defaults: { _controller: "SICBundle:ParticipacionComunitaria:new" }
+    defaults: { _controller: "SICBundle\\Controller\\ParticipacionComunitariaController::newAction" }
     methods:  [GET, POST]
 
 participacioncomunitaria_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:ParticipacionComunitaria:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\ParticipacionComunitariaController::editAction" }
     methods:  [GET, POST]
 
 participacioncomunitaria_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:ParticipacionComunitaria:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\ParticipacionComunitariaController::deleteAction" }
     methods:  DELETE

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\ParticipacionComunitaria;
 use SICBundle\Entity\Bitacora;
@@ -13,72 +13,72 @@ use SICBundle\Form\ParticipacionComunitariaType;
  * ParticipacionComunitaria controller.
  *
  */
-class ParticipacionComunitariaController extends Controller
+class ParticipacionComunitariaController extends BaseController
 {
     private function obtenerStats()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
+        $participacionComunitarias = $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findAll();
         $total = sizeof($participacionComunitarias);
-        $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $orgs = $em->getRepository(\SICBundle\Entity\AdminOrgComunitaria::class)->findAll();
         $stat_orgs = array();
         foreach ($orgs as $elemento) {
             array_push(
                 $stat_orgs, 
                 array(
                     'orgs' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->existenOrganizaciones($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->existenOrganizaciones($elemento)))
             );
         }
 
-        $participacion = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $participacion = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_participacion = array();
         foreach ($participacion as $elemento) {
             array_push(
                 $stat_participacion, 
                 array(
                     'participacion' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findBy(
                                         array('participaOrganizacion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $parte_miembros = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $parte_miembros = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_parte_miembros = array();
         foreach ($parte_miembros as $elemento) {
             array_push(
                 $stat_parte_miembros, 
                 array(
                     'parte_miembros' => $elemento->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findBy(
                                         array('participaMiembroOrganizacion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $misiones = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $misiones = $em->getRepository(\SICBundle\Entity\AdminMisionesComunidad::class)->findAll();
         $stat_misiones = array();
         foreach ($misiones as $elemento) {
             array_push(
                 $stat_misiones, 
                 array(
                     'misiones' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->misionesComunidad($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->misionesComunidad($elemento)))
             );
         }
 
-        $areatrabajo = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $areatrabajo = $em->getRepository(\SICBundle\Entity\AdminAreaTrabajoCC::class)->findAll();
         $stat_areatrabajo = array();
         foreach ($areatrabajo as $elemento) {
             array_push(
                 $stat_areatrabajo, 
                 array(
                     'areatrabajo' => $elemento->getNombre(),
-                    'cantidad' => sizeof($em->getRepository('SICBundle:ParticipacionComunitaria')->areaTabajoCC($elemento)))
+                    'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->areaTabajoCC($elemento)))
             );
         }
 
@@ -109,17 +109,16 @@ class ParticipacionComunitariaController extends Controller
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getParticipacionComunitaria() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
         $participacionComunitarium = new ParticipacionComunitaria();
-        $form = $this->createForm('SICBundle\Form\ParticipacionComunitariaType', $participacionComunitarium);
+        $form = $this->createForm(ParticipacionComunitariaType::class, $participacionComunitarium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -127,7 +126,7 @@ class ParticipacionComunitariaController extends Controller
             $p->setParticipacionComunitaria($participacionComunitarium);
             $p->setTerminada('85');
             $em->persist($p);
-            $this->get('session')->getFlashBag()->add('success', 'Se han agregado una Participación Comunitaria');
+            $this->addFlash('success', 'Se han agregado una Participación Comunitaria');
             $entrada = new Bitacora($this->getUser(),'agregó','información de Participación Comunitaria a la planilla '.$id_planilla);
             $em->persist($entrada);
             $em->flush();
@@ -162,15 +161,14 @@ class ParticipacionComunitariaController extends Controller
     public function editAction(Request $request, ParticipacionComunitaria $participacionComunitarium)
     {
         $deleteForm = $this->createDeleteForm($participacionComunitarium);
-        $editForm = $this->createForm('SICBundle\Form\ParticipacionComunitariaType', $participacionComunitarium);
+        $editForm = $this->createForm(ParticipacionComunitariaType::class, $participacionComunitarium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $questions = $participacionComunitarium->getPreguntasParticipacionComunitaria();
             foreach ($questions as $q) {
                 if ($q->getInterrogante() == '') {
-                    $this->get('session')->getFlashBag()
-                    ->add('warning', 'No puede haber una Interrogante en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    $this->addFlash('warning', 'No puede haber una Interrogante en blanco. A continuación eliga la pregunta y coloque su respuesta.');
                     return $this->render('participacioncomunitaria/edit.html.twig', array(
                         'participacionComunitarium' => $participacionComunitarium,
                         'edit_form' => $editForm->createView(),
@@ -185,7 +183,7 @@ class ParticipacionComunitariaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado la información de participación comunitaria de forma correcta');
+            $this->addFlash('success', 'Se ha modificado la información de participación comunitaria de forma correcta');
             
             return $this->redirectToRoute('planillas_show', array('id' => $participacionComunitarium->getPlanilla()->getId()));
         }
@@ -209,7 +207,7 @@ class ParticipacionComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($participacionComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se han eliminado información de Participación Comunitaria');
+            $this->addFlash('success', 'Se han eliminado información de Participación Comunitaria');
             $entrada = new Bitacora($this->getUser(),'eliminó','información de Participación Comunitaria');
             $em->persist($entrada);
             $em->flush();

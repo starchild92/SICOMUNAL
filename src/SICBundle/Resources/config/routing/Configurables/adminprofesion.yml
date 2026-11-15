@@ -1,24 +1,24 @@
 configurable_profesiones_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminProfesion:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminProfesionController::indexAction" }
     methods:  GET
 
 configurable_profesiones_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminProfesion:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminProfesionController::showAction" }
     methods:  GET
 
 configurable_profesiones_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminProfesion:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminProfesionController::newAction" }
     methods:  [GET, POST]
 
 configurable_profesiones_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminProfesion:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminProfesionController::editAction" }
     methods:  [GET, POST]
 
 configurable_profesiones_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminProfesion:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminProfesionController::deleteAction" }
     methods:  DELETE

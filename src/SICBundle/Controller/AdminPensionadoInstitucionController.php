@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminPensionadoInstitucion;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminPensionadoInstitucionType;
  * AdminPensionadoInstitucion controller.
  *
  */
-class AdminPensionadoInstitucionController extends Controller
+class AdminPensionadoInstitucionController extends BaseController
 {
     /**
      * Lists all AdminPensionadoInstitucion entities.
@@ -23,7 +23,7 @@ class AdminPensionadoInstitucionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminPensionadoInstitucions = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $adminPensionadoInstitucions = $em->getRepository(\SICBundle\Entity\AdminPensionadoInstitucion::class)->findAll();
 
         return $this->render('adminpensionadoinstitucion/index.html.twig', array(
             'adminPensionadoInstitucions' => $adminPensionadoInstitucions,
@@ -37,13 +37,13 @@ class AdminPensionadoInstitucionController extends Controller
     public function newAction(Request $request)
     {
         $adminPensionadoInstitucion = new AdminPensionadoInstitucion();
-        $form = $this->createForm('SICBundle\Form\AdminPensionadoInstitucionType', $adminPensionadoInstitucion);
+        $form = $this->createForm(AdminPensionadoInstitucionType::class, $adminPensionadoInstitucion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPensionadoInstitucion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Institución Pensionados a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminPensionadoInstitucionController extends Controller
     public function editAction(Request $request, AdminPensionadoInstitucion $adminPensionadoInstitucion)
     {
         $deleteForm = $this->createDeleteForm($adminPensionadoInstitucion);
-        $editForm = $this->createForm('SICBundle\Form\AdminPensionadoInstitucionType', $adminPensionadoInstitucion);
+        $editForm = $this->createForm(AdminPensionadoInstitucionType::class, $adminPensionadoInstitucion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPensionadoInstitucion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo Institución Pensionados');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminPensionadoInstitucionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPensionadoInstitucion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó','la Institución'.$adminPensionadoInstitucion->getNombre().' de los parámetros de Institución Pensionados del sistema');
             $em->persist($bitacora);
             $em->flush();

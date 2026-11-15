@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoMascotas;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoMascotasType;
  * AdminTipoMascotas controller.
  *
  */
-class AdminTipoMascotasController extends Controller
+class AdminTipoMascotasController extends BaseController
 {
     /**
      * Lists all AdminTipoMascotas entities.
@@ -23,7 +23,7 @@ class AdminTipoMascotasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoMascotas = $em->getRepository('SICBundle:AdminTipoMascotas')->findAll();
+        $adminTipoMascotas = $em->getRepository(\SICBundle\Entity\AdminTipoMascotas::class)->findAll();
 
         return $this->render('admintipomascotas/index.html.twig', array(
             'adminTipoMascotas' => $adminTipoMascotas,
@@ -37,13 +37,13 @@ class AdminTipoMascotasController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoMascota = new AdminTipoMascotas();
-        $form = $this->createForm('SICBundle\Form\AdminTipoMascotasType', $adminTipoMascota);
+        $form = $this->createForm(AdminTipoMascotasType::class, $adminTipoMascota);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoMascota);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo Mascota a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoMascotasController extends Controller
     public function editAction(Request $request, AdminTipoMascotas $adminTipoMascota)
     {
         $deleteForm = $this->createDeleteForm($adminTipoMascota);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoMascotasType', $adminTipoMascota);
+        $editForm = $this->createForm(AdminTipoMascotasType::class, $adminTipoMascota);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoMascota);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Mascota');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoMascotasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoMascota);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoMascota->getNombre().' de los parámetros de Tipo de Mascota del sistema');
             $em->persist($bitacora);
             $em->flush();

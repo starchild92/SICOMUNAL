@@ -159,8 +159,8 @@
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</li>
 							{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
-							<li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
-							<li><a href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
+							<li><a href="{{ path('usuarios_show', {id: app.user.id}) }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
+							<li><a href="{{ path('usuarios_edit', {id: app.user.id}) }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
 
 							<li role="separator" class="divider"></li>
 
@@ -168,7 +168,7 @@
 						</ul>
 					</li>
 
-					<li class="btn-danger"><a style="color: #FFF;" href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
+					<li class="btn-danger"><a style="color: #FFF;" href="/logout" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
 				</ul>
 				</div><!--/.nav-collapse -->
 			</div>

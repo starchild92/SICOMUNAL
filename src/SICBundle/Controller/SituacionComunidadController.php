@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\SituacionComunidad;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\SituacionComunidadType;
  * SituacionComunidad controller.
  *
  */
-class SituacionComunidadController extends Controller
+class SituacionComunidadController extends BaseController
 {
     /**
      * Lists all SituacionComunidad entities.
@@ -23,7 +23,7 @@ class SituacionComunidadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $situacionComunidads = $em->getRepository('SICBundle:SituacionComunidad')->findAll();
+        $situacionComunidads = $em->getRepository(\SICBundle\Entity\SituacionComunidad::class)->findAll();
 
         return $this->render('situacioncomunidad/index.html.twig', array(
             'situacionComunidads' => $situacionComunidads,
@@ -38,17 +38,16 @@ class SituacionComunidadController extends Controller
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         $p = $planilla[0];
 
         if($p->getSituacionComunidad() != NULL){
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
         $situacionComunidad = new SituacionComunidad();
-        $form = $this->createForm('SICBundle\Form\SituacionComunidadType', $situacionComunidad);
+        $form = $this->createForm(SituacionComunidadType::class, $situacionComunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -62,8 +61,7 @@ class SituacionComunidadController extends Controller
 
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha culminado con éxtio el registro de los datos en el sistema.');
+            $this->addFlash('success', 'Se ha culminado con éxtio el registro de los datos en el sistema.');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -94,7 +92,7 @@ class SituacionComunidadController extends Controller
     public function editAction(Request $request, SituacionComunidad $situacionComunidad)
     {
         $deleteForm = $this->createDeleteForm($situacionComunidad);
-        $editForm = $this->createForm('SICBundle\Form\SituacionComunidadType', $situacionComunidad);
+        $editForm = $this->createForm(SituacionComunidadType::class, $situacionComunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -102,8 +100,7 @@ class SituacionComunidadController extends Controller
             $questions = $situacionComunidad->getPreguntasSituacionComunidad();
             foreach ($questions as $q) {
                 if ($q->getPregunta() == '') {
-                    $this->get('session')->getFlashBag()
-                    ->add('warning', 'No puede haber una pregunta en blanco. A continuación eliga la pregunta y coloque su respuesta.');
+                    $this->addFlash('warning', 'No puede haber una pregunta en blanco. A continuación eliga la pregunta y coloque su respuesta.');
                     return $this->render('situacioncomunidad/edit.html.twig', array(
                         'situacionComunidad' => $situacionComunidad,
                         'edit_form' => $editForm->createView(),
@@ -119,8 +116,7 @@ class SituacionComunidadController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se han actualizado los datos de la Situación Comunitaria de forma extiosa.');
+            $this->addFlash('success', 'Se han actualizado los datos de la Situación Comunitaria de forma extiosa.');
             return $this->redirectToRoute('planillas_show', array('id' => $situacionComunidad->getPlanilla()->getId()));
         }
 

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Form\BitacoraType;
@@ -12,7 +12,7 @@ use SICBundle\Form\BitacoraType;
  * Bitacora controller.
  *
  */
-class BitacoraController extends Controller
+class BitacoraController extends BaseController
 {
     /**
      * Lists all Bitacora entities.
@@ -22,7 +22,7 @@ class BitacoraController extends Controller
     {   
         $ini = new \DateTime('today');
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SICBundle:Bitacora')->findRango($ini->format('Y-m-d').' 00:00:00',$ini->format('Y-m-d').' 23:59:59', 'todos');
+        $entities = $em->getRepository(\SICBundle\Entity\Bitacora::class)->findRango($ini->format('Y-m-d').' 00:00:00',$ini->format('Y-m-d').' 23:59:59', 'todos');
         return $this->render('bitacora/index.html.twig', array(
             'entities' => $entities,
         ));
@@ -33,7 +33,7 @@ class BitacoraController extends Controller
         $form = $request->request->all();
 
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SICBundle:Bitacora')->findRango($form['fechaInicio'].' 00:00:00', $form['fechaFinal'].' 23:59:59', $form['criteria']);
+        $entities = $em->getRepository(\SICBundle\Entity\Bitacora::class)->findRango($form['fechaInicio'].' 00:00:00', $form['fechaFinal'].' 23:59:59', $form['criteria']);
         return $this->render('bitacora/index.html.twig', array(
             'entities' => $entities,
         ));
@@ -46,7 +46,7 @@ class BitacoraController extends Controller
     public function newAction(Request $request)
     {
         $bitacora = new Bitacora();
-        $form = $this->createForm('SICBundle\Form\BitacoraType', $bitacora);
+        $form = $this->createForm(BitacoraType::class, $bitacora);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -84,7 +84,7 @@ class BitacoraController extends Controller
     public function editAction(Request $request, Bitacora $bitacora)
     {
         $deleteForm = $this->createDeleteForm($bitacora);
-        $editForm = $this->createForm('SICBundle\Form\BitacoraType', $bitacora);
+        $editForm = $this->createForm(BitacoraType::class, $bitacora);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

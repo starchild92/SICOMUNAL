@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Comite;
 use SICBundle\Entity\Bitacora;
@@ -13,16 +13,16 @@ use SICBundle\Form\ComiteType;
  * Comite controller.
  *
  */
-class ComiteController extends Controller
+class ComiteController extends BaseController
 {
     public function getPersonaByCedula($cedula)
     {
         $em = $this->getDoctrine()->getManager();
-        $resultado = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+        $resultado = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $cedula));
         if (sizeof($resultado) > 0) {
             return $resultado[0];
         }else{
-            $resultado = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+            $resultado = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $cedula));
             if (sizeof($resultado) > 0) {
                 return $resultado[0];
             }else{
@@ -37,25 +37,22 @@ class ComiteController extends Controller
 
         if ($comite->getTipoUnidad() == "Unidad Ejecutiva") {
             if ($comite->getNombre() != "") {
-                $comites = $em->getRepository('SICBundle:Comite')->findBy(array(
+                $comites = $em->getRepository(\SICBundle\Entity\Comite::class)->findBy(array(
                     'tipoUnidad' => "Unidad Ejecutiva", "nombre" => $comite->getNombre()));
                 if (sizeof($comites) > 0) {
-                    $this->get('session')->getFlashBag()
-                    ->add('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de Nombre: "'.$comite->getNombre().'" en el sistema.');
+                    $this->addFlash('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de Nombre: "'.$comite->getNombre().'" en el sistema.');
                     return true;
                 }
             }else{
-                $this->get('session')->getFlashBag()
-                    ->add('error', 'Para una nueva "'.$comite->getTipoUnidad().'" debe agregar un nombre.');
+                $this->addFlash('error', 'Para una nueva "'.$comite->getTipoUnidad().'" debe agregar un nombre.');
                 return true;
             }
         }else{
-            $comites = $em->getRepository('SICBundle:Comite')->findAll();
+            $comites = $em->getRepository(\SICBundle\Entity\Comite::class)->findAll();
             foreach ($comites as $key) {
                 if ($comite->getId() != $key->getId()) {
                     if ($comite->getTipoUnidad() == $key->getTipoUnidad()) {
-                        $this->get('session')->getFlashBag()
-                        ->add('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de este Tipo conformada.');
+                        $this->addFlash('error', 'Ya hay una "'.$comite->getTipoUnidad().'" de este Tipo conformada.');
                         return true;
                     }
                 }
@@ -69,13 +66,13 @@ class ComiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //En la entidad el atributo es unique, esto debe ser binario
-        $vocero = $em->getRepository('SICBundle:Vocero')->findBy(array('persona' => $cedula));
+        $vocero = $em->getRepository(\SICBundle\Entity\Vocero::class)->findBy(array('persona' => $cedula));
         
         if (sizeof($vocero) > 0) {
             $comites = $vocero[0]->getComite();
             foreach ($comites as $com) { if ($com->getId() == $comite) { return false; } }
             $persona = $this->getPersonaByCedula($cedula);
-            $this->get('session')->getFlashBag()->add('error', 'El usuario "'.$persona->nombreyapellido().'" ya es miembro de un comité.');
+            $this->addFlash('error', 'El usuario "'.$persona->nombreyapellido().'" ya es miembro de un comité.');
             return true;
         }else{
             return false;
@@ -100,8 +97,7 @@ class ComiteController extends Controller
                 if ( $comite->getCantVoceros() <= 2) {
                     return true;
                 }else{
-                    $this->get('session')->getFlashBag()
-                    ->add('error', $comite->getTipoUnidad().' no admite nuevos voceros.');
+                    $this->addFlash('error', $comite->getTipoUnidad().' no admite nuevos voceros.');
                     return false;
                 }
                 break;
@@ -110,8 +106,7 @@ class ComiteController extends Controller
                 if ( $comite->getCantVoceros() <= 10) {
                     return true;
                 }else{
-                    $this->get('session')->getFlashBag()
-                    ->add('error', $comite->getTipoUnidad().' no admite nuevos voceros.');
+                    $this->addFlash('error', $comite->getTipoUnidad().' no admite nuevos voceros.');
                     return false;
                 }
                 break;
@@ -126,7 +121,7 @@ class ComiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comites = $em->getRepository('SICBundle:Comite')->findAll();
+        $comites = $em->getRepository(\SICBundle\Entity\Comite::class)->findAll();
 
         return $this->render('comite/index.html.twig', array(
             'comites' => $comites,
@@ -140,7 +135,7 @@ class ComiteController extends Controller
     public function newAction(Request $request)
     {
         $comite = new Comite();
-        $form = $this->createForm('SICBundle\Form\ComiteType', $comite);
+        $form = $this->createForm(ComiteType::class, $comite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -154,7 +149,7 @@ class ComiteController extends Controller
                         $cedula = filter_var($v->getPersona(), FILTER_SANITIZE_NUMBER_INT);
                         if ($this->getPersonaByCedula($cedula) == NULL) {
                             $v->setPersona($cedula);
-                            $this->get('session')->getFlashBag()->add('danger', 'La cédula '.$cedula.' no existe en el sistema.');
+                            $this->addFlash('danger', 'La cédula '.$cedula.' no existe en el sistema.');
                             return $this->render('comite/new.html.twig', array(
                                 'comite' => $comite,
                                 'form' => $form->createView(),
@@ -177,8 +172,7 @@ class ComiteController extends Controller
                     $em->persist($comite);
                     $em->flush();
 
-                    $this->get('session')->getFlashBag()
-                    ->add('success', 'Se ha creado el comité de forma exitosa, asignadosé '.sizeof($voceros).' voceros a el.');
+                    $this->addFlash('success', 'Se ha creado el comité de forma exitosa, asignadosé '.sizeof($voceros).' voceros a el.');
 
                     return $this->redirectToRoute('comites_index');
                 }
@@ -212,7 +206,7 @@ class ComiteController extends Controller
     public function editAction(Request $request, Comite $comite)
     {
         $deleteForm = $this->createDeleteForm($comite);
-        $editForm = $this->createForm('SICBundle\Form\ComiteType', $comite);
+        $editForm = $this->createForm(ComiteType::class, $comite);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -225,7 +219,7 @@ class ComiteController extends Controller
                 $vocero->setPersona($cedula);
 
                 if ($this->getPersonaByCedula($cedula) == NULL) {
-                    $this->get('session')->getFlashBag()->add('danger', 'La cédula '.$cedula.' no existe en el sistema.');
+                    $this->addFlash('danger', 'La cédula '.$cedula.' no existe en el sistema.');
                     return $this->render('comite/edit.html.twig', array(
                         'comite' => $comite,
                         'edit_form' => $editForm->createView(),
@@ -251,7 +245,7 @@ class ComiteController extends Controller
                 $em->persist($comite);
                 $em->flush();
 
-                $this->get('session')->getFlashBag()->add('success', 'Se modificó con exito '.$comite->getTipoUnidad());
+                $this->addFlash('success', 'Se modificó con exito '.$comite->getTipoUnidad());
                 return $this->redirectToRoute('comites_index');
             }
         }
@@ -279,7 +273,7 @@ class ComiteController extends Controller
             $em->remove($comite);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se eliminó con exito '.$comite->getTipoUnidad());
+            $this->addFlash('success', 'Se eliminó con exito '.$comite->getTipoUnidad());
         }
 
         return $this->redirectToRoute('comites_index');

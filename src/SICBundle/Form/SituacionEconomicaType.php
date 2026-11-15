@@ -5,6 +5,8 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 use Symfony\Component\Form\FormEvents;
 use SICBundle\Entity\AdminVentaVivienda;
@@ -23,7 +25,7 @@ class SituacionEconomicaType extends AbstractType
             //     array($this, 'onPreSubmit')
             // )
             
-            ->add('dondeTrabaja', 'entity', array(
+            ->add('dondeTrabaja', EntityType::class, array(
                 'class'     => 'SICBundle:AdminUbicacionTrabajo',
                 'label'     => '¿Dónde Trabaja?',
                 'placeholder' => 'Selecciona una',
@@ -31,13 +33,13 @@ class SituacionEconomicaType extends AbstractType
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
-            /*->add('actividadComercial', 'entity', array(
+            /*->add('actividadComercial', EntityType::class, array(
                 'class'     => 'SICBundle:AdminRespCerrada',
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))*/
 
-            ->add('actividadComercialenVivienda', 'entity', array(
+            ->add('actividadComercialenVivienda', EntityType::class, array(
                 'class'     => 'SICBundle:AdminVentaVivienda',
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'placeholder' => 'Selecciona una',
@@ -47,13 +49,13 @@ class SituacionEconomicaType extends AbstractType
                     'multiple' => '',
                     'class' => 'fluid multiple search selection')))
 
-            ->add('ingresoFamiliar','text',array(
+            ->add('ingresoFamiliar', TextType::class,array(
                 'attr'      => array(
                     'placeholder'   => 'Monto en Bs'),
                 'required' => false,
                 ))
 
-            ->add('ingresoFamiliarEspecifico', 'entity', array(
+            ->add('ingresoFamiliarEspecifico', EntityType::class, array(
                 'class'     => 'SICBundle:AdminTipoIngresos',
                 'required'  => false,
                 'label'     => 'Ingreso estimado',
@@ -61,13 +63,13 @@ class SituacionEconomicaType extends AbstractType
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))
 
-            /*->add('poseeVehiculo', 'entity', array(
+            /*->add('poseeVehiculo', EntityType::class, array(
                 'class'     => 'SICBundle:AdminRespCerrada',
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))*/
             
-            ->add('placa','text',array(
+            ->add('placa', TextType::class,array(
                 'label'     => 'Si posee vehículo(s), Ingrese la(s) placa(s)',
                 'required' => false,
                 'attr'        => array(

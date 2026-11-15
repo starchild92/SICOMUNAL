@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminRecoleccionBasura;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminRecoleccionBasuraType;
  * AdminRecoleccionBasura controller.
  *
  */
-class AdminRecoleccionBasuraController extends Controller
+class AdminRecoleccionBasuraController extends BaseController
 {
     /**
      * Lists all AdminRecoleccionBasura entities.
@@ -23,7 +23,7 @@ class AdminRecoleccionBasuraController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminRecoleccionBasuras = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findAll();
+        $adminRecoleccionBasuras = $em->getRepository(\SICBundle\Entity\AdminRecoleccionBasura::class)->findAll();
 
         return $this->render('adminrecoleccionbasura/index.html.twig', array(
             'adminRecoleccionBasuras' => $adminRecoleccionBasuras,
@@ -37,13 +37,13 @@ class AdminRecoleccionBasuraController extends Controller
     public function newAction(Request $request)
     {
         $adminRecoleccionBasura = new AdminRecoleccionBasura();
-        $form = $this->createForm('SICBundle\Form\AdminRecoleccionBasuraType', $adminRecoleccionBasura);
+        $form = $this->createForm(AdminRecoleccionBasuraType::class, $adminRecoleccionBasura);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminRecoleccionBasura);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Recolección de Basura a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminRecoleccionBasuraController extends Controller
     public function editAction(Request $request, AdminRecoleccionBasura $adminRecoleccionBasura)
     {
         $deleteForm = $this->createDeleteForm($adminRecoleccionBasura);
-        $editForm = $this->createForm('SICBundle\Form\AdminRecoleccionBasuraType', $adminRecoleccionBasura);
+        $editForm = $this->createForm(AdminRecoleccionBasuraType::class, $adminRecoleccionBasura);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminRecoleccionBasura);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Recolección de Basura');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminRecoleccionBasuraController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminRecoleccionBasura);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminRecoleccionBasura->getNombre().' de los parámetros de Tipo de Recolección de Basura del sistema');
             $em->persist($bitacora);
             $em->flush();

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Comunicado;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\ComunicadoType;
  * Comunicado controller.
  *
  */
-class ComunicadoController extends Controller
+class ComunicadoController extends BaseController
 {
     /**
      * Lists all Comunicado entities.
@@ -23,7 +23,7 @@ class ComunicadoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $comunicados = $em->getRepository('SICBundle:Comunicado')->findAll();
+        $comunicados = $em->getRepository(\SICBundle\Entity\Comunicado::class)->findAll();
 
         return $this->render('comunicado/index.html.twig', array(
             'comunicados' => $comunicados,
@@ -37,7 +37,7 @@ class ComunicadoController extends Controller
     public function newAction(Request $request)
     {
         $comunicado = new Comunicado();
-        $form = $this->createForm('SICBundle\Form\ComunicadoType', $comunicado);
+        $form = $this->createForm(ComunicadoType::class, $comunicado);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -47,7 +47,7 @@ class ComunicadoController extends Controller
             $comunicado->setFecha(new \DateTime('now'));
 
             //obtener los usuarios a los que se enviará el correo y la cantidad
-            $destinatarios = $em->getRepository('SICBundle:Comunicado')->PersonasCorreo();
+            $destinatarios = $em->getRepository(\SICBundle\Entity\Comunicado::class)->PersonasCorreo();
             $comunicado->setNumDestinatarios(sizeof($destinatarios));
 
             foreach ($destinatarios as $p) {
@@ -73,7 +73,7 @@ class ComunicadoController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha enviado el mensaje a los distintos usuarios.');
+            $this->addFlash('success', 'Se ha enviado el mensaje a los distintos usuarios.');
             return $this->redirectToRoute('noticia_correo');
         }
 
@@ -104,7 +104,7 @@ class ComunicadoController extends Controller
     public function editAction(Request $request, Comunicado $comunicado)
     {
         $deleteForm = $this->createDeleteForm($comunicado);
-        $editForm = $this->createForm('SICBundle\Form\ComunicadoType', $comunicado);
+        $editForm = $this->createForm(ComunicadoType::class, $comunicado);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -160,13 +160,13 @@ class ComunicadoController extends Controller
     public function desactivarSubscripcionAction($correo)
     {
         $em = $this->getDoctrine()->getManager();
-        $persona = $em->getRepository('SICBundle:Persona')->findBy(array('email' => $correo));
+        $persona = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('email' => $correo));
         if (sizeof($persona)>0) {
             $p = $persona[0];
             $p->setRecibirCorreo(false); //No recibirá correos
             $em->persist($p);
         }else{
-            $persona = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('email' => $correo));
+            $persona = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('email' => $correo));
             if (sizeof($persona)>0) {
                 $p = $persona[0];
                 $p->setRecibirCorreo(false); //No recibirá correos
@@ -181,7 +181,7 @@ class ComunicadoController extends Controller
     public function subscripcionEstatusAction($correo)
     {
         $em = $this->getDoctrine()->getManager();
-        $noticias = $em->getRepository('SICBundle:Noticia')->NoticiasOrdenDesc();
+        $noticias = $em->getRepository(\SICBundle\Entity\Noticia::class)->NoticiasOrdenDesc();
         return $this->render('comunicado/subscripcion_estatus.html.twig', array(
             'correo' => $correo,
             'noticias' => $noticias,

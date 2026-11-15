@@ -1,24 +1,24 @@
 consejocomunal_index:
     path:     /
-    defaults: { _controller: "SICBundle:ConsejoComunal:index" }
+    defaults: { _controller: "SICBundle\\Controller\\ConsejoComunalController::indexAction" }
     methods:  GET
 
 consejocomunal_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:ConsejoComunal:show" }
+    defaults: { _controller: "SICBundle\\Controller\\ConsejoComunalController::showAction" }
     methods:  GET
 
 consejocomunal_new:
     path:     /nuevo
-    defaults: { _controller: "SICBundle:ConsejoComunal:new" }
+    defaults: { _controller: "SICBundle\\Controller\\ConsejoComunalController::newAction" }
     methods:  [GET, POST]
 
 consejocomunal_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:ConsejoComunal:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\ConsejoComunalController::editAction" }
     methods:  [GET, POST]
 
 consejocomunal_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:ConsejoComunal:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\ConsejoComunalController::deleteAction" }
     methods:  DELETE

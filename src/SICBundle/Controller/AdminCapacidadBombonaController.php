@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminCapacidadBombona;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminCapacidadBombonaType;
  * AdminCapacidadBombona controller.
  *
  */
-class AdminCapacidadBombonaController extends Controller
+class AdminCapacidadBombonaController extends BaseController
 {
     /**
      * Lists all AdminCapacidadBombona entities.
@@ -23,7 +23,7 @@ class AdminCapacidadBombonaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminCapacidadBombonas = $em->getRepository('SICBundle:AdminCapacidadBombona')->findAll();
+        $adminCapacidadBombonas = $em->getRepository(\SICBundle\Entity\AdminCapacidadBombona::class)->findAll();
 
         return $this->render('admincapacidadbombona/index.html.twig', array(
             'adminCapacidadBombonas' => $adminCapacidadBombonas,
@@ -37,13 +37,13 @@ class AdminCapacidadBombonaController extends Controller
     public function newAction(Request $request)
     {
         $adminCapacidadBombona = new AdminCapacidadBombona();
-        $form = $this->createForm('SICBundle\Form\AdminCapacidadBombonaType', $adminCapacidadBombona);
+        $form = $this->createForm(AdminCapacidadBombonaType::class, $adminCapacidadBombona);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminCapacidadBombona);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nueva Capacidad de Bombona a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -78,13 +78,13 @@ class AdminCapacidadBombonaController extends Controller
     public function editAction(Request $request, AdminCapacidadBombona $adminCapacidadBombona)
     {
         $deleteForm = $this->createDeleteForm($adminCapacidadBombona);
-        $editForm = $this->createForm('SICBundle\Form\AdminCapacidadBombonaType', $adminCapacidadBombona);
+        $editForm = $this->createForm(AdminCapacidadBombonaType::class, $adminCapacidadBombona);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminCapacidadBombona);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Capacidad de Bombona');
             $em->persist($bitacora);
             $em->flush();
@@ -112,7 +112,7 @@ class AdminCapacidadBombonaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminCapacidadBombona);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminEmpresaGa->getNombre().' de los parámetros de Capacidad de Bombona del sistema');
             $em->persist($bitacora);
             $em->flush();

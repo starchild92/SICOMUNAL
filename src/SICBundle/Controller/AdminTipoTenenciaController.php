@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoTenencia;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoTenenciaType;
  * AdminTipoTenencia controller.
  *
  */
-class AdminTipoTenenciaController extends Controller
+class AdminTipoTenenciaController extends BaseController
 {
     /**
      * Lists all AdminTipoTenencia entities.
@@ -23,7 +23,7 @@ class AdminTipoTenenciaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoTenencias = $em->getRepository('SICBundle:AdminTipoTenencia')->findAll();
+        $adminTipoTenencias = $em->getRepository(\SICBundle\Entity\AdminTipoTenencia::class)->findAll();
 
         return $this->render('admintipotenencia/index.html.twig', array(
             'adminTipoTenencias' => $adminTipoTenencias,
@@ -37,13 +37,13 @@ class AdminTipoTenenciaController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoTenencium = new AdminTipoTenencia();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTenenciaType', $adminTipoTenencium);
+        $form = $this->createForm(AdminTipoTenenciaType::class, $adminTipoTenencium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTenencium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Tenencia a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoTenenciaController extends Controller
     public function editAction(Request $request, AdminTipoTenencia $adminTipoTenencium)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTenencium);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTenenciaType', $adminTipoTenencium);
+        $editForm = $this->createForm(AdminTipoTenenciaType::class, $adminTipoTenencium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTenencium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Tenencia');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoTenenciaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoTenencium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoTenencium->getNombre().' de los parámetros de Tipo de Tenencia del sistema');
             $em->persist($bitacora);
             $em->flush();

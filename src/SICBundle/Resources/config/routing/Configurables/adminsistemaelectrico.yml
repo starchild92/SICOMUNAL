@@ -1,24 +1,24 @@
 configurables_tipo_sistema_electrico_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminSistemaElectrico:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSistemaElectricoController::indexAction" }
     methods:  GET
 
 configurables_tipo_sistema_electrico_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminSistemaElectrico:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSistemaElectricoController::showAction" }
     methods:  GET
 
 configurables_tipo_sistema_electrico_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminSistemaElectrico:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSistemaElectricoController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipo_sistema_electrico_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminSistemaElectrico:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSistemaElectricoController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipo_sistema_electrico_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminSistemaElectrico:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSistemaElectricoController::deleteAction" }
     methods:  DELETE

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Usuario;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\UsuarioType;
  * Usuario controller.
  *
  */
-class UsuarioController extends Controller
+class UsuarioController extends BaseController
 {
     /**
      * Lists all Usuario entities.
@@ -23,7 +23,7 @@ class UsuarioController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usuarios = $em->getRepository('SICBundle:Usuario')->findAll();
+        $usuarios = $em->getRepository(\SICBundle\Entity\Usuario::class)->findAll();
 
         return $this->render('usuario/index.html.twig', array(
             'usuarios' => $usuarios,
@@ -37,7 +37,7 @@ class UsuarioController extends Controller
     public function newAction(Request $request)
     {
         $usuario = new Usuario();
-        $form = $this->createForm('SICBundle\Form\UsuarioType', $usuario);
+        $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,7 +75,7 @@ class UsuarioController extends Controller
     public function editAction(Request $request, Usuario $usuario)
     {
         $deleteForm = $this->createDeleteForm($usuario);
-        $editForm = $this->createForm('SICBundle\Form\UsuarioType', $usuario);
+        $editForm = $this->createForm(UsuarioType::class, $usuario);
 
         $you = $this->getUser();
         $roles = $you->getRoles();        
@@ -88,8 +88,7 @@ class UsuarioController extends Controller
             if($you->getId() != $usuario->getId())
             {
                 // intento editar datos de otro usuario
-                $this->get('session')->getFlashBag()
-                ->add('warning', 'Operacion no permitida.');
+                $this->addFlash('warning', 'Operacion no permitida.');
                 return $this->redirectToRoute('usuarios_index');
                 $editForm->remove('plainPassword');
             }
@@ -107,8 +106,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se han almacena los datos del usuario correctamente');
+            $this->addFlash('success', 'Se han almacena los datos del usuario correctamente');
 
             return $this->redirectToRoute('usuarios_index');
         }
@@ -141,7 +139,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se colocó al usuario ('.$usuario->getUsername().') como inactivo en el sistema.' );
+            $this->addFlash('success', 'Se colocó al usuario ('.$usuario->getUsername().') como inactivo en el sistema.' );
         }
 
         return $this->redirectToRoute('usuarios_index');

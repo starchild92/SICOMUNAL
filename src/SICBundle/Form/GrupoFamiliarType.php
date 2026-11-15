@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class GrupoFamiliarType extends AbstractType
 {
@@ -15,16 +16,16 @@ class GrupoFamiliarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('apellidos','text', array(
+            ->add('apellidos', TextType::class, array(
                 'label'     => 'Apellidos del Grupo Familiar'))
             // ->add('cantidadMiembros') //Se calcula a medida que se agregan nuevos miembros
-            // ->add('tiempoResidencia','text', array(
+            // ->add('tiempoResidencia', TextType::class, array(
             //     'label'     => 'Tiempo de Residencia'))
-            ->add('avenida','text', array(
+            ->add('avenida', TextType::class, array(
                 'label'     => 'Avenida'))
-            ->add('calle','text', array(
+            ->add('calle', TextType::class, array(
                 'label'     => 'Calle'))
-            ->add('numeroCasa','text', array(
+            ->add('numeroCasa', TextType::class, array(
                 'required' => false,
                 'label'     => 'Número de Casa'))
         ;

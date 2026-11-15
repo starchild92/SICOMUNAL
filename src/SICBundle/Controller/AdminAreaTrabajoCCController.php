@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminAreaTrabajoCC;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminAreaTrabajoCCType;
  * AdminAreaTrabajoCC controller.
  *
  */
-class AdminAreaTrabajoCCController extends Controller
+class AdminAreaTrabajoCCController extends BaseController
 {
     /**
      * Lists all AdminAreaTrabajoCC entities.
@@ -23,7 +23,7 @@ class AdminAreaTrabajoCCController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminAreaTrabajoCCs = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $adminAreaTrabajoCCs = $em->getRepository(\SICBundle\Entity\AdminAreaTrabajoCC::class)->findAll();
 
         return $this->render('adminareatrabajocc/index.html.twig', array(
             'adminAreaTrabajoCCs' => $adminAreaTrabajoCCs,
@@ -37,12 +37,12 @@ class AdminAreaTrabajoCCController extends Controller
     public function newAction(Request $request)
     {
         $adminAreaTrabajoCC = new AdminAreaTrabajoCC();
-        $form = $this->createForm('SICBundle\Form\AdminAreaTrabajoCCType', $adminAreaTrabajoCC);
+        $form = $this->createForm(AdminAreaTrabajoCCType::class, $adminAreaTrabajoCC);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nueva Area de Trabajo del Consejo Comunal a los parámetros del sistema');
             $em->persist($bitacora);
             $em->persist($adminAreaTrabajoCC);
@@ -79,12 +79,12 @@ class AdminAreaTrabajoCCController extends Controller
     public function editAction(Request $request, AdminAreaTrabajoCC $adminAreaTrabajoCC)
     {
         $deleteForm = $this->createDeleteForm($adminAreaTrabajoCC);
-        $editForm = $this->createForm('SICBundle\Form\AdminAreaTrabajoCCType', $adminAreaTrabajoCC);
+        $editForm = $this->createForm(AdminAreaTrabajoCCType::class, $adminAreaTrabajoCC);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Area de Trabajo del Consejo Comunal');
             $em->persist($bitacora);
             $em->persist($adminAreaTrabajoCC);
@@ -112,7 +112,7 @@ class AdminAreaTrabajoCCController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminAreaTrabajoCC->getNombre().' de los parámetros de Area de Trabajo del sistema');
             $em->persist($bitacora);
             $em->remove($adminAreaTrabajoCC);

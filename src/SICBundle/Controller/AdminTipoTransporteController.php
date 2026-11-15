@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoTransporte;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoTransporteType;
  * AdminTipoTransporte controller.
  *
  */
-class AdminTipoTransporteController extends Controller
+class AdminTipoTransporteController extends BaseController
 {
     /**
      * Lists all AdminTipoTransporte entities.
@@ -23,7 +23,7 @@ class AdminTipoTransporteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoTransportes = $em->getRepository('SICBundle:AdminTipoTransporte')->findAll();
+        $adminTipoTransportes = $em->getRepository(\SICBundle\Entity\AdminTipoTransporte::class)->findAll();
 
         return $this->render('admintipotransporte/index.html.twig', array(
             'adminTipoTransportes' => $adminTipoTransportes,
@@ -37,13 +37,13 @@ class AdminTipoTransporteController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoTransporte = new AdminTipoTransporte();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTransporteType', $adminTipoTransporte);
+        $form = $this->createForm(AdminTipoTransporteType::class, $adminTipoTransporte);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTransporte);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Transporte a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoTransporteController extends Controller
     public function editAction(Request $request, AdminTipoTransporte $adminTipoTransporte)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTransporte);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTransporteType', $adminTipoTransporte);
+        $editForm = $this->createForm(AdminTipoTransporteType::class, $adminTipoTransporte);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTransporte);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Transporte');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoTransporteController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoTransporte);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoTransporte->getNombre().' de los parámetros de Tipo de Transporte del sistema');
             $em->persist($bitacora);
             $em->flush();

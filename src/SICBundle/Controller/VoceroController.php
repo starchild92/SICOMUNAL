@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Vocero;
 use SICBundle\Form\VoceroType;
@@ -12,7 +12,7 @@ use SICBundle\Form\VoceroType;
  * Vocero controller.
  *
  */
-class VoceroController extends Controller
+class VoceroController extends BaseController
 {
     /**
      * Lists all Vocero entities.
@@ -22,7 +22,7 @@ class VoceroController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $voceros = $em->getRepository('SICBundle:Vocero')->findAll();
+        $voceros = $em->getRepository(\SICBundle\Entity\Vocero::class)->findAll();
 
         return $this->render('vocero/index.html.twig', array(
             'voceros' => $voceros,
@@ -36,7 +36,7 @@ class VoceroController extends Controller
     public function newAction(Request $request)
     {
         $vocero = new Vocero();
-        $form = $this->createForm('SICBundle\Form\VoceroType', $vocero);
+        $form = $this->createForm(VoceroType::class, $vocero);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -74,7 +74,7 @@ class VoceroController extends Controller
     public function editAction(Request $request, Vocero $vocero)
     {
         $deleteForm = $this->createDeleteForm($vocero);
-        $editForm = $this->createForm('SICBundle\Form\VoceroType', $vocero);
+        $editForm = $this->createForm(VoceroType::class, $vocero);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

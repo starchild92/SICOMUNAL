@@ -1,24 +1,24 @@
 configurable_clasificacion_ingreso_familiar_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminClasIngresoFamiliar:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminClasIngresoFamiliarController::indexAction" }
     methods:  GET
 
 configurable_clasificacion_ingreso_familiar_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminClasIngresoFamiliar:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminClasIngresoFamiliarController::showAction" }
     methods:  GET
 
 configurable_clasificacion_ingreso_familiar_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminClasIngresoFamiliar:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminClasIngresoFamiliarController::newAction" }
     methods:  [GET, POST]
 
 configurable_clasificacion_ingreso_familiar_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminClasIngresoFamiliar:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminClasIngresoFamiliarController::editAction" }
     methods:  [GET, POST]
 
 configurable_clasificacion_ingreso_familiar_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminClasIngresoFamiliar:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminClasIngresoFamiliarController::deleteAction" }
     methods:  DELETE

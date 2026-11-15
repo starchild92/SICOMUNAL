@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminProfesion;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminProfesionType;
  * AdminProfesion controller.
  *
  */
-class AdminProfesionController extends Controller
+class AdminProfesionController extends BaseController
 {
     /**
      * Lists all AdminProfesion entities.
@@ -23,7 +23,7 @@ class AdminProfesionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminProfesions = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $adminProfesions = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findAll();
 
         return $this->render('adminprofesion/index.html.twig', array(
             'adminProfesions' => $adminProfesions,
@@ -37,13 +37,13 @@ class AdminProfesionController extends Controller
     public function newAction(Request $request)
     {
         $adminProfesion = new AdminProfesion();
-        $form = $this->createForm('SICBundle\Form\AdminProfesionType', $adminProfesion);
+        $form = $this->createForm(AdminProfesionType::class, $adminProfesion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminProfesion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Profesión a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminProfesionController extends Controller
     public function editAction(Request $request, AdminProfesion $adminProfesion)
     {
         $deleteForm = $this->createDeleteForm($adminProfesion);
-        $editForm = $this->createForm('SICBundle\Form\AdminProfesionType', $adminProfesion);
+        $editForm = $this->createForm(AdminProfesionType::class, $adminProfesion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminProfesion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Profesión');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminProfesionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminProfesion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminProfesion->getNombre().' de los parámetros de Tipo de Profesión del sistema');
             $em->persist($bitacora);
             $em->flush();

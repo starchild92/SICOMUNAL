@@ -2,22 +2,22 @@
 
 namespace SICBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Slik\DompdfBundle\DomPDF;
+use SICBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use SICBundle\Entity\Bitacora;
 
-class InicioController extends Controller
+class InicioController extends BaseController
 {
     public function inicioAction(){
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+        if( $this->isGranted('IS_AUTHENTICATED_FULLY') )
         {
             $em = $this->getDoctrine()->getManager();
-            $cant_usuarios = sizeof($em->getRepository('SICBundle:Usuario')->findAll());
-            $cant_jgf = sizeof($em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll());
-            $cant_planillas = sizeof($em->getRepository('SICBundle:Planillas')->findAll());
-            $cant_personas = sizeof($em->getRepository('SICBundle:Persona')->findAll());
+            $cant_usuarios = sizeof($em->getRepository(\SICBundle\Entity\Usuario::class)->findAll());
+            $cant_jgf = sizeof($em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findAll());
+            $cant_planillas = sizeof($em->getRepository(\SICBundle\Entity\Planillas::class)->findAll());
+            $cant_personas = sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findAll());
 
             return $this->render('inicio/inicio.html.twig', array(
                 'cant_usuarios' => $cant_usuarios,
@@ -26,12 +26,19 @@ class InicioController extends Controller
                 'cant_planillas' => $cant_planillas,
                 ));
         }else{
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }    
+            return $this->redirectToRoute('sic_homepage_login');
+        }
     }
 
-    public function loginAction(){
-        return $this->redirect($this->generateUrl('fos_user_security_login'));
+    public function loginAction(AuthenticationUtils $authenticationUtils){
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('Security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'csrf_token' => '',
+        ]);
     }
 
     public function cmpVotos($a, $b){
@@ -41,21 +48,21 @@ class InicioController extends Controller
     public function administrarEntidadesAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $cc = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $cc = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
 
         $unidades_eje = array();
-        $unidad_ejecutiva = $em->getRepository('SICBundle:Comite')->findBy(array('tipoUnidad' => 'Unidad Ejecutiva'));
+        $unidad_ejecutiva = $em->getRepository(\SICBundle\Entity\Comite::class)->findBy(array('tipoUnidad' => 'Unidad Ejecutiva'));
         foreach ($unidad_ejecutiva as $ue) {
             $personas = array();
             $voceros = $ue->getVoceros();
 
             foreach ($voceros as $v) {
-                $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $v->getPersona()));
+                $r = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $v->getPersona()));
                 if (sizeof($r)>0) {
                     $voce = $r[0];
                 }else{
-                    $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $v->getPersona()));
+                    $r = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $v->getPersona()));
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
@@ -85,18 +92,18 @@ class InicioController extends Controller
         $em->flush();
 
         $unidades_restantes = array();
-        $unid_res = $em->getRepository('SICBundle:Comite')->findAll();
+        $unid_res = $em->getRepository(\SICBundle\Entity\Comite::class)->findAll();
         foreach ($unid_res as $ue) {
             if ($ue->getTipoUnidad() != 'Unidad Ejecutiva') {            
                 $personas = array();
                 $voceros = $ue->getVoceros();
                 foreach ($voceros as $v) {
                     $cedula = filter_var($v->getPersona(), FILTER_SANITIZE_NUMBER_INT);
-                    $r = $em->getRepository('SICBundle:Persona')->findBy(array('cedula' => $cedula));
+                    $r = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cedula' => $cedula));
                     if (sizeof($r)>0) {
                         $voce = $r[0];
                     }else{
-                        $r = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cedula' => $cedula));
+                        $r = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cedula' => $cedula));
                         if (sizeof($r)>0) {
                             $voce = $r[0];
                         }else{
@@ -154,15 +161,15 @@ class InicioController extends Controller
     public function cuadernoVotacionAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
 
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
             
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $jefes_grupo_familiar = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->mayores_de(15);
+            $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -174,22 +181,22 @@ class InicioController extends Controller
                     'votantes' => $votantes,
                     'comunidad' => $comunidad_info));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
     public function cuadernoVotacionPDFAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
 
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $jefes_grupo_familiar = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->mayores_de(15);
+            $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -217,7 +224,7 @@ class InicioController extends Controller
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -228,22 +235,22 @@ class InicioController extends Controller
     public function resumenCensoAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
         if (sizeof($comunidad) > 0 && sizeof($consejo)) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(); //Cantidad de Sectores para realizar la contabilización de los datos
+            $sectores = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findSectores(); //Cantidad de Sectores para realizar la contabilización de los datos
             // usort($sectores, array($this, "cmpsector")); //esto los organizará, lo que no tiene sentido porque todos son diferentes
 
             $datos =  array();
             foreach ($sectores as $s) {
                 $nombre_avenida = $s->getAvenida();
-                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('avenida' => $nombre_avenida));
+                $grupos_del_sector = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findBy(array('avenida' => $nombre_avenida));
                 usort($grupos_del_sector, array($this, "cmpdireccion"));
-                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_avenida));
-                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
+                $num_viviendas = sizeof($em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findNumeroViviendas($nombre_avenida));
+                $habitantes_sector = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findCantidadMiembros($nombre_avenida);
 
                 //Variables para construir la tabla del resultados
                 // echo "En el sector: ".$nombre_avenida;
@@ -307,26 +314,26 @@ class InicioController extends Controller
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc->getNombre()));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
+            $this->addFlash('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
             return $this->redirectToRoute('sic_homepage');
         }
     }
     public function resumenCensoPDFAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
         if (sizeof($comunidad) > 0 && sizeof($consejo)) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
-            $sectores = $em->getRepository('SICBundle:GrupoFamiliar')->findSectores();
+            $sectores = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findSectores();
             $datos =  array();
             foreach ($sectores as $s) {
                 $nombre_avenida = $s->getAvenida();
-                $grupos_del_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findBy(array('avenida' => $nombre_avenida));
+                $grupos_del_sector = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findBy(array('avenida' => $nombre_avenida));
                 usort($grupos_del_sector, array($this, "cmpdireccion"));
-                $num_viviendas = sizeof($em->getRepository('SICBundle:GrupoFamiliar')->findNumeroViviendas($nombre_avenida));
-                $habitantes_sector = $em->getRepository('SICBundle:GrupoFamiliar')->findCantidadMiembros($nombre_avenida);
+                $num_viviendas = sizeof($em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findNumeroViviendas($nombre_avenida));
+                $habitantes_sector = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findCantidadMiembros($nombre_avenida);
                 $miembros = 0;
                 $entreQyD = 0;
                 $menores = 0;
@@ -386,7 +393,7 @@ class InicioController extends Controller
             $response->headers->set('Content-Type', 'application/pdf');
             return $response;
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
+            $this->addFlash('danger', 'No se puede generar el Resumen del Censo Demográfico hasta tanto no haya agregado los datos de la Comunidad y/o del Consejo Comunal.');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -395,14 +402,14 @@ class InicioController extends Controller
     public function registroElectoralAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $jefes_grupo_familiar = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->mayores_de(15);
+            $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -415,21 +422,21 @@ class InicioController extends Controller
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
     public function registroElectoralPDFAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $jefes_grupo_familiar = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->mayores_de(15);
+            $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->mayores_de(15);
             $votantes = array();
             foreach ($jefes_grupo_familiar as $j) { array_push($votantes, $j); }
             foreach ($personas as $p) { array_push($votantes, $p); }
@@ -457,7 +464,7 @@ class InicioController extends Controller
             return $response;
 
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Registro Electoral Preliminar hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
@@ -466,14 +473,14 @@ class InicioController extends Controller
     public function registroPreliminarAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $jefes_grupo_familiar = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->mayores_de(15);
+            $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->mayores_de(15);
             $votantesV = array();
             $votantesE = array();
             foreach ($jefes_grupo_familiar as $j) {
@@ -495,21 +502,21 @@ class InicioController extends Controller
                     'comunidad' => $comunidad_info,
                     'consejo' => $cc));
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }
     public function registroPreliminarPDFAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-        $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+        $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
         if (sizeof($comunidad) > 0) {
             $comunidad_info = $comunidad[0];
             $cc = $consejo[0];
 
-            $jefes_grupo_familiar = $em->getRepository('SICBundle:JefeGrupoFamiliar')->mayores_de(15);
-            $personas = $em->getRepository('SICBundle:Persona')->mayores_de(15);
+            $jefes_grupo_familiar = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->mayores_de(15);
+            $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->mayores_de(15);
             $votantesV = array();
             $votantesE = array();
             foreach ($jefes_grupo_familiar as $j) {
@@ -546,7 +553,7 @@ class InicioController extends Controller
             return $response;
 
         }else{
-            $this->get('session')->getFlashBag()->add('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
+            $this->addFlash('danger', 'No se puede generar el Cuaderno de Votación hasta tanto no haya agregado los datos de la Comunidad');
             return $this->redirectToRoute('sic_homepage');
         }
     }

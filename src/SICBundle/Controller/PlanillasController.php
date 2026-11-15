@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
 use Slik\DompdfBundle\DomPDF;
@@ -31,7 +31,7 @@ use SICBundle\Form\PlanillasType;
  * Planillas controller.
  *
  */
-class PlanillasController extends Controller
+class PlanillasController extends BaseController
 {
     /**
      * Lists all Planillas entities.
@@ -41,7 +41,7 @@ class PlanillasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $planillas = $em->getRepository('SICBundle:Planillas')->findAll();
+        $planillas = $em->getRepository(\SICBundle\Entity\Planillas::class)->findAll();
 
         return $this->render('planillas/index.html.twig', array(
             'planillas' => $planillas,
@@ -55,7 +55,7 @@ class PlanillasController extends Controller
     public function newAction(Request $request)
     {
         $planilla = new Planillas();
-        $form = $this->createForm('SICBundle\Form\PlanillasType', $planilla);
+        $form = $this->createForm(PlanillasType::class, $planilla);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -100,7 +100,7 @@ class PlanillasController extends Controller
     public function editAction(Request $request, Planillas $planilla)
     {
         $deleteForm = $this->createDeleteForm($planilla);
-        $editForm = $this->createForm('SICBundle\Form\PlanillasType', $planilla);
+        $editForm = $this->createForm(PlanillasType::class, $planilla);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -133,7 +133,7 @@ class PlanillasController extends Controller
             $em->remove($planilla);
             $bitacora = new Bitacora($this->getUser(),'eliminó','Una planilla.');
             $em->persist($bitacora);
-            $this->get('session')->getFlashBag()->add('success', 'Se eliminó la planilla de forma exitosa.');
+            $this->addFlash('success', 'Se eliminó la planilla de forma exitosa.');
 
             $em->flush();
         }
@@ -160,7 +160,7 @@ class PlanillasController extends Controller
     public function cargarObservacionAction(Request $request, $id_planilla)
     {
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
 
         $data = $request->get('observaciones');
         $planilla[0]->setObservaciones($data);
@@ -168,14 +168,13 @@ class PlanillasController extends Controller
         $bitacora = new Bitacora($this->getUser(),'modificó','Las observaciones de la planilla '.$id_planilla);
         $em->persist($bitacora);
         $em->flush();
-        $this->get('session')->getFlashBag()
-        ->add('success', 'Se ha registrado la observación');
+        $this->addFlash('success', 'Se ha registrado la observación');
     }
 
     public function conitnuarEncuestaAction($id_encuesta = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_encuesta);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_encuesta);
 
         if (sizeof($planilla) == 1) {
             $planilla = $planilla[0];
@@ -210,8 +209,7 @@ class PlanillasController extends Controller
                                     if ($aux != NULL) {
                                         $aux = $planilla->getSituacionComunidad();
                                         if ($aux != NULL) {
-                                            $this->get('session')->getFlashBag()
-                                            ->add('success', 'La planilla ya está completa');
+                                            $this->addFlash('success', 'La planilla ya está completa');
                                             return $this->redirectToRoute('planillas_index');
                                         }else{
                                             return $this->redirectToRoute('situacioncomunidad_new', array('id_planilla' => $planilla->getId()));
@@ -239,8 +237,7 @@ class PlanillasController extends Controller
             }
         }
 
-        $this->get('session')->getFlashBag()
-        ->add('danger', 'La planilla que indicó no existe.');
+        $this->addFlash('danger', 'La planilla que indicó no existe.');
         return $this->redirectToRoute('planillas_index');
     }
 
@@ -251,7 +248,7 @@ class PlanillasController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($form['tipo'] == "jgf_profesion") {
-            $resultado = $em->getRepository('SICBundle:AdminProfesion')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminProfesion();
                 $nuevo->setNombre($form['nombre']);
@@ -266,7 +263,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "actividad_vivienda") {
-            $resultado = $em->getRepository('SICBundle:AdminVentaVivienda')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminVentaVivienda::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminVentaVivienda();
                 $nuevo->setNombre($form['nombre']);
@@ -281,7 +278,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_vivienda_habitaciones") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoHabitacionesVivienda')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoHabitacionesVivienda::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoHabitacionesVivienda();
                 $nuevo->setNombre($form['nombre']);
@@ -296,7 +293,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_vivienda_enseres") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoEnseres')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoEnseres::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoEnseres();
                 $nuevo->setNombre($form['nombre']);
@@ -311,7 +308,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_vivienda_presenciaInsectos") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoPlagas')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoPlagas::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoPlagas();
                 $nuevo->setNombre($form['nombre']);
@@ -326,7 +323,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_vivienda_mascota") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoMascotas')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoMascotas::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoMascotas();
                 $nuevo->setNombre($form['nombre']);
@@ -341,7 +338,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_salud_padecencia") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoPadecencia')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoPadecencia::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoPadecencia();
                 $nuevo->setNombre($form['nombre']);
@@ -356,7 +353,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_servicios_transporte") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoTransporte')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoTransporte::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoTransporte();
                 $nuevo->setNombre($form['nombre']);
@@ -371,7 +368,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_servicios_mecanismoInformacion") {
-            $resultado = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminMecanismoInformacion::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminMecanismoInformacion();
                 $nuevo->setNombre($form['nombre']);
@@ -386,7 +383,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_servicios_serviciosComunales") {
-            $resultado = $em->getRepository('SICBundle:AdminServiciosComunales')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminServiciosComunales::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminServiciosComunales();
                 $nuevo->setNombre($form['nombre']);
@@ -401,7 +398,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_servicios_recoleccionBasura") {
-            $resultado = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminRecoleccionBasura::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminRecoleccionBasura();
                 $nuevo->setNombre($form['nombre']);
@@ -416,7 +413,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_servicios_telefonia") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoTelefonia')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoTelefonia::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoTelefonia();
                 $nuevo->setNombre($form['nombre']);
@@ -431,7 +428,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "situacion_salud_ayudaEspecial") {
-            $resultado = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminTipoAyudaEspecial::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminTipoAyudaEspecial();
                 $nuevo->setNombre($form['nombre']);
@@ -446,7 +443,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "participacion_comunitaria_existenOrganizaciones") {
-            $resultado = $em->getRepository('SICBundle:AdminOrgComunitaria')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminOrgComunitaria::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminOrgComunitaria();
                 $nuevo->setNombre($form['nombre']);
@@ -461,7 +458,7 @@ class PlanillasController extends Controller
                 ]));
             }
         }elseif ($form['tipo'] == "participacion_comunitaria_misionesComunidad") {
-            $resultado = $em->getRepository('SICBundle:AdminMisionesComunidad')->findBy(array('nombre' => $form['nombre']));
+            $resultado = $em->getRepository(\SICBundle\Entity\AdminMisionesComunidad::class)->findBy(array('nombre' => $form['nombre']));
             if (sizeof($resultado) == 0) {
                 $nuevo = new AdminMisionesComunidad();
                 $nuevo->setNombre($form['nombre']);
@@ -485,15 +482,15 @@ class PlanillasController extends Controller
     public function imprimirAction(Planillas $planilla)
     {
         if ($planilla->getTerminada() != 100) {
-            $this->get('session')->getFlashBag()->add('danger', 'No puedes imprimir una planilla que no este completada.');
+            $this->addFlash('danger', 'No puedes imprimir una planilla que no este completada.');
             return $this->render('estadisticas/imprimir-error.html.twig', array(
                 'mensaje' => 'Este estudio no está terminado por lo cual no lo puede imprimir, completelo y regrese.'));
         }else{
-            if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+            if( $this->isGranted('IS_AUTHENTICATED_FULLY') )
             {
                 $em = $this->getDoctrine()->getManager();
-                $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-                $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+                $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+                $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
                 $comunidad_info = $comunidad[0];
                 $cc = $consejo[0];
 
@@ -525,12 +522,12 @@ class PlanillasController extends Controller
     public function obtenerTodasAction()
     {
         set_time_limit(0);
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') )
+        if( $this->isGranted('IS_AUTHENTICATED_FULLY') )
             {
                 $em = $this->getDoctrine()->getManager();
-                $planillas = $em->getRepository('SICBundle:Planillas')->findAll();
-                $comunidad = $em->getRepository('SICBundle:Comunidad')->findAll();
-                $consejo = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+                $planillas = $em->getRepository(\SICBundle\Entity\Planillas::class)->findAll();
+                $comunidad = $em->getRepository(\SICBundle\Entity\Comunidad::class)->findAll();
+                $consejo = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
                 $comunidad_info = $comunidad[0];
                 $cc = $consejo[0];
 

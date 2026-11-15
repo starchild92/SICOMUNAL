@@ -2,13 +2,13 @@
 
 namespace SICBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 use Slik\DompdfBundle\DomPDF;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use SICBundle\Entity\Bitacora;
 
-class EstadisticasController extends Controller
+class EstadisticasController extends BaseController
 {
     public function egPersonasAction(Request $request){
     	$todos = $this->estadisticasPersonas();
@@ -19,75 +19,75 @@ class EstadisticasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $nacionalidades = $em->getRepository('SICBundle:AdminNacionalidad')->findAll();
+        $nacionalidades = $em->getRepository(\SICBundle\Entity\AdminNacionalidad::class)->findAll();
         $stat_nacionalidad_jgf = array();
         $stat_nacionalidad_p = array();
         foreach ($nacionalidades as $nacionalidad) {
             array_push(
                 $stat_nacionalidad_jgf, array(
                     'nacionalidad' => $nacionalidad->getNacionalidad(),
-                    'quienes'     => $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('nacionalidad' => $nacionalidad->getId()))
+                    'quienes'     => $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('nacionalidad' => $nacionalidad->getId()))
                 )
             );
             array_push(
                 $stat_nacionalidad_p, array(
                     'nacionalidad' => $nacionalidad->getNacionalidad(),
-                    'quienes'     => $em->getRepository('SICBundle:Persona')->findBy(array('nacionalidad' => $nacionalidad->getId()))
+                    'quienes'     => $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('nacionalidad' => $nacionalidad->getId()))
                     )
             );
         }
 
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_cne_jgf = array();
         $stat_cne_p = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_cne_jgf, array('resp' => $resp->getRespuesta(),'quienes'     => $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('cne' => $resp->getId()))));
-            array_push($stat_cne_p, array('resp' => $resp->getRespuesta(),'quienes'     => $em->getRepository('SICBundle:Persona')->findBy(array('cne' => $resp->getId()))));
+            array_push($stat_cne_jgf, array('resp' => $resp->getRespuesta(),'quienes'     => $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('cne' => $resp->getId()))));
+            array_push($stat_cne_p, array('resp' => $resp->getRespuesta(),'quienes'     => $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('cne' => $resp->getId()))));
         }
         
         $stat_empleado_jgf = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_empleado_jgf, array('resp' => $resp->getRespuesta(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('trabajaActualmente' => $resp->getId()))));
+            array_push($stat_empleado_jgf, array('resp' => $resp->getRespuesta(),'quienes'=> $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('trabajaActualmente' => $resp->getId()))));
         }
 
-        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $instruccion = $em->getRepository(\SICBundle\Entity\AdminNivelInstruccion::class)->findAll();
         $stat_instruccion_jgf = array();
         $stat_instruccion_p = array();
         foreach ($instruccion as $elemento) {
-        	$whos = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('nivelInstruccion' => $elemento->getId()));
+        	$whos = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('nivelInstruccion' => $elemento->getId()));
 			if (sizeof($whos)>0) { array_push($stat_instruccion_jgf, array('nivel' => $elemento->getNombre(),'quienes'=> $whos)); }
-            $whos = $em->getRepository('SICBundle:Persona')->findBy(array('gradoInstruccion' => $elemento->getId()));
+            $whos = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('gradoInstruccion' => $elemento->getId()));
 			if (sizeof($whos)>0) { array_push($stat_instruccion_p, array('nivel' => $elemento->getNombre(),'quienes'=> $whos)); }
         }
 
-        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $profesiones = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findAll();
         $stat_profesiones_jgf = array();
         $stat_profesiones_p = array();
         foreach ($profesiones as $elemento) {
-        	$whos = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('profesion' => $elemento->getId()));
+        	$whos = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('profesion' => $elemento->getId()));
         	if (sizeof($whos)) { array_push($stat_profesiones_jgf, array('profesion' => $elemento->getNombre(),'quienes'=> $whos)); }
-        	$whos = $em->getRepository('SICBundle:Persona')->findBy(array('profesion' => $elemento->getId()));
+        	$whos = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('profesion' => $elemento->getId()));
         	if (sizeof($whos)) { array_push($stat_profesiones_p, array('profesion' => $elemento->getNombre(),'quienes'=> $whos)); }
             
         }
 
-        $discapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $discapacidades = $em->getRepository(\SICBundle\Entity\AdminIncapacidades::class)->findAll();
         $stat_discapacidades_jgf = array();
         $stat_discapacidades_p = array();
         foreach ($discapacidades as $elemento) {
-            $whos = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('incapacitadoTipo' => $elemento->getId()));
+            $whos = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('incapacitadoTipo' => $elemento->getId()));
             if(sizeof($whos) > 0){ array_push($stat_discapacidades_jgf, array('discapacidad' => $elemento->getIncapacidad(),'quienes'=> $whos)); }
-            $whos = $em->getRepository('SICBundle:Persona')->findBy(array('incapacitadoTipo' => $elemento->getId()));
+            $whos = $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('incapacitadoTipo' => $elemento->getId()));
             if(sizeof($whos) > 0){ array_push($stat_discapacidades_p, array('discapacidad' => $elemento->getIncapacidad(),'quienes'=> $whos)); }
             
         }
 
-        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $pensionados = $em->getRepository(\SICBundle\Entity\AdminPensionadoInstitucion::class)->findAll();
         $stat_pensionados_jgf = array();
         $stat_pensionados_p = array();
         foreach ($pensionados as $elemento) {
-            array_push($stat_pensionados_jgf, array('pensionados' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:JefeGrupoFamiliar')->findBy(array('pensionadoInstitucion' => $elemento->getId()))));
-            array_push($stat_pensionados_p, array('pensionados' => $elemento->getNombre(),'quienes'=> $em->getRepository('SICBundle:Persona')->findBy(array('pensionadoInstitucion' => $elemento->getId()))));
+            array_push($stat_pensionados_jgf, array('pensionados' => $elemento->getNombre(),'quienes'=> $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findBy(array('pensionadoInstitucion' => $elemento->getId()))));
+            array_push($stat_pensionados_p, array('pensionados' => $elemento->getNombre(),'quienes'=> $em->getRepository(\SICBundle\Entity\Persona::class)->findBy(array('pensionadoInstitucion' => $elemento->getId()))));
         }
 
         return array(
@@ -121,16 +121,16 @@ class EstadisticasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $ubic_trabajo = $em->getRepository('SICBundle:AdminUbicacionTrabajo')->findAll();
+        $ubic_trabajo = $em->getRepository(\SICBundle\Entity\AdminUbicacionTrabajo::class)->findAll();
         $stat_ubic_trabajo = array();
         foreach ($ubic_trabajo as $elemento) {
-            array_push($stat_ubic_trabajo, array('trabajo' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionEconomica')->findBy(array('dondeTrabaja' => $elemento->getId()))));
+            array_push($stat_ubic_trabajo, array('trabajo' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionEconomica::class)->findBy(array('dondeTrabaja' => $elemento->getId()))));
         }
 
-        $venta_vivienda = $em->getRepository('SICBundle:AdminVentaVivienda')->findAll();
+        $venta_vivienda = $em->getRepository(\SICBundle\Entity\AdminVentaVivienda::class)->findAll();
         $stat_venta_vivienda = array();
         foreach ($venta_vivienda as $elemento) {
-            array_push($stat_venta_vivienda, array('venta_vivienda' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionEconomica')->findByActividadComercialVivienda($elemento)));
+            array_push($stat_venta_vivienda, array('venta_vivienda' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionEconomica::class)->findByActividadComercialVivienda($elemento)));
         }
 
         return array(
@@ -146,84 +146,84 @@ class EstadisticasController extends Controller
     public function estadisticasVivienda()
     {
         $em = $this->getDoctrine()->getManager();
-        $situacionViviendas = $em->getRepository('SICBundle:SituacionVivienda')->findAll();
+        $situacionViviendas = $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findAll();
 
-        $condicion_terreno = $em->getRepository('SICBundle:AdminTipoCondicionTerreno')->findAll();
+        $condicion_terreno = $em->getRepository(\SICBundle\Entity\AdminTipoCondicionTerreno::class)->findAll();
         $stat_condicion_terreno = array();
         foreach ($condicion_terreno as $elemento) {
-            array_push($stat_condicion_terreno, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('condicionesTerreno' => $elemento->getId()))));
+            array_push($stat_condicion_terreno, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('condicionesTerreno' => $elemento->getId()))));
         }
 
-        $tipo_vivienda = $em->getRepository('SICBundle:AdminTipoVivienda')->findAll();
+        $tipo_vivienda = $em->getRepository(\SICBundle\Entity\AdminTipoVivienda::class)->findAll();
         $stat_tipo_vivienda = array();
         foreach ($tipo_vivienda as $elemento) {
-            array_push($stat_tipo_vivienda, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('tipo' => $elemento->getId()))));
+            array_push($stat_tipo_vivienda, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('tipo' => $elemento->getId()))));
         }
 
-        $tipo_tenencia = $em->getRepository('SICBundle:AdminTipoTenencia')->findAll();
+        $tipo_tenencia = $em->getRepository(\SICBundle\Entity\AdminTipoTenencia::class)->findAll();
         $stat_tipo_tenencia = array();
         foreach ($tipo_tenencia as $elemento) {
-            array_push($stat_tipo_tenencia, array('elemento' => $elemento->getForma(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('tenencia' => $elemento->getId()))));
+            array_push($stat_tipo_tenencia, array('elemento' => $elemento->getForma(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('tenencia' => $elemento->getId()))));
         }
 
-        $terreno = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $terreno = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_terreno = array();
         foreach ($terreno as $elemento) {
-            array_push($stat_terreno, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('terrenoPropio' => $elemento->getId()))));
+            array_push($stat_terreno, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('terrenoPropio' => $elemento->getId()))));
         }
 
-        $ovc = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $ovc = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_ovc = array();
         foreach ($ovc as $elemento) {
-            array_push($stat_ovc, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('ovc' => $elemento->getId()))));
+            array_push($stat_ovc, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('ovc' => $elemento->getId()))));
         }
 
-        $paredes = $em->getRepository('SICBundle:AdminTipoParedes')->findAll();
+        $paredes = $em->getRepository(\SICBundle\Entity\AdminTipoParedes::class)->findAll();
         $stat_paredes = array();
         foreach ($paredes as $elemento) {
-            array_push($stat_paredes, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('paredes' => $elemento->getId()))));
+            array_push($stat_paredes, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('paredes' => $elemento->getId()))));
         }
 
-        $sivih = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $sivih = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_sivih = array();
         foreach ($sivih as $elemento) {
-            array_push($stat_sivih, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('sivih' => $elemento->getId()))));
+            array_push($stat_sivih, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('sivih' => $elemento->getId()))));
         }
 
         $leypoliticahabitacional = $sivih;
         $stat_leypoliticahabitacional = array();
         foreach ($leypoliticahabitacional as $elemento) {
-            array_push($stat_leypoliticahabitacional, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('leypoliticahabitacional' => $elemento->getId()))));
+            array_push($stat_leypoliticahabitacional, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('leypoliticahabitacional' => $elemento->getId()))));
         }
 
-        $techo = $em->getRepository('SICBundle:AdminTipoTecho')->findAll();
+        $techo = $em->getRepository(\SICBundle\Entity\AdminTipoTecho::class)->findAll();
         $stat_techo = array();
         foreach ($techo as $elemento) {
-            array_push($stat_techo, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('techo' => $elemento->getId()))));
+            array_push($stat_techo, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('techo' => $elemento->getId()))));
         }
 
-        $enseres = $em->getRepository('SICBundle:AdminTipoEnseres')->findAll();
+        $enseres = $em->getRepository(\SICBundle\Entity\AdminTipoEnseres::class)->findAll();
         $stat_enseres = array();
         foreach ($enseres as $elemento) {
-            array_push($stat_enseres, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findByEnseres($elemento)));
+            array_push($stat_enseres, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByEnseres($elemento)));
         }
 
-        $salubridad = $em->getRepository('SICBundle:AdminSalubridadVivienda')->findAll();
+        $salubridad = $em->getRepository(\SICBundle\Entity\AdminSalubridadVivienda::class)->findAll();
         $stat_salubridad = array();
         foreach ($salubridad as $elemento) {
-            array_push($stat_salubridad, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findBy(array('salubridad' => $elemento->getId()))));
+            array_push($stat_salubridad, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findBy(array('salubridad' => $elemento->getId()))));
         }
 
-        $plagas = $em->getRepository('SICBundle:AdminTipoPlagas')->findAll();
+        $plagas = $em->getRepository(\SICBundle\Entity\AdminTipoPlagas::class)->findAll();
         $stat_plagas = array();
         foreach ($plagas as $elemento) {
-            array_push($stat_plagas, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findByPresenciaInsectos($elemento)));
+            array_push($stat_plagas, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByPresenciaInsectos($elemento)));
         }
 
-        $mascotas = $em->getRepository('SICBundle:AdminTipoMascotas')->findAll();
+        $mascotas = $em->getRepository(\SICBundle\Entity\AdminTipoMascotas::class)->findAll();
         $stat_mascotas = array();
         foreach ($mascotas as $elemento) {
-            array_push($stat_mascotas, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:SituacionVivienda')->findByMascota($elemento)));
+            array_push($stat_mascotas, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\SituacionVivienda::class)->findByMascota($elemento)));
         }
 
         return array(
@@ -251,22 +251,22 @@ class EstadisticasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $padecencias = $em->getRepository('SICBundle:AdminTipoPadecencia')->findAll();
+        $padecencias = $em->getRepository(\SICBundle\Entity\AdminTipoPadecencia::class)->findAll();
         $stat_padecencias = array();
         foreach ($padecencias as $elemento) {
-            array_push($stat_padecencias, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->padecencia($elemento))));
+            array_push($stat_padecencias, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository(\SICBundle\Entity\SituacionSalud::class)->padecencia($elemento))));
         }
 
-        $ayuda_especial = $em->getRepository('SICBundle:AdminTipoAyudaEspecial')->findAll();
+        $ayuda_especial = $em->getRepository(\SICBundle\Entity\AdminTipoAyudaEspecial::class)->findAll();
         $stat_ayuda_especial = array();
         foreach ($ayuda_especial as $elemento) {
-            array_push($stat_ayuda_especial, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->ayudaEspecial($elemento))));
+            array_push($stat_ayuda_especial, array('elemento' => $elemento->getNombre(),'situacion' => ($em->getRepository(\SICBundle\Entity\SituacionSalud::class)->ayudaEspecial($elemento))));
         }
 
-        $situacion_exclusion = $em->getRepository('SICBundle:AdminTipoSituacion')->findAll();
+        $situacion_exclusion = $em->getRepository(\SICBundle\Entity\AdminTipoSituacion::class)->findAll();
         $stat_situacion_exclusion = array();
         foreach ($situacion_exclusion as $elemento) {
-            array_push($stat_situacion_exclusion, array('elemento' => $elemento->getSituacion(),'situacion' => ($em->getRepository('SICBundle:SituacionSalud')->situacionExclusion($elemento))));
+            array_push($stat_situacion_exclusion, array('elemento' => $elemento->getSituacion(),'situacion' => ($em->getRepository(\SICBundle\Entity\SituacionSalud::class)->situacionExclusion($elemento))));
         }
 
         return array(
@@ -283,15 +283,15 @@ class EstadisticasController extends Controller
     public function estadisticasServicios()
     {
         $em = $this->getDoctrine()->getManager();
-        $situacionServicios = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        $situacionServicios = $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findAll();
 
-        $aguasb = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
+        $aguasb = $em->getRepository(\SICBundle\Entity\AdminAguasBlancas::class)->findAll();
         $stat_aguasb = array();
         foreach ($aguasb as $elemento) {
-            array_push($stat_aguasb, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('aguasBlancas' => $elemento->getId()))));
+            array_push($stat_aguasb, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('aguasBlancas' => $elemento->getId()))));
         }
 
-        $tanques = $em->getRepository('SICBundle:SituacionServicios')->findAll();
+        $tanques = $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findAll();
         $stat_tanque = array();
         $stat_tanque_si = array();
         $stat_tanque_no = array();
@@ -308,84 +308,84 @@ class EstadisticasController extends Controller
         array_push($stat_pipotes, array('elemento' => 'Si', 'situacion' => $stat_pipotes_si));
         array_push($stat_pipotes, array('elemento' => 'No', 'situacion' => $stat_pipotes_no));
 
-        $aguasservidas = $em->getRepository('SICBundle:AdminAguasServidas')->findAll();
+        $aguasservidas = $em->getRepository(\SICBundle\Entity\AdminAguasServidas::class)->findAll();
         $stat_aguasservidas = array();
         foreach ($aguasservidas as $elemento) {
-            array_push($stat_aguasservidas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('aguasServidas' => $elemento->getId()))));
+            array_push($stat_aguasservidas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('aguasServidas' => $elemento->getId()))));
         }
 
-        $gas = $em->getRepository('SICBundle:AdminTipoGas')->findAll();
+        $gas = $em->getRepository(\SICBundle\Entity\AdminTipoGas::class)->findAll();
         $stat_gas = array();
         foreach ($gas as $elemento) {
-            array_push($stat_gas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('gas' => $elemento->getId()))));
+            array_push($stat_gas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('gas' => $elemento->getId()))));
         }
 
-        $empresaGas = $em->getRepository('SICBundle:AdminEmpresaGas')->findAll();
+        $empresaGas = $em->getRepository(\SICBundle\Entity\AdminEmpresaGas::class)->findAll();
         $stat_empresaGas = array();
         foreach ($empresaGas as $elemento) {
-            array_push($stat_empresaGas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('empresaGas' => $elemento->getId()))));
+            array_push($stat_empresaGas, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('empresaGas' => $elemento->getId()))));
         }
 
-        $sistemas_electrico = $em->getRepository('SICBundle:AdminSistemaElectrico')->findAll();
+        $sistemas_electrico = $em->getRepository(\SICBundle\Entity\AdminSistemaElectrico::class)->findAll();
         $stat_sistemas_electrico = array();
         foreach ($sistemas_electrico as $elemento) {
-            array_push($stat_sistemas_electrico, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('sistemaElectrico' => $elemento->getId()))));
+            array_push($stat_sistemas_electrico, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('sistemaElectrico' => $elemento->getId()))));
         }
 
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_medidor_electrico = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_medidor_electrico, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('medidorElectrico' => $resp->getId()))));
+            array_push($stat_medidor_electrico, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('medidorElectrico' => $resp->getId()))));
         }
 
-        $basura = $em->getRepository('SICBundle:AdminRecoleccionBasura')->findAll();
+        $basura = $em->getRepository(\SICBundle\Entity\AdminRecoleccionBasura::class)->findAll();
         $stat_basura = array();
         foreach ($basura as $elemento) {
-            array_push($stat_basura, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('recoleccionBasura' => $elemento->getId()))));
+            array_push($stat_basura, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('recoleccionBasura' => $elemento->getId()))));
         }
 
-        $telefonia = $em->getRepository('SICBundle:AdminTipoTelefonia')->findAll();
+        $telefonia = $em->getRepository(\SICBundle\Entity\AdminTipoTelefonia::class)->findAll();
         $stat_telefonia = array();
         foreach ($telefonia as $elemento) {
-            array_push($stat_telefonia, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->telefonia($elemento)));
+            array_push($stat_telefonia, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->telefonia($elemento)));
         }
 
-        $transporte = $em->getRepository('SICBundle:AdminTipoTransporte')->findAll();
+        $transporte = $em->getRepository(\SICBundle\Entity\AdminTipoTransporte::class)->findAll();
         $stat_transporte = array();
         foreach ($transporte as $elemento) {
-            array_push($stat_transporte, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->transporte($elemento)));
+            array_push($stat_transporte, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->transporte($elemento)));
         }
 
-        $mecanismoInformacion = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findAll();
+        $mecanismoInformacion = $em->getRepository(\SICBundle\Entity\AdminMecanismoInformacion::class)->findAll();
         $stat_mecanismoInformacion = array();
         foreach ($mecanismoInformacion as $elemento) {
-            array_push($stat_mecanismoInformacion, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->mecanismoInformacion($elemento)));
+            array_push($stat_mecanismoInformacion, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->mecanismoInformacion($elemento)));
         }
 
-        $serviciosComunales = $em->getRepository('SICBundle:AdminServiciosComunales')->findAll();
+        $serviciosComunales = $em->getRepository(\SICBundle\Entity\AdminServiciosComunales::class)->findAll();
         $stat_serviciosComunales = array();
         foreach ($serviciosComunales as $elemento) {
-            array_push($stat_serviciosComunales, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->serviciosComunales($elemento)));
+            array_push($stat_serviciosComunales, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->serviciosComunales($elemento)));
         }
 
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_medidor = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_medidor, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('medidor' => $resp->getId()))));
+            array_push($stat_medidor, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('medidor' => $resp->getId()))));
         }
 
 
 
-        $capacidadBombona = $em->getRepository('SICBundle:AdminCapacidadBombona')->findAll();
+        $capacidadBombona = $em->getRepository(\SICBundle\Entity\AdminCapacidadBombona::class)->findAll();
         $stat_capacidadBombona = array();
         foreach ($capacidadBombona as $elemento) {
-            array_push($stat_capacidadBombona, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('capacidadBombona' => $elemento->getId()))));
+            array_push($stat_capacidadBombona, array('elemento' => $elemento->getNombre(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('capacidadBombona' => $elemento->getId()))));
         }
 
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_bombillosAhorradores = array();
         foreach ($resp_cerradas as $resp) {
-            array_push($stat_bombillosAhorradores, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository('SICBundle:SituacionServicios')->findBy(array('bombillosAhorradores' => $resp->getId()))));
+            array_push($stat_bombillosAhorradores, array('elemento' => $resp->getRespuesta(), 'situacion' => $em->getRepository(\SICBundle\Entity\SituacionServicios::class)->findBy(array('bombillosAhorradores' => $resp->getId()))));
         }
 
         return array(
@@ -416,36 +416,36 @@ class EstadisticasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $participacionComunitarias = $em->getRepository('SICBundle:ParticipacionComunitaria')->findAll();
+        $participacionComunitarias = $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findAll();
 
-        $orgs = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $orgs = $em->getRepository(\SICBundle\Entity\AdminOrgComunitaria::class)->findAll();
         $stat_orgs = array();
         foreach ($orgs as $elemento) {
-            array_push($stat_orgs, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->existenOrganizaciones($elemento)));
+            array_push($stat_orgs, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->existenOrganizaciones($elemento)));
         }
 
-        $participacion = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $participacion = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_participacion = array();
         foreach ($participacion as $elemento) {
-            array_push($stat_participacion, array('elemento' => $elemento->getRespuesta(),'situacion'     => $em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(array('participaOrganizacion' => $elemento->getId()))));
+            array_push($stat_participacion, array('elemento' => $elemento->getRespuesta(),'situacion'     => $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findBy(array('participaOrganizacion' => $elemento->getId()))));
         }
 
-        $parte_miembros = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $parte_miembros = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_parte_miembros = array();
         foreach ($parte_miembros as $elemento) {
-            array_push($stat_parte_miembros, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->findBy(array('participaMiembroOrganizacion' => $elemento->getId()))));
+            array_push($stat_parte_miembros, array('elemento' => $elemento->getRespuesta(),'situacion' => $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->findBy(array('participaMiembroOrganizacion' => $elemento->getId()))));
         }
 
-        $misiones = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $misiones = $em->getRepository(\SICBundle\Entity\AdminMisionesComunidad::class)->findAll();
         $stat_misiones = array();
         foreach ($misiones as $elemento) {
-            array_push($stat_misiones, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->misionesComunidad($elemento)));
+            array_push($stat_misiones, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->misionesComunidad($elemento)));
         }
 
-        $areatrabajo = $em->getRepository('SICBundle:AdminAreaTrabajoCC')->findAll();
+        $areatrabajo = $em->getRepository(\SICBundle\Entity\AdminAreaTrabajoCC::class)->findAll();
         $stat_areatrabajo = array();
         foreach ($areatrabajo as $elemento) {
-            array_push($stat_areatrabajo, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository('SICBundle:ParticipacionComunitaria')->areaTabajoCC($elemento)));
+            array_push($stat_areatrabajo, array('elemento' => $elemento->getNombre(),'situacion' => $em->getRepository(\SICBundle\Entity\ParticipacionComunitaria::class)->areaTabajoCC($elemento)));
         }
 
         return array(

@@ -1,24 +1,24 @@
 configurable_tipos_ingresos_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminTipoIngresos:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoIngresosController::indexAction" }
     methods:  GET
 
 configurable_tipos_ingresos_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminTipoIngresos:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoIngresosController::showAction" }
     methods:  GET
 
 configurable_tipos_ingresos_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminTipoIngresos:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoIngresosController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipos_ingresos_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminTipoIngresos:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoIngresosController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipos_ingresos_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminTipoIngresos:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminTipoIngresosController::deleteAction" }
     methods:  DELETE

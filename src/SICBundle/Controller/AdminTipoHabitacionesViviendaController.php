@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoHabitacionesVivienda;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoHabitacionesViviendaType;
  * AdminTipoHabitacionesVivienda controller.
  *
  */
-class AdminTipoHabitacionesViviendaController extends Controller
+class AdminTipoHabitacionesViviendaController extends BaseController
 {
     /**
      * Lists all AdminTipoHabitacionesVivienda entities.
@@ -23,7 +23,7 @@ class AdminTipoHabitacionesViviendaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoHabitacionesViviendas = $em->getRepository('SICBundle:AdminTipoHabitacionesVivienda')->findAll();
+        $adminTipoHabitacionesViviendas = $em->getRepository(\SICBundle\Entity\AdminTipoHabitacionesVivienda::class)->findAll();
 
         return $this->render('admintipohabitacionesvivienda/index.html.twig', array(
             'adminTipoHabitacionesViviendas' => $adminTipoHabitacionesViviendas,
@@ -37,13 +37,13 @@ class AdminTipoHabitacionesViviendaController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoHabitacionesVivienda = new AdminTipoHabitacionesVivienda();
-        $form = $this->createForm('SICBundle\Form\AdminTipoHabitacionesViviendaType', $adminTipoHabitacionesVivienda);
+        $form = $this->createForm(AdminTipoHabitacionesViviendaType::class, $adminTipoHabitacionesVivienda);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoHabitacionesVivienda);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo Habitación a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoHabitacionesViviendaController extends Controller
     public function editAction(Request $request, AdminTipoHabitacionesVivienda $adminTipoHabitacionesVivienda)
     {
         $deleteForm = $this->createDeleteForm($adminTipoHabitacionesVivienda);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoHabitacionesViviendaType', $adminTipoHabitacionesVivienda);
+        $editForm = $this->createForm(AdminTipoHabitacionesViviendaType::class, $adminTipoHabitacionesVivienda);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoHabitacionesVivienda);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Habitación');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoHabitacionesViviendaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoHabitacionesVivienda);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoHabitacionesVivienda->getNombre().' de los parámetros de Tipo de Habitación del sistema');
             $em->persist($bitacora);
             $em->flush();

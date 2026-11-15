@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\ConsejoComunal;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\ConsejoComunalType;
  * ConsejoComunal controller.
  *
  */
-class ConsejoComunalController extends Controller
+class ConsejoComunalController extends BaseController
 {
     /**
      * Lists all ConsejoComunal entities.
@@ -23,7 +23,7 @@ class ConsejoComunalController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $consejoComunals = $em->getRepository('SICBundle:ConsejoComunal')->findAll();
+        $consejoComunals = $em->getRepository(\SICBundle\Entity\ConsejoComunal::class)->findAll();
 
         return $this->render('consejocomunal/index.html.twig', array(
             'consejoComunals' => $consejoComunals,
@@ -37,7 +37,7 @@ class ConsejoComunalController extends Controller
     public function newAction(Request $request)
     {
         $consejoComunal = new ConsejoComunal();
-        $form = $this->createForm('SICBundle\Form\ConsejoComunalType', $consejoComunal);
+        $form = $this->createForm(ConsejoComunalType::class, $consejoComunal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -47,7 +47,7 @@ class ConsejoComunalController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Ha agregado la información basé del Consejo Comunal de forma exitosa.');
+            $this->addFlash('success', 'Ha agregado la información basé del Consejo Comunal de forma exitosa.');
 
             return $this->redirectToRoute('sic_administacion_entidades');
         }
@@ -79,7 +79,7 @@ class ConsejoComunalController extends Controller
     public function editAction(Request $request, ConsejoComunal $consejoComunal)
     {
         $deleteForm = $this->createDeleteForm($consejoComunal);
-        $editForm = $this->createForm('SICBundle\Form\ConsejoComunalType', $consejoComunal);
+        $editForm = $this->createForm(ConsejoComunalType::class, $consejoComunal);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -91,7 +91,7 @@ class ConsejoComunalController extends Controller
 
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se ha actualizado la información del Consejo Comunal de forma exitosa.');
+            $this->addFlash('success', 'Se ha actualizado la información del Consejo Comunal de forma exitosa.');
 
             return $this->redirectToRoute('sic_administacion_entidades');
         }
@@ -116,7 +116,7 @@ class ConsejoComunalController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($consejoComunal);
             
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado la información del Consejo Comunal de forma exitosa.');
+            $this->addFlash('success', 'Se ha eliminado la información del Consejo Comunal de forma exitosa.');
             $bitacora = new Bitacora($this->getUser(),'eliminó','la información del Consejo Comunal.');
             $em->persist($bitacora);
             $em->flush();

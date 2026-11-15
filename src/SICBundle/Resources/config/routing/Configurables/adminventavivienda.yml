@@ -1,24 +1,24 @@
 configurable_venta_vivenda_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminVentaVivienda:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminVentaViviendaController::indexAction" }
     methods:  GET
 
 configurable_venta_vivenda_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminVentaVivienda:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminVentaViviendaController::showAction" }
     methods:  GET
 
 configurable_venta_vivenda_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminVentaVivienda:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminVentaViviendaController::newAction" }
     methods:  [GET, POST]
 
 configurable_venta_vivenda_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminVentaVivienda:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminVentaViviendaController::editAction" }
     methods:  [GET, POST]
 
 configurable_venta_vivenda_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminVentaVivienda:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminVentaViviendaController::deleteAction" }
     methods:  DELETE

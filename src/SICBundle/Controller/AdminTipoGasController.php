@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoGas;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoGasType;
  * AdminTipoGas controller.
  *
  */
-class AdminTipoGasController extends Controller
+class AdminTipoGasController extends BaseController
 {
     /**
      * Lists all AdminTipoGas entities.
@@ -23,7 +23,7 @@ class AdminTipoGasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoGas = $em->getRepository('SICBundle:AdminTipoGas')->findAll();
+        $adminTipoGas = $em->getRepository(\SICBundle\Entity\AdminTipoGas::class)->findAll();
 
         return $this->render('admintipogas/index.html.twig', array(
             'adminTipoGas' => $adminTipoGas,
@@ -37,13 +37,13 @@ class AdminTipoGasController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoGa = new AdminTipoGas();
-        $form = $this->createForm('SICBundle\Form\AdminTipoGasType', $adminTipoGa);
+        $form = $this->createForm(AdminTipoGasType::class, $adminTipoGa);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoGa);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Gas a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoGasController extends Controller
     public function editAction(Request $request, AdminTipoGas $adminTipoGa)
     {
         $deleteForm = $this->createDeleteForm($adminTipoGa);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoGasType', $adminTipoGa);
+        $editForm = $this->createForm(AdminTipoGasType::class, $adminTipoGa);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoGa);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Gas');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoGasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoGa);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoGa->getNombre().' de los parámetros de Tipo de Gas del sistema');
             $em->persist($bitacora);
             $em->flush();

@@ -1,24 +1,24 @@
 vocero_index:
     path:     /
-    defaults: { _controller: "SICBundle:Vocero:index" }
+    defaults: { _controller: "SICBundle\\Controller\\VoceroController::indexAction" }
     methods:  GET
 
 vocero_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:Vocero:show" }
+    defaults: { _controller: "SICBundle\\Controller\\VoceroController::showAction" }
     methods:  GET
 
 vocero_new:
     path:     /nuevo
-    defaults: { _controller: "SICBundle:Vocero:new" }
+    defaults: { _controller: "SICBundle\\Controller\\VoceroController::newAction" }
     methods:  [GET, POST]
 
 vocero_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:Vocero:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\VoceroController::editAction" }
     methods:  [GET, POST]
 
 vocero_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:Vocero:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\VoceroController::deleteAction" }
     methods:  DELETE

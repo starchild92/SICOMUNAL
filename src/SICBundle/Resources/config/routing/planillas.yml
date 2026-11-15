@@ -1,44 +1,44 @@
 planillas_index:
     path:     /
-    defaults: { _controller: "SICBundle:Planillas:index" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::indexAction" }
     methods:  GET
 
 planillas_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:Planillas:show" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::showAction" }
     methods:  GET
 
 planillas_new:
     path:     /nuevo
-    defaults: { _controller: "SICBundle:Planillas:new" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::newAction" }
     methods:  [GET, POST]
 
 planillas_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:Planillas:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::editAction" }
     methods:  [GET, POST]
 
 planillas_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:Planillas:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::deleteAction" }
     methods:  DELETE
 
 planillas_continuar_encuesta:
     path:     /{id_encuesta}/continuar
-    defaults: { _controller: "SICBundle:Planillas:conitnuarEncuesta" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::conitnuarEncuestaAction" }
     methods:  [GET, POST]
 
 planillas_observacion_carga:
     path:     /{id_planilla}/observacion/cargar
-    defaults: { _controller: "SICBundle:Planillas:cargarObservacion" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::cargarObservacionAction" }
     methods:  [GET, POST]
 
 new_element_ajax:
     path:     /nuevo/agregar/ajax
-    defaults: { _controller: "SICBundle:Planillas:new_element_ajax" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::new_element_ajaxAction" }
     methods:  [GET, POST]
 
 planillas_imprimir:
     path:     /{id}/imprimir
-    defaults: { _controller: "SICBundle:Planillas:imprimir" }
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::imprimirAction" }
     methods:  GET

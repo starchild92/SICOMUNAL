@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminMisionesComunidad;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminMisionesComunidadType;
  * AdminMisionesComunidad controller.
  *
  */
-class AdminMisionesComunidadController extends Controller
+class AdminMisionesComunidadController extends BaseController
 {
     /**
      * Lists all AdminMisionesComunidad entities.
@@ -23,7 +23,7 @@ class AdminMisionesComunidadController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminMisionesComunidads = $em->getRepository('SICBundle:AdminMisionesComunidad')->findAll();
+        $adminMisionesComunidads = $em->getRepository(\SICBundle\Entity\AdminMisionesComunidad::class)->findAll();
 
         return $this->render('adminmisionescomunidad/index.html.twig', array(
             'adminMisionesComunidads' => $adminMisionesComunidads,
@@ -37,7 +37,7 @@ class AdminMisionesComunidadController extends Controller
     public function newAction(Request $request)
     {
         $adminMisionesComunidad = new AdminMisionesComunidad();
-        $form = $this->createForm('SICBundle\Form\AdminMisionesComunidadType', $adminMisionesComunidad);
+        $form = $this->createForm(AdminMisionesComunidadType::class, $adminMisionesComunidad);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +76,7 @@ class AdminMisionesComunidadController extends Controller
     public function editAction(Request $request, AdminMisionesComunidad $adminMisionesComunidad)
     {
         $deleteForm = $this->createDeleteForm($adminMisionesComunidad);
-        $editForm = $this->createForm('SICBundle\Form\AdminMisionesComunidadType', $adminMisionesComunidad);
+        $editForm = $this->createForm(AdminMisionesComunidadType::class, $adminMisionesComunidad);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

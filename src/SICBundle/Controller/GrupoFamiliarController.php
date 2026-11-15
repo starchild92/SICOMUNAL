@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\GrupoFamiliar;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\GrupoFamiliarType;
  * GrupoFamiliar controller.
  *
  */
-class GrupoFamiliarController extends Controller
+class GrupoFamiliarController extends BaseController
 {
     /**
      * Lists all GrupoFamiliar entities.
@@ -23,7 +23,7 @@ class GrupoFamiliarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $grupoFamiliars = $em->getRepository('SICBundle:GrupoFamiliar')->findAll();
+        $grupoFamiliars = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findAll();
 
         return $this->render('grupofamiliar/index.html.twig', array(
             'grupoFamiliars' => $grupoFamiliars,
@@ -38,20 +38,19 @@ class GrupoFamiliarController extends Controller
     {
         /*Redireccionar cuando se accede por GET y evitar que se cree una nueva para la misma planilla*/
         $em = $this->getDoctrine()->getManager();
-        $planilla = $em->getRepository('SICBundle:Planillas')->findById($id_planilla);
+        $planilla = $em->getRepository(\SICBundle\Entity\Planillas::class)->findById($id_planilla);
         if (sizeof($planilla) > 0) {
             $p = $planilla[0];
 
             if($p->getGrupoFamiliar() != NULL){
-                $this->get('session')->getFlashBag()
-                ->add('error', 'Seleccione la sección que desea modificar');
+                $this->addFlash('error', 'Seleccione la sección que desea modificar');
                 return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
             }
 
             $grupoFamiliar = new GrupoFamiliar();
             if ($grupoFamiliar->getApellidos() == '') { $grupoFamiliar->setApellidos($p->getJefeGrupoFamiliar()->getApellidos()); } //Si no hay apellido, coloco los del JGF
 
-            $form = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
+            $form = $this->createForm(GrupoFamiliarType::class, $grupoFamiliar);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -60,7 +59,7 @@ class GrupoFamiliarController extends Controller
                 $em->persist($grupoFamiliar);
                 $p->setTerminada('20');
                 $em->persist($p);
-                $this->get('session')->getFlashBag()->add('success', 'Se ha creado un Grupo Familiar');
+                $this->addFlash('success', 'Se ha creado un Grupo Familiar');
                 $bitacora = new Bitacora($this->getUser(),'agregó','un Grupo Familiar ('.$grupoFamiliar->getApellidos().') para la planilla '.$id_planilla);
                 $em->persist($bitacora);
                 $em->flush();
@@ -73,13 +72,13 @@ class GrupoFamiliarController extends Controller
 
             return $this->render('grupofamiliar/new.html.twig', array(
                 'grupoFamiliar' => $grupoFamiliar,
-                'grupos_calle' => $em->getRepository('SICBundle:GrupoFamiliar')->findCalles(),
-                'grupos_avenida' => $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(),
+                'grupos_calle' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findCalles(),
+                'grupos_avenida' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findSectores(),
                 'form' => $form->createView(),
             ));
         }
         
-        $this->get('session')->getFlashBag()->add('danger', 'Operación no permitida.');
+        $this->addFlash('danger', 'Operación no permitida.');
         return $this->redirectToRoute('planillas_index');
     }
 
@@ -105,7 +104,7 @@ class GrupoFamiliarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($grupoFamiliar);
-        $editForm = $this->createForm('SICBundle\Form\GrupoFamiliarType', $grupoFamiliar);
+        $editForm = $this->createForm(GrupoFamiliarType::class, $grupoFamiliar);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -115,15 +114,14 @@ class GrupoFamiliarController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()
-            ->add('success', 'Se ha modificado la información del Grupo Familiar de forma exitosa');
+            $this->addFlash('success', 'Se ha modificado la información del Grupo Familiar de forma exitosa');
             return $this->redirectToRoute('planillas_show', array('id' => $grupoFamiliar->getPlanilla()->getId()));
         }
 
         return $this->render('grupofamiliar/edit.html.twig', array(
             'grupoFamiliar' => $grupoFamiliar,
-            'grupos_calle' => $em->getRepository('SICBundle:GrupoFamiliar')->findCalles(),
-            'grupos_avenida' => $em->getRepository('SICBundle:GrupoFamiliar')->findSectores(),
+            'grupos_calle' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findCalles(),
+            'grupos_avenida' => $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findSectores(),
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -141,7 +139,7 @@ class GrupoFamiliarController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($grupoFamiliar);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado la información del Grupo Familiar de forma exitosa.');
+            $this->addFlash('success', 'Se ha eliminado la información del Grupo Familiar de forma exitosa.');
             $bitacora = new Bitacora($this->getUser(),'eliminó','la información del Grupo Familiar ('.$grupoFamiliar->getApellidos().')');
             $em->persist($bitacora);
             $em->flush();

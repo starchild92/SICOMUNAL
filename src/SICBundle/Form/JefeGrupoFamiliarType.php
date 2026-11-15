@@ -4,6 +4,8 @@ namespace SICBundle\Form;
 
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,7 +38,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Seleccione',
             ))
 
-            ->add('cedula','text', array(
+            ->add('cedula', TextType::class, array(
                 'label' => 'Cédula de Identidad'))
             
             ->add('nacionalidad', EntityType::class, array(
@@ -56,7 +58,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'attr' => ['class' => 'js-datepicker', 'placeholder' => 'AAAA-MM-DD'],
             ))
 
-            ->add('edad','text',array(
+            ->add('edad', TextType::class,array(
                 'attr' => array(
                 'readonly' => true))) //Se calcula automaticamente
 
@@ -66,7 +68,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
-            ->add('tiempoEnComunidad', 'text', array(
+            ->add('tiempoEnComunidad', TextType::class, array(
                 'label' => 'Tiempo en la Comunidad'))
             ->add('sexo', GeneroType::class, array(
                 'placeholder' => 'Elija uno'))
@@ -149,7 +151,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'choice_label' => 'respuesta',
             ))
 
-            ->add('telefono','collection', array(
+            ->add('telefono', CollectionType::class, array(
                 'required' => false,
                 'type' => new TelefonoType(),
                 'cascade_validation' => true,
@@ -161,7 +163,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'label' => 'Número(s) teléfonicos',
             ))
 
-            ->add('email', 'text', array(
+            ->add('email', TextType::class, array(
                 'label'     => 'Correo Electrónico',
                 'required'  => false,
             ))
@@ -173,7 +175,7 @@ class JefeGrupoFamiliarType extends AbstractType
                 'choice_label' => 'nombre',
             ))
             
-            ->add('ingresoMensual','text', array(
+            ->add('ingresoMensual', TextType::class, array(
                 'label' => 'Estimado de Ingreso Mensual',
                 'attr' => array(
                     'value' => 0)

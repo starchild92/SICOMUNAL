@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,8 +34,7 @@ class ComiteType extends AbstractType
             ->add('nombre', TextType::class, array(
                 'required' => false,))
             // ->add('cantVoceros')
-            ->add('voceros',
-                    'collection',array(
+            ->add('voceros', CollectionType::class,array(
                         'required' => false,
                         'type' => 'SICBundle\Form\VoceroType',
                         'cascade_validation' => true,

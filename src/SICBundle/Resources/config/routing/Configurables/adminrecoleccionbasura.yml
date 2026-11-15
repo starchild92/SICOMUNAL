@@ -1,24 +1,24 @@
 configurables_tipo_recoleccion_basura_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminRecoleccionBasura:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRecoleccionBasuraController::indexAction" }
     methods:  GET
 
 configurables_tipo_recoleccion_basura_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminRecoleccionBasura:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRecoleccionBasuraController::showAction" }
     methods:  GET
 
 configurables_tipo_recoleccion_basura_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminRecoleccionBasura:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRecoleccionBasuraController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipo_recoleccion_basura_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminRecoleccionBasura:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRecoleccionBasuraController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipo_recoleccion_basura_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminRecoleccionBasura:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminRecoleccionBasuraController::deleteAction" }
     methods:  DELETE

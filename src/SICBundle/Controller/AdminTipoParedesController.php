@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoParedes;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoParedesType;
  * AdminTipoParedes controller.
  *
  */
-class AdminTipoParedesController extends Controller
+class AdminTipoParedesController extends BaseController
 {
     /**
      * Lists all AdminTipoParedes entities.
@@ -23,7 +23,7 @@ class AdminTipoParedesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoParedes = $em->getRepository('SICBundle:AdminTipoParedes')->findAll();
+        $adminTipoParedes = $em->getRepository(\SICBundle\Entity\AdminTipoParedes::class)->findAll();
 
         return $this->render('admintipoparedes/index.html.twig', array(
             'adminTipoParedes' => $adminTipoParedes,
@@ -37,13 +37,13 @@ class AdminTipoParedesController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoParede = new AdminTipoParedes();
-        $form = $this->createForm('SICBundle\Form\AdminTipoParedesType', $adminTipoParede);
+        $form = $this->createForm(AdminTipoParedesType::class, $adminTipoParede);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoParede);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Pared a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoParedesController extends Controller
     public function editAction(Request $request, AdminTipoParedes $adminTipoParede)
     {
         $deleteForm = $this->createDeleteForm($adminTipoParede);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoParedesType', $adminTipoParede);
+        $editForm = $this->createForm(AdminTipoParedesType::class, $adminTipoParede);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoParede);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Pared');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoParedesController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoParede);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoParede->getNombre().' de los parámetros de Tipo de Paredes del sistema');
             $em->persist($bitacora);
             $em->flush();

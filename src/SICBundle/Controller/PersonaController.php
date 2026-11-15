@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Persona;
 use SICBundle\Entity\Bitacora;
@@ -13,12 +13,12 @@ use SICBundle\Form\PersonaType;
  * Persona controller.
  *
  */
-class PersonaController extends Controller
+class PersonaController extends BaseController
 {
     private function obtenerStats(){
         $em = $this->getDoctrine()->getManager();
 
-        $personas = $em->getRepository('SICBundle:Persona')->findAll();
+        $personas = $em->getRepository(\SICBundle\Entity\Persona::class)->findAll();
 
         $total = sizeof($personas);
         $stat_edad = array();
@@ -51,7 +51,7 @@ class PersonaController extends Controller
             $stat_sexo, 
             array(
                 'sexo' => 'Masculino',
-                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                     array('sexo' => 'Masculino')
                                     ))
                 )
@@ -60,19 +60,19 @@ class PersonaController extends Controller
             $stat_sexo, 
             array(
                 'sexo' => 'Femenino',
-                'cantidad' => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                'cantidad' => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                     array('sexo' => 'Femenino')
                                     ))
                 )
         );
-        $resp_cerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $resp_cerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
         $stat_cne = array();
         foreach ($resp_cerradas as $resp) {
             array_push(
                 $stat_cne, 
                 array(
                     'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('cne' => $resp->getId())
                                         ))
                     )
@@ -84,61 +84,61 @@ class PersonaController extends Controller
                 $stat_embarazo, 
                 array(
                     'resp' => $resp->getRespuesta(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('embarazoTemprano' => $resp->getId())
                                         ))
                     )
             );
         }
-        $instruccion = $em->getRepository('SICBundle:AdminNivelInstruccion')->findAll();
+        $instruccion = $em->getRepository(\SICBundle\Entity\AdminNivelInstruccion::class)->findAll();
         $stat_instruccion = array();
         foreach ($instruccion as $elemento) {
             array_push(
                 $stat_instruccion, 
                 array(
                     'instruccion' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('gradoInstruccion' => $elemento->getId())
                                         ))
                     )
             );
         }
-        $profesiones = $em->getRepository('SICBundle:AdminProfesion')->findAll();
+        $profesiones = $em->getRepository(\SICBundle\Entity\AdminProfesion::class)->findAll();
         $stat_profesiones = array();
         foreach ($profesiones as $elemento) {
             array_push(
                 $stat_profesiones, 
                 array(
                     'profesiones' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('profesion' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $incapacidades = $em->getRepository('SICBundle:AdminIncapacidades')->findAll();
+        $incapacidades = $em->getRepository(\SICBundle\Entity\AdminIncapacidades::class)->findAll();
         $stat_incapacidades = array();
         foreach ($incapacidades as $elemento) {
             array_push(
                 $stat_incapacidades, 
                 array(
                     'incapacidades' => $elemento->getIncapacidad(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('incapacitadoTipo' => $elemento->getId())
                                         ))
                     )
             );
         }
 
-        $pensionados = $em->getRepository('SICBundle:AdminPensionadoInstitucion')->findAll();
+        $pensionados = $em->getRepository(\SICBundle\Entity\AdminPensionadoInstitucion::class)->findAll();
         $stat_pensionados = array();
         foreach ($pensionados as $elemento) {
             array_push(
                 $stat_pensionados, 
                 array(
                     'pensionados' => $elemento->getNombre(),
-                    'cantidad'     => sizeof($em->getRepository('SICBundle:Persona')->findBy(
+                    'cantidad'     => sizeof($em->getRepository(\SICBundle\Entity\Persona::class)->findBy(
                                         array('pensionadoInstitucion' => $elemento->getId())
                                         ))
                     )
@@ -175,19 +175,18 @@ class PersonaController extends Controller
     public function newAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
-        $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $form = $this->createForm(PersonaType::class, $persona);
         $form->handleRequest($request);
         
         $em = $this->getDoctrine()->getManager();
-        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        $GrupoFam = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findById($id_grupofamiliar);
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
             $aux = sizeof($Grupo->getMiembros()) + 1;
             $Grupo->setCantidadMiembros($aux);
         }else{
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -208,7 +207,7 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
-            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
+            $this->addFlash('success', 'Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('personas_new', array(
                 'id_planilla' => $id_planilla,
@@ -249,7 +248,7 @@ class PersonaController extends Controller
     public function editAction(Request $request, Persona $persona)
     {
         $deleteForm = $this->createDeleteForm($persona);
-        $editForm = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $editForm = $this->createForm(PersonaType::class, $persona);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -265,7 +264,7 @@ class PersonaController extends Controller
             $em->persist($bitacora);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de forma correcta.');
+            $this->addFlash('success', 'Se han actualizado los datos de forma correcta.');
 
             return $this->redirectToRoute('personas_show', array('id' => $persona->getId()));
         }
@@ -293,7 +292,7 @@ class PersonaController extends Controller
             $bitacora = new Bitacora($this->getUser(),'eliminó','a '.$persona->nombreyapellido().' del Sistema');
             $em->persist($bitacora);
 
-            $this->get('session')->getFlashBag()->add('success','Se ha Eliminado a '.$persona->nombreyapellido().' del Grupo Familiar de forma correcta.');
+            $this->addFlash('success', 'Se ha Eliminado a '.$persona->nombreyapellido().' del Grupo Familiar de forma correcta.');
 
             $em->flush();
         }
@@ -325,8 +324,8 @@ class PersonaController extends Controller
     public function agendaAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $jefes = $em->getRepository('SICBundle:JefeGrupoFamiliar')->findAll();
-        $personass = $em->getRepository('SICBundle:Persona')->findAll();
+        $jefes = $em->getRepository(\SICBundle\Entity\JefeGrupoFamiliar::class)->findAll();
+        $personass = $em->getRepository(\SICBundle\Entity\Persona::class)->findAll();
 
         $personas = array();
         foreach ($jefes as $j) { array_push($personas, $j); }
@@ -342,19 +341,18 @@ class PersonaController extends Controller
     public function nuevoMiembroAction(Request $request, $id_planilla, $id_grupofamiliar)
     {
         $persona = new Persona();
-        $form = $this->createForm('SICBundle\Form\PersonaType', $persona);
+        $form = $this->createForm(PersonaType::class, $persona);
         $form->handleRequest($request);
         
         $em = $this->getDoctrine()->getManager();
-        $GrupoFam = $em->getRepository('SICBundle:GrupoFamiliar')->findById($id_grupofamiliar);
+        $GrupoFam = $em->getRepository(\SICBundle\Entity\GrupoFamiliar::class)->findById($id_grupofamiliar);
         // $cantMiembros = 1;
         if ($GrupoFam != NULL) {
             $Grupo = $GrupoFam[0];
             $aux = sizeof($Grupo->getMiembros()) + 1;
             $Grupo->setCantidadMiembros($aux);
         }else{
-            $this->get('session')->getFlashBag()
-            ->add('error', 'Seleccione la sección que desea modificar');
+            $this->addFlash('error', 'Seleccione la sección que desea modificar');
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
 
@@ -376,7 +374,7 @@ class PersonaController extends Controller
             $em->flush();
 
             $cantMiembros = sizeof($Grupo->getMiembros()) + 1;
-            $this->get('session')->getFlashBag()->add('success','Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
+            $this->addFlash('success', 'Se agregó a '.$persona->nombreyapellido().' al grupo familiar de forma correcta.');
 
             return $this->redirectToRoute('planillas_show', array('id' => $id_planilla));
         }
@@ -398,7 +396,7 @@ class PersonaController extends Controller
     public function obtener_parentescos()
     {
         $em = $this->getDoctrine()->getManager();
-        $parentescos = $em->getRepository('SICBundle:Persona')->findParentescos();
+        $parentescos = $em->getRepository(\SICBundle\Entity\Persona::class)->findParentescos();
         return $parentescos;
     }
 }

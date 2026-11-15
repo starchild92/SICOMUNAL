@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminAguasBlancas;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminAguasBlancasType;
  * AdminAguasBlancas controller.
  *
  */
-class AdminAguasBlancasController extends Controller
+class AdminAguasBlancasController extends BaseController
 {
     /**
      * Lists all AdminAguasBlancas entities.
@@ -23,7 +23,7 @@ class AdminAguasBlancasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminAguasBlancas = $em->getRepository('SICBundle:AdminAguasBlancas')->findAll();
+        $adminAguasBlancas = $em->getRepository(\SICBundle\Entity\AdminAguasBlancas::class)->findAll();
 
         return $this->render('adminaguasblancas/index.html.twig', array(
             'adminAguasBlancas' => $adminAguasBlancas,
@@ -37,13 +37,13 @@ class AdminAguasBlancasController extends Controller
     public function newAction(Request $request)
     {
         $adminAguasBlanca = new AdminAguasBlancas();
-        $form = $this->createForm('SICBundle\Form\AdminAguasBlancasType', $adminAguasBlanca);
+        $form = $this->createForm(AdminAguasBlancasType::class, $adminAguasBlanca);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminAguasBlanca);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Agua Blanca a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,12 +79,12 @@ class AdminAguasBlancasController extends Controller
     public function editAction(Request $request, AdminAguasBlancas $adminAguasBlanca)
     {
         $deleteForm = $this->createDeleteForm($adminAguasBlanca);
-        $editForm = $this->createForm('SICBundle\Form\AdminAguasBlancasType', $adminAguasBlanca);
+        $editForm = $this->createForm(AdminAguasBlancasType::class, $adminAguasBlanca);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Aguas Blancas');
             $em->persist($bitacora);
             $em->persist($adminAguasBlanca);
@@ -113,7 +113,7 @@ class AdminAguasBlancasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminAguasBlanca);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminAguasBlanca->getNombre().' de los parámetros de Aguas Blancas del sistema');
             $em->persist($bitacora);
             $em->flush();

@@ -1,24 +1,24 @@
 situacionservicios_index:
     path:     /estadisticas
-    defaults: { _controller: "SICBundle:SituacionServicios:index" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionServiciosController::indexAction" }
     methods:  GET
 
 situacionservicios_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:SituacionServicios:show" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionServiciosController::showAction" }
     methods:  GET
 
 situacionservicios_new:
     path:     /paso/7/{id_planilla}/
-    defaults: { _controller: "SICBundle:SituacionServicios:new" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionServiciosController::newAction" }
     methods:  [GET, POST]
 
 situacionservicios_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:SituacionServicios:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionServiciosController::editAction" }
     methods:  [GET, POST]
 
 situacionservicios_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:SituacionServicios:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\SituacionServiciosController::deleteAction" }
     methods:  DELETE

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoSituacion;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoSituacionType;
  * AdminTipoSituacion controller.
  *
  */
-class AdminTipoSituacionController extends Controller
+class AdminTipoSituacionController extends BaseController
 {
     /**
      * Lists all AdminTipoSituacion entities.
@@ -23,7 +23,7 @@ class AdminTipoSituacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoSituacions = $em->getRepository('SICBundle:AdminTipoSituacion')->findAll();
+        $adminTipoSituacions = $em->getRepository(\SICBundle\Entity\AdminTipoSituacion::class)->findAll();
 
         return $this->render('admintiposituacion/index.html.twig', array(
             'adminTipoSituacions' => $adminTipoSituacions,
@@ -37,13 +37,13 @@ class AdminTipoSituacionController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoSituacion = new AdminTipoSituacion();
-        $form = $this->createForm('SICBundle\Form\AdminTipoSituacionType', $adminTipoSituacion);
+        $form = $this->createForm(AdminTipoSituacionType::class, $adminTipoSituacion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoSituacion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Situación de Exclusión a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoSituacionController extends Controller
     public function editAction(Request $request, AdminTipoSituacion $adminTipoSituacion)
     {
         $deleteForm = $this->createDeleteForm($adminTipoSituacion);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoSituacionType', $adminTipoSituacion);
+        $editForm = $this->createForm(AdminTipoSituacionType::class, $adminTipoSituacion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoSituacion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un tipo de Situación de Exclusión a los parámetros del sistema');
             $em->persist($bitacora);
 
@@ -115,7 +115,7 @@ class AdminTipoSituacionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoSituacion);
             
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'eliminó','un tipo de Situación de Exclusión a los parámetros del sistema');
             $em->persist($bitacora);
 

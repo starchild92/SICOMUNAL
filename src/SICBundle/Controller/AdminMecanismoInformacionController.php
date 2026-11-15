@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\AdminMecanismoInformacion;
 use SICBundle\Entity\Bitacora;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminMecanismoInformacionType;
  * AdminMecanismoInformacion controller.
  *
  */
-class AdminMecanismoInformacionController extends Controller
+class AdminMecanismoInformacionController extends BaseController
 {
     /**
      * Lists all AdminMecanismoInformacion entities.
@@ -23,7 +23,7 @@ class AdminMecanismoInformacionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminMecanismoInformacions = $em->getRepository('SICBundle:AdminMecanismoInformacion')->findAll();
+        $adminMecanismoInformacions = $em->getRepository(\SICBundle\Entity\AdminMecanismoInformacion::class)->findAll();
 
         return $this->render('adminmecanismoinformacion/index.html.twig', array(
             'adminMecanismoInformacions' => $adminMecanismoInformacions,
@@ -37,13 +37,13 @@ class AdminMecanismoInformacionController extends Controller
     public function newAction(Request $request)
     {
         $adminMecanismoInformacion = new AdminMecanismoInformacion();
-        $form = $this->createForm('SICBundle\Form\AdminMecanismoInformacionType', $adminMecanismoInformacion);
+        $form = $this->createForm(AdminMecanismoInformacionType::class, $adminMecanismoInformacion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminMecanismoInformacion);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Mecanismo de Información a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,12 +79,12 @@ class AdminMecanismoInformacionController extends Controller
     public function editAction(Request $request, AdminMecanismoInformacion $adminMecanismoInformacion)
     {
         $deleteForm = $this->createDeleteForm($adminMecanismoInformacion);
-        $editForm = $this->createForm('SICBundle\Form\AdminMecanismoInformacionType', $adminMecanismoInformacion);
+        $editForm = $this->createForm(AdminMecanismoInformacionType::class, $adminMecanismoInformacion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Mecanismo de Información');
             $em->persist($bitacora);
             $em->persist($adminMecanismoInformacion);
@@ -112,7 +112,7 @@ class AdminMecanismoInformacionController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminMecanismoInformacion->getNombre().' de los parámetros de Aguas Blancas del sistema');
             $em->persist($bitacora);
             $em->remove($adminMecanismoInformacion);

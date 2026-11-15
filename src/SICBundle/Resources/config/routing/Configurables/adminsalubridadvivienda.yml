@@ -1,24 +1,24 @@
 configurable_tipo_salubridad_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminSalubridadVivienda:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSalubridadViviendaController::indexAction" }
     methods:  GET
 
 configurable_tipo_salubridad_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminSalubridadVivienda:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSalubridadViviendaController::showAction" }
     methods:  GET
 
 configurable_tipo_salubridad_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminSalubridadVivienda:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSalubridadViviendaController::newAction" }
     methods:  [GET, POST]
 
 configurable_tipo_salubridad_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminSalubridadVivienda:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSalubridadViviendaController::editAction" }
     methods:  [GET, POST]
 
 configurable_tipo_salubridad_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminSalubridadVivienda:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminSalubridadViviendaController::deleteAction" }
     methods:  DELETE

@@ -1,24 +1,24 @@
 grupofamiliar_index:
     path:     /
-    defaults: { _controller: "SICBundle:GrupoFamiliar:index" }
+    defaults: { _controller: "SICBundle\\Controller\\GrupoFamiliarController::indexAction" }
     methods:  GET
 
 grupofamiliar_show:
     path:     /{id}/mostrar
-    defaults: { _controller: "SICBundle:GrupoFamiliar:show" }
+    defaults: { _controller: "SICBundle\\Controller\\GrupoFamiliarController::showAction" }
     methods:  GET
 
 grupofamiliar_new:
     path:     /paso/2/{id_planilla}
-    defaults: { _controller: "SICBundle:GrupoFamiliar:new" }
+    defaults: { _controller: "SICBundle\\Controller\\GrupoFamiliarController::newAction" }
     methods:  [GET, POST]
 
 grupofamiliar_edit:
     path:     /{id}/editar
-    defaults: { _controller: "SICBundle:GrupoFamiliar:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\GrupoFamiliarController::editAction" }
     methods:  [GET, POST]
 
 grupofamiliar_delete:
     path:     /{id}/eliminar
-    defaults: { _controller: "SICBundle:GrupoFamiliar:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\GrupoFamiliarController::deleteAction" }
     methods:  DELETE

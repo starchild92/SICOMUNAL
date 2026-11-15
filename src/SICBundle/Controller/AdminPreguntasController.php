@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminPreguntas;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminPreguntasType;
  * AdminPreguntas controller.
  *
  */
-class AdminPreguntasController extends Controller
+class AdminPreguntasController extends BaseController
 {
     /**
      * Lists all AdminPreguntas entities.
@@ -23,7 +23,7 @@ class AdminPreguntasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminPreguntas = $em->getRepository('SICBundle:AdminPreguntas')->findAll();
+        $adminPreguntas = $em->getRepository(\SICBundle\Entity\AdminPreguntas::class)->findAll();
 
         return $this->render('adminpreguntas/index.html.twig', array(
             'adminPreguntas' => $adminPreguntas,
@@ -37,13 +37,13 @@ class AdminPreguntasController extends Controller
     public function newAction(Request $request)
     {
         $adminPregunta = new AdminPreguntas();
-        $form = $this->createForm('SICBundle\Form\AdminPreguntasType', $adminPregunta);
+        $form = $this->createForm(AdminPreguntasType::class, $adminPregunta);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPregunta);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Pregunta a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminPreguntasController extends Controller
     public function editAction(Request $request, AdminPreguntas $adminPregunta)
     {
         $deleteForm = $this->createDeleteForm($adminPregunta);
-        $editForm = $this->createForm('SICBundle\Form\AdminPreguntasType', $adminPregunta);
+        $editForm = $this->createForm(AdminPreguntasType::class, $adminPregunta);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminPregunta);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Pregunta');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminPreguntasController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminPregunta);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminPregunta->getPregunta().' de los parámetros de Pregunta del sistema');
             $em->persist($bitacora);
             $em->flush();

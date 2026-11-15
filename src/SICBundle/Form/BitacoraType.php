@@ -5,6 +5,7 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class BitacoraType extends AbstractType
 {
@@ -17,7 +18,7 @@ class BitacoraType extends AbstractType
         $builder
             ->add('accion')
             ->add('detalles')
-            ->add('fecha', 'datetime')
+            ->add('fecha', DateTimeType::class)
             ->add('usuario')
         ;
     }

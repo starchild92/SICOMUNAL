@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminRespCerrada;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminRespCerradaType;
  * AdminRespCerrada controller.
  *
  */
-class AdminRespCerradaController extends Controller
+class AdminRespCerradaController extends BaseController
 {
     /**
      * Lists all AdminRespCerrada entities.
@@ -23,7 +23,7 @@ class AdminRespCerradaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminRespCerradas = $em->getRepository('SICBundle:AdminRespCerrada')->findAll();
+        $adminRespCerradas = $em->getRepository(\SICBundle\Entity\AdminRespCerrada::class)->findAll();
 
         return $this->render('adminrespcerrada/index.html.twig', array(
             'adminRespCerradas' => $adminRespCerradas,
@@ -37,13 +37,13 @@ class AdminRespCerradaController extends Controller
     public function newAction(Request $request)
     {
         $adminRespCerrada = new AdminRespCerrada();
-        $form = $this->createForm('SICBundle\Form\AdminRespCerradaType', $adminRespCerrada);
+        $form = $this->createForm(AdminRespCerradaType::class, $adminRespCerrada);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminRespCerrada);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Respuesta Cerrada a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminRespCerradaController extends Controller
     public function editAction(Request $request, AdminRespCerrada $adminRespCerrada)
     {
         $deleteForm = $this->createDeleteForm($adminRespCerrada);
-        $editForm = $this->createForm('SICBundle\Form\AdminRespCerradaType', $adminRespCerrada);
+        $editForm = $this->createForm(AdminRespCerradaType::class, $adminRespCerrada);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminRespCerrada);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Respuesta Cerrada');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminRespCerradaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminRespCerrada);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminRespCerrada->getRespuesta().' de los parámetros de Tipo de Respuesta Cerrada del sistema');
             $em->persist($bitacora);
             $em->flush();

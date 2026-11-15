@@ -4,6 +4,3 @@ sic_admin_preguntas_sit_com:
 
 sic:
     resource: "@SICBundle/Resources/config/routing.yml"
-
-fos_user:
-    resource: "@SICBundle/Resources/config/routing/FOSUserBundle/all.xml"

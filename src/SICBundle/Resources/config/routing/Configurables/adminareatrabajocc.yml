@@ -1,24 +1,24 @@
 configurables_tipos_areas_trabajo_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAreaTrabajoCCController::indexAction" }
     methods:  GET
 
 configurables_tipos_areas_trabajo_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAreaTrabajoCCController::showAction" }
     methods:  GET
 
 configurables_tipos_areas_trabajo_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAreaTrabajoCCController::newAction" }
     methods:  [GET, POST]
 
 configurables_tipos_areas_trabajo_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAreaTrabajoCCController::editAction" }
     methods:  [GET, POST]
 
 configurables_tipos_areas_trabajo_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminAreaTrabajoCC:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminAreaTrabajoCCController::deleteAction" }
     methods:  DELETE

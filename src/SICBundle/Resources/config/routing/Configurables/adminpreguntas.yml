@@ -1,24 +1,24 @@
 configurables_preguntas_index:
     path:     /
-    defaults: { _controller: "SICBundle:AdminPreguntas:index" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasController::indexAction" }
     methods:  GET
 
 configurables_preguntas_show:
     path:     /{id}/show
-    defaults: { _controller: "SICBundle:AdminPreguntas:show" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasController::showAction" }
     methods:  GET
 
 configurables_preguntas_new:
     path:     /new
-    defaults: { _controller: "SICBundle:AdminPreguntas:new" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasController::newAction" }
     methods:  [GET, POST]
 
 configurables_preguntas_edit:
     path:     /{id}/edit
-    defaults: { _controller: "SICBundle:AdminPreguntas:edit" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasController::editAction" }
     methods:  [GET, POST]
 
 configurables_preguntas_delete:
     path:     /{id}/delete
-    defaults: { _controller: "SICBundle:AdminPreguntas:delete" }
+    defaults: { _controller: "SICBundle\\Controller\\AdminPreguntasController::deleteAction" }
     methods:  DELETE

@@ -12,46 +12,47 @@
         ]
     },
     "require": {
-        "php": ">=5.3.9",
-        "symfony/symfony": "2.8.*",
-        "doctrine/orm": "^2.4.8",
-        "doctrine/doctrine-bundle": "~1.4",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
+        "php": ">=8.1",
+        "doctrine/orm": "^2.14",
+        "symfony/monolog-bundle": "^3.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "friendsofsymfony/user-bundle": "~2.0@dev",
-        "knplabs/knp-snappy-bundle": "~1.4",
-        "slik/dompdf-bundle": "dev-master",
-        "liuggio/excelbundle": "^2.1"
+        "knplabs/knp-snappy-bundle": "^1.10",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/framework-bundle": "^6.4",
+        "symfony/http-kernel": "^6.4",
+        "symfony/http-foundation": "^6.4",
+        "symfony/error-handler": "^6.4",
+        "symfony/security-bundle": "^6.4",
+        "symfony/twig-bundle": "^6.4",
+        "doctrine/doctrine-bundle": "^2.10",
+        "sensio/framework-extra-bundle": "^6.1",
+        "symfony/debug-bundle": "^6.4",
+        "symfony/web-profiler-bundle": "^6.4",
+        "dompdf/dompdf": "^3.0",
+        "symfony/mailer": "^6.4",
+        "phpoffice/phpspreadsheet": "^1.0",
+        "symfony/translation": "^6.4",
+        "symfony/form": "^6.4",
+        "symfony/validator": "^6.4",
+        "symfony/asset": "^6.4",
+        "symfony/expression-language": "^6.4",
+        "doctrine/annotations": "^2.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
-        "symfony/phpunit-bridge": "~2.7"
+        "symfony/phpunit-bridge": "^6.4"
     },
     "scripts": {
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ]
     },
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.3.9"
+            "php": "8.1"
         }
     },
     "extra": {

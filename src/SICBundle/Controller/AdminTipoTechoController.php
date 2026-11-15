@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminTipoTecho;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminTipoTechoType;
  * AdminTipoTecho controller.
  *
  */
-class AdminTipoTechoController extends Controller
+class AdminTipoTechoController extends BaseController
 {
     /**
      * Lists all AdminTipoTecho entities.
@@ -23,7 +23,7 @@ class AdminTipoTechoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminTipoTechos = $em->getRepository('SICBundle:AdminTipoTecho')->findAll();
+        $adminTipoTechos = $em->getRepository(\SICBundle\Entity\AdminTipoTecho::class)->findAll();
 
         return $this->render('admintipotecho/index.html.twig', array(
             'adminTipoTechos' => $adminTipoTechos,
@@ -37,13 +37,13 @@ class AdminTipoTechoController extends Controller
     public function newAction(Request $request)
     {
         $adminTipoTecho = new AdminTipoTecho();
-        $form = $this->createForm('SICBundle\Form\AdminTipoTechoType', $adminTipoTecho);
+        $form = $this->createForm(AdminTipoTechoType::class, $adminTipoTecho);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTecho);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Tipo de Techo a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminTipoTechoController extends Controller
     public function editAction(Request $request, AdminTipoTecho $adminTipoTecho)
     {
         $deleteForm = $this->createDeleteForm($adminTipoTecho);
-        $editForm = $this->createForm('SICBundle\Form\AdminTipoTechoType', $adminTipoTecho);
+        $editForm = $this->createForm(AdminTipoTechoType::class, $adminTipoTecho);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminTipoTecho);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro de Tipo de Techo');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminTipoTechoController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminTipoTecho);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminTipoTecho->getNombre().' de los parámetros de Tipo de Techo del sistema');
             $em->persist($bitacora);
             $em->flush();

@@ -3,7 +3,7 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Bitacora;
 use SICBundle\Entity\AdminOrgComunitaria;
@@ -13,7 +13,7 @@ use SICBundle\Form\AdminOrgComunitariaType;
  * AdminOrgComunitaria controller.
  *
  */
-class AdminOrgComunitariaController extends Controller
+class AdminOrgComunitariaController extends BaseController
 {
     /**
      * Lists all AdminOrgComunitaria entities.
@@ -23,7 +23,7 @@ class AdminOrgComunitariaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $adminOrgComunitarias = $em->getRepository('SICBundle:AdminOrgComunitaria')->findAll();
+        $adminOrgComunitarias = $em->getRepository(\SICBundle\Entity\AdminOrgComunitaria::class)->findAll();
 
         return $this->render('adminorgcomunitaria/index.html.twig', array(
             'adminOrgComunitarias' => $adminOrgComunitarias,
@@ -37,13 +37,13 @@ class AdminOrgComunitariaController extends Controller
     public function newAction(Request $request)
     {
         $adminOrgComunitarium = new AdminOrgComunitaria();
-        $form = $this->createForm('SICBundle\Form\AdminOrgComunitariaType', $adminOrgComunitarium);
+        $form = $this->createForm(AdminOrgComunitariaType::class, $adminOrgComunitarium);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminOrgComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha agregado un nuevo parámetro.');
+            $this->addFlash('success', 'Se ha agregado un nuevo parámetro.');
             $bitacora = new Bitacora($this->getUser(),'agregó','un nuevo tipo de Organizaciones Comunitarias a los parámetros del sistema');
             $em->persist($bitacora);
             $em->flush();
@@ -79,13 +79,13 @@ class AdminOrgComunitariaController extends Controller
     public function editAction(Request $request, AdminOrgComunitaria $adminOrgComunitarium)
     {
         $deleteForm = $this->createDeleteForm($adminOrgComunitarium);
-        $editForm = $this->createForm('SICBundle\Form\AdminOrgComunitariaType', $adminOrgComunitarium);
+        $editForm = $this->createForm(AdminOrgComunitariaType::class, $adminOrgComunitarium);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($adminOrgComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha modificado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha modificado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'modificó','un parámetro Organizaciones Comunitarias');
             $em->persist($bitacora);
             $em->flush();
@@ -113,7 +113,7 @@ class AdminOrgComunitariaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($adminOrgComunitarium);
-            $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el parámetro de forma correcta.');
+            $this->addFlash('success', 'Se ha eliminado el parámetro de forma correcta.');
             $bitacora = new Bitacora($this->getUser(),'eliminó',$adminOrgComunitarium->getNombre().' de los parámetros de Organizaciones Comunitarias del sistema');
             $em->persist($bitacora);
             $em->flush();

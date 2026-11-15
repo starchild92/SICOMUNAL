@@ -1,116 +1,116 @@
 sic_homepage:
     path:     /
-    defaults: { _controller: "SICBundle:Inicio:inicio" }
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::inicioAction" }
     methods:  GET
 
 sic_homepage_login:
     path:     /login
-    defaults: { _controller: "SICBundle:Inicio:login" }
-    methods:  GET
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::loginAction" }
+    methods:  [GET, POST]
 
 sic_administacion_entidades:
     path:     /administrar/datos/cc
-    defaults: { _controller: "SICBundle:Inicio:administrarEntidades"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::administrarEntidadesAction"}
     methods:  GET
 
 sic_administacion_parametros_planilla:
     path:     /administrar/parametros/planilla
-    defaults: { _controller: "SICBundle:Inicio:administrarParametros"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::administrarParametrosAction"}
     methods:  GET
 
 sic_volver_parametros:
     path:     /administrar/parametros/{index}
-    defaults: { _controller: "SICBundle:Inicio:volverParametros"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::volverParametrosAction"}
     methods:  GET
 
 sic_documentos_cuaderno_votacion:
     path:     /documentos/cuaderno-votacion
-    defaults: { _controller: "SICBundle:Inicio:cuadernoVotacion"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::cuadernoVotacionAction"}
     methods:  GET
 
 sic_documentos_cuaderno_votacion_pdf:
     path:     /documentos/cuaderno-votacion/pdf
-    defaults: { _controller: "SICBundle:Inicio:cuadernoVotacionPDF"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::cuadernoVotacionPDFAction"}
     methods:  GET
 
 sic_documentos_resumen_censo:
     path:     /documentos/resumen-censo
-    defaults: { _controller: "SICBundle:Inicio:resumenCenso"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::resumenCensoAction"}
     methods:  GET
 
 sic_documentos_resumen_censo_pdf:
     path:     /documentos/resumen-censo/pdf
-    defaults: { _controller: "SICBundle:Inicio:resumenCensoPDF"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::resumenCensoPDFAction"}
     methods:  GET
 
 sic_documentos_registro_electoral:
     path:     /documentos/registro-electoral
-    defaults: { _controller: "SICBundle:Inicio:registroElectoral"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::registroElectoralAction"}
     methods:  GET
 
 sic_documentos_registro_electoral_pdf:
     path:     /documentos/registro-electoral/pdf
-    defaults: { _controller: "SICBundle:Inicio:registroElectoralPDF"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::registroElectoralPDFAction"}
     methods:  GET
 
 sic_documentos_registro_preliminar:
     path:     /documentos/registro-preliminar
-    defaults: { _controller: "SICBundle:Inicio:registroPreliminar"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::registroPreliminarAction"}
     methods:  GET
 
 sic_documentos_registro_preliminar_pdf:
     path:     /documentos/registro-preliminar-pdf
-    defaults: { _controller: "SICBundle:Inicio:registroPreliminarPDF"}
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::registroPreliminarPDFAction"}
     methods:  GET
 
 sic_buscador_inicio:
     path:     /sic_buscador_inicio
-    defaults: { _controller: "SICBundle:Inicio:buscador" }
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::buscadorAction" }
     methods:  POST
 
 sic_test_excel:
     path:     /documento/excel
-    defaults: { _controller: "SICBundle:Excel:index"}
+    defaults: { _controller: "SICBundle\\Controller\\ExcelController::indexAction"}
     methods:  GET
 
 sic_todas_las_planillas:
     path:     /documento/obtener/todas/las/planillas
-    defaults: { _controller: "SICBundle:Planillas:obtenerTodas"}
+    defaults: { _controller: "SICBundle\\Controller\\PlanillasController::obtenerTodasAction"}
     methods:  GET
 
 noticia_correo:
     path:     /correos
-    defaults: { _controller: "SICBundle:Noticia:correos" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::correosAction" }
     methods:  GET
 
 noticia_correo_usuarios:
     path:     /correos/usuarios
-    defaults: { _controller: "SICBundle:Noticia:correosUsuarios" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::correosUsuariosAction" }
     methods:  GET
 
 noticia_toggle_correo:
     path:     /{correo}/alternar/subscripcion
-    defaults: { _controller: "SICBundle:Noticia:alternarSubscripcion" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::alternarSubscripcionAction" }
     methods:  GET
 
 ayuda_del_sistema:
     path:     /ayuda
-    defaults: { _controller: "SICBundle:Inicio:ayudaSistema" }
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::ayudaSistemaAction" }
     methods:  GET
 
 descargar_manual:
     path:     /ayuda/descargar-manual/{tipo_manual}
-    defaults: { _controller: "SICBundle:Inicio:descargarManual" }
+    defaults: { _controller: "SICBundle\\Controller\\InicioController::descargarManualAction" }
     methods:  GET
 
 # RUTAS PARA LA PARTE PUBLICA DEL SISTEMA
 # Noticias del Consejo Comunal
 noticia_newsletter:
     path:     /publico/noticias
-    defaults: { _controller: "SICBundle:Noticia:newsletter" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::newsletterAction" }
     methods:  GET
 
 publico_vocerias:
     path:     /publico/vocerias
-    defaults: { _controller: "SICBundle:Noticia:vocerias" }
+    defaults: { _controller: "SICBundle\\Controller\\NoticiaController::voceriasAction" }
     methods:  GET
