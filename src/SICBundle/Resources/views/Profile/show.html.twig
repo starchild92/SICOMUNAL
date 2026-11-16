@@ -22,8 +22,6 @@
 					{% for telf in user.telefono %}({{ telf.codigo }}) - {{ telf.numero }}<br>{% endfor %}
 					</td></tr>
 				<tr><th>Rol en el Sistema <br> <small class="text-info">Posee los siguientes roles en el sistema</small></th><td>{% for role in user.roles %}{% if role == 'ROLE_ADMIN' %}<span class="label label-success"><i class="fa fa-star fa-fw"></i> ADMINISTRADOR</span>{% endif %} {% if role == 'ROLE_USER' %}<span class="label label-info"><i class="fa fa-user fa-fw"></i> EMPADRONADOR</span>{% endif %}{% endfor %}</td></tr>
-				<tr><th></th><td>{% if user.expired %}Cuenta vencida{% else %} <i class="fa fa-calendar-check-o"></i> No ha vencido su cuenta{% endif %}</td></tr>
-				<tr><th>Estatus de la Cuenta</th><td>{% if user.locked %}Está bloqueado{% else %} <i class="fa fa-unlock-alt"></i> No está bloqueado{% endif %}</td></tr>
 			</table>
 		</div>
 		<div class="col-sm-3">

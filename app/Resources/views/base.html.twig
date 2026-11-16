@@ -154,21 +154,19 @@
 
 					<li class="btn-info"><a style="color: #FFF;" href="{{ path('sic_homepage') }}" data-toggle="tooltip" data-placement="bottom" title="Inicio"><i class="fa fa-home fa-lg"></i>  <span class="visible-xs">Inicio</span></a></li>
 
+					{% if app.user %}
 					<li class="dropdown btn-primary">
 						<a href="#" style="color: #FFF;" class="dropdown-toggle negritas" data-toggle="dropdown" role="button" aria-haspopup="true" title="Información Usuario" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</li>
-							{# <li><a type="button" href="{{ path('fos_user_profile_show') }}">{{ app.user.primerNombre }} {{ app.user.primerApellido }}</a></li> #}
 							<li><a href="{{ path('usuarios_show', {id: app.user.id}) }}"><i class="fa fa-eye"></i> Ver perfil</a></li>
 							<li><a href="{{ path('usuarios_edit', {id: app.user.id}) }}"><i class="fa fa-edit"></i> Editar perfil</a></li>
-
 							<li role="separator" class="divider"></li>
-
 							<li><a href="{{ path('ayuda_del_sistema') }}"><i class="fa fa-info-circle"></i> Ayuda del Sistema</a></li>
 						</ul>
 					</li>
-
 					<li class="btn-danger"><a style="color: #FFF;" href="/logout" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión"><i class="fa fa-power-off fa-lg"></i>  <span class="visible-xs">Cerrar Sesión</span></a></li>
+					{% endif %}
 				</ul>
 				</div><!--/.nav-collapse -->
 			</div>
