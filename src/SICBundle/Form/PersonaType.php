@@ -109,7 +109,6 @@ class PersonaType extends AbstractType
                     'No' => 'no',
                     // 'Otro' => 'otro'
                 ),
-                'choices_as_values' => true,
             ))
             ->add('incapacitadoTipo', EntityType::class, array(
                 'label' => 'Tipo de Discapacidad',
@@ -129,7 +128,6 @@ class PersonaType extends AbstractType
                     'No' => 'no',
                     // 'Otro' => 'otro'
                 ),
-                'choices_as_values' => true,
             ))
             
             ->add('pensionadoInstitucion', EntityType::class, array(
