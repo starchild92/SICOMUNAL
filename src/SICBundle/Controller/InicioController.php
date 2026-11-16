@@ -597,8 +597,7 @@ class InicioController extends BaseController
     public function descargarManualAction($tipo_manual)
     {
         $filename = "MANUAL DE USUARIO.pdf";
-        $request = $this->get('request');
-        $path = $this->get('kernel')->getRootDir(). "/../web/documentos/";
+        $path = $this->getParameter('kernel.project_dir') . '/web/documentos/';
         $content = file_get_contents($path.$filename);
 
         $response = new Response();
