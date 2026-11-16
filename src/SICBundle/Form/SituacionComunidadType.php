@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use SICBundle\Form\AdminPreguntasSituacionComunidadType;
 
 class SituacionComunidadType extends AbstractType
 {
@@ -18,8 +19,7 @@ class SituacionComunidadType extends AbstractType
         $builder
             ->add('preguntasSituacionComunidad', CollectionType::class,array(
                     'required' => true,
-                    'type' => new AdminPreguntasSituacionComunidadType(),
-                    'cascade_validation' => true,
+                    'entry_type' => AdminPreguntasSituacionComunidadType::class,
                     'attr' => array('class' => 'preguntas'),
                     'allow_add'=>'true',
                     'by_reference'=>'false',

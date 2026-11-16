@@ -151,8 +151,7 @@ class JefeGrupoFamiliarType extends AbstractType
 
             ->add('telefono', CollectionType::class, array(
                 'required' => false,
-                'type' => new TelefonoType(),
-                'cascade_validation' => true,
+                'entry_type' => TelefonoType::class,
                 'attr' => array('class' => 'telefonos'),
                 'allow_add'=>'true',
                 'by_reference'=>'false',

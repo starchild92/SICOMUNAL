@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use SICBundle\Form\AdminTipoSituacionExclusionType;
 
 class SituacionSaludType extends AbstractType
 {
@@ -39,8 +40,7 @@ class SituacionSaludType extends AbstractType
 
             ->add('situacionExclusion', CollectionType::class,array(
                     'required' => false,
-                    'type' => new AdminTipoSituacionExclusionType(),
-                    'cascade_validation' => true,
+                    'entry_type' => AdminTipoSituacionExclusionType::class,
                     'attr' => array('class' => 'exclusiones'),
                     'allow_add'=>'true',
                     'by_reference'=>'false',

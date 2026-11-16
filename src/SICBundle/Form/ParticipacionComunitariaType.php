@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use SICBundle\Form\AdminPreguntasParticipacionComunitariaType;
 
 class ParticipacionComunitariaType extends AbstractType
 {
@@ -62,8 +63,7 @@ class ParticipacionComunitariaType extends AbstractType
             
             ->add('preguntasParticipacionComunitaria', CollectionType::class,array(
                     'required' => false,
-                    'type' => new AdminPreguntasParticipacionComunitariaType(),
-                    'cascade_validation' => true,
+                    'entry_type' => AdminPreguntasParticipacionComunitariaType::class,
                     'attr' => array('class' => 'preguntas'),
                     'allow_add'=>'true',
                     'by_reference'=>'false',
