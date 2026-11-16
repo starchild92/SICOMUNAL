@@ -17,7 +17,7 @@ class SituacionServiciosRepository extends EntityRepository
          return $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('m')
-                ->from('SICBundle:SituacionServicios', 'm')
+                ->from(\SICBundle\Entity\SituacionServicios::class, 'm')
                 ->innerJoin('m.telefonia', 'e')
                 ->where('e.id = :exampleid' )
                 ->setParameter('exampleid', $situacion->getId() )
@@ -30,7 +30,7 @@ class SituacionServiciosRepository extends EntityRepository
          return $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('m')
-                ->from('SICBundle:SituacionServicios', 'm')
+                ->from(\SICBundle\Entity\SituacionServicios::class, 'm')
                 ->innerJoin('m.transporte', 'e')
                 ->where('e.id = :exampleid' )
                 ->setParameter('exampleid', $situacion->getId() )
@@ -43,7 +43,7 @@ class SituacionServiciosRepository extends EntityRepository
          return $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('m')
-                ->from('SICBundle:SituacionServicios', 'm')
+                ->from(\SICBundle\Entity\SituacionServicios::class, 'm')
                 ->innerJoin('m.mecanismoInformacion', 'e')
                 ->where('e.id = :exampleid' )
                 ->setParameter('exampleid', $situacion->getId() )
@@ -56,7 +56,7 @@ class SituacionServiciosRepository extends EntityRepository
          return $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('m')
-                ->from('SICBundle:SituacionServicios', 'm')
+                ->from(\SICBundle\Entity\SituacionServicios::class, 'm')
                 ->innerJoin('m.serviciosComunales', 'e')
                 ->where('e.id = :exampleid' )
                 ->setParameter('exampleid', $situacion->getId() )
@@ -68,7 +68,7 @@ class SituacionServiciosRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                 ->createQuery('SELECT ss 
-                FROM SICBundle:SituacionServicios ss
+                FROM \SICBundle\Entity\SituacionServicios ss
                 GROUP BY ss.duracionBombona');
         $result = $query->getResult();
         return $result;

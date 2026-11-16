@@ -568,7 +568,7 @@ class InicioController extends BaseController
         /* Buscando en las tablas */
         $qb = $em->createQueryBuilder();
 
-        $personas = $qb->select('p')->from('SICBundle:Persona', 'p')
+        $personas = $qb->select('p')->from(\SICBundle\Entity\Persona::class, 'p')
           ->where( $qb->expr()->like('p.cedula', $qb->expr()->literal('%' . $query . '%')) )
           ->orWhere( $qb->expr()->like('p.nombre', $qb->expr()->literal('%' . $query . '%')) )
           ->orWhere( $qb->expr()->like('p.apellido', $qb->expr()->literal('%' . $query . '%')) )
@@ -577,7 +577,7 @@ class InicioController extends BaseController
         // if (sizeof($personas) > 0) { $cosas['personas'] = $personas; }
         $cosas['personas'] = $personas;
 
-        $jgf = $qb->select('j')->from('SICBundle:JefeGrupoFamiliar', 'j')
+        $jgf = $qb->select('j')->from(\SICBundle\Entity\JefeGrupoFamiliar::class, 'j')
           ->where( $qb->expr()->like('j.cedula', $qb->expr()->literal('%' . $query . '%')) )
           ->orWhere( $qb->expr()->like('j.nombres', $qb->expr()->literal('%' . $query . '%')) )
           ->orWhere( $qb->expr()->like('j.apellidos', $qb->expr()->literal('%' . $query . '%')) )

@@ -26,7 +26,7 @@ class SituacionEconomicaType extends AbstractType
             // )
             
             ->add('dondeTrabaja', EntityType::class, array(
-                'class'     => 'SICBundle:AdminUbicacionTrabajo',
+                'class' => \SICBundle\Entity\AdminUbicacionTrabajo::class,
                 'label'     => '¿Dónde Trabaja?',
                 'placeholder' => 'Selecciona una',
                 'required' => false,
@@ -34,13 +34,13 @@ class SituacionEconomicaType extends AbstractType
                     'class' => 'ui fluid dropdown')))
 
             /*->add('actividadComercial', EntityType::class, array(
-                'class'     => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))*/
 
             ->add('actividadComercialenVivienda', EntityType::class, array(
-                'class'     => 'SICBundle:AdminVentaVivienda',
+                'class' => \SICBundle\Entity\AdminVentaVivienda::class,
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'placeholder' => 'Selecciona una',
                 'required'  => false,
@@ -56,7 +56,7 @@ class SituacionEconomicaType extends AbstractType
                 ))
 
             ->add('ingresoFamiliarEspecifico', EntityType::class, array(
-                'class'     => 'SICBundle:AdminTipoIngresos',
+                'class' => \SICBundle\Entity\AdminTipoIngresos::class,
                 'required'  => false,
                 'label'     => 'Ingreso estimado',
                 'placeholder' => 'Selecciona una',
@@ -64,7 +64,7 @@ class SituacionEconomicaType extends AbstractType
                     'class' => 'ui fluid dropdown')))
 
             /*->add('poseeVehiculo', EntityType::class, array(
-                'class'     => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'label'     => '¿Realiza algún tipo de actividad comercial dentro de la Vivienda?',
                 'attr'  =>  array(
                     'class' => 'ui fluid dropdown')))*/

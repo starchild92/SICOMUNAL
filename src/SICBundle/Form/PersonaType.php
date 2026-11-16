@@ -34,7 +34,7 @@ class PersonaType extends AbstractType
 
             ->add('nacionalidad', EntityType::class, array(
                 // query choices from this entity
-                'class' => 'SICBundle:AdminNacionalidad',
+                'class' => \SICBundle\Entity\AdminNacionalidad::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'Nacionalidad',
 
@@ -70,7 +70,7 @@ class PersonaType extends AbstractType
             
             ->add('gradoInstruccion', EntityType::class, array(
                 'label' => '¿Cúal es su Nivel de Instrucción?',
-                'class' => 'SICBundle:AdminNivelInstruccion',
+                'class' => \SICBundle\Entity\AdminNivelInstruccion::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(
@@ -78,7 +78,7 @@ class PersonaType extends AbstractType
             ))
 
             ->add('profesion', EntityType::class, array(
-                'class' => 'SICBundle:AdminProfesion',
+                'class' => \SICBundle\Entity\AdminProfesion::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(
@@ -89,14 +89,14 @@ class PersonaType extends AbstractType
 
             ->add('cne', EntityType::class, array(
                 'label'     => '¿Está inscrito en el CNE?',
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
 
             ->add('embarazoTemprano', EntityType::class, array(
                 'label'     => '¿Embarazo Temprano?',
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
@@ -109,11 +109,10 @@ class PersonaType extends AbstractType
                     'No' => 'no',
                     // 'Otro' => 'otro'
                 ),
-                'choices_as_values' => true,
             ))
             ->add('incapacitadoTipo', EntityType::class, array(
                 'label' => 'Tipo de Discapacidad',
-                'class' => 'SICBundle:AdminIncapacidades',
+                'class' => \SICBundle\Entity\AdminIncapacidades::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'incapacidad',
                 'attr'      => array(
@@ -129,11 +128,10 @@ class PersonaType extends AbstractType
                     'No' => 'no',
                     // 'Otro' => 'otro'
                 ),
-                'choices_as_values' => true,
             ))
             
             ->add('pensionadoInstitucion', EntityType::class, array(
-                'class' => 'SICBundle:AdminPensionadoInstitucion',
+                'class' => \SICBundle\Entity\AdminPensionadoInstitucion::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr'      => array(

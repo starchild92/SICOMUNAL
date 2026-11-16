@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use SICBundle\Form\AdminPreguntasParticipacionComunitariaType;
 
 class ParticipacionComunitariaType extends AbstractType
 {
@@ -19,7 +20,7 @@ class ParticipacionComunitariaType extends AbstractType
     {
         $builder
             ->add('existenOrganizaciones', EntityType::class, array(
-                'class' => 'SICBundle:AdminOrgComunitaria',
+                'class' => \SICBundle\Entity\AdminOrgComunitaria::class,
                 'label'     => '¿Existen organizaciones comunitarias? - ¿Cuál(es)?',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
@@ -32,7 +33,7 @@ class ParticipacionComunitariaType extends AbstractType
             )))
 
             ->add('participaOrganizacion', EntityType::class, array(
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'label'     => '¿Participa usted en alguna de ellas?',
                 'choice_label' => 'respuesta',
                 'attr'  =>  array(
@@ -40,7 +41,7 @@ class ParticipacionComunitariaType extends AbstractType
             )
 
             ->add('participaMiembroOrganizacion', EntityType::class, array(
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'label'     => '¿Participa álgun miembro de la familia?',
                 'choice_label' => 'respuesta',
                 'attr'  =>  array(
@@ -48,7 +49,7 @@ class ParticipacionComunitariaType extends AbstractType
             )
 
             ->add('misionesComunidad', EntityType::class, array(
-                'class' => 'SICBundle:AdminMisionesComunidad',
+                'class' => \SICBundle\Entity\AdminMisionesComunidad::class,
                 'label'     => '¿Cuáles Misiones Se Están Implementando En La Comunidad?',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
@@ -62,8 +63,7 @@ class ParticipacionComunitariaType extends AbstractType
             
             ->add('preguntasParticipacionComunitaria', CollectionType::class,array(
                     'required' => false,
-                    'type' => new AdminPreguntasParticipacionComunitariaType(),
-                    'cascade_validation' => true,
+                    'entry_type' => AdminPreguntasParticipacionComunitariaType::class,
                     'attr' => array('class' => 'preguntas'),
                     'allow_add'=>'true',
                     'by_reference'=>'false',
@@ -73,7 +73,7 @@ class ParticipacionComunitariaType extends AbstractType
                 ))
 
             ->add('areaTabajoCC', EntityType::class, array(
-                'class' => 'SICBundle:AdminAreaTrabajoCC',
+                'class' => \SICBundle\Entity\AdminAreaTrabajoCC::class,
                 'multiple' => true,
                 'label'     => '¿De crearse un consejo comunal en su comunidad, en cual área de trabajo le gustaría participar?',
                 'required'  => false,

@@ -18,7 +18,7 @@ class ComunicadoRepository extends EntityRepository
 		$query = $this->getEntityManager()
             ->createQuery(
 			'SELECT p
-			FROM SICBundle:Persona p
+			FROM \SICBundle\Entity\Persona p
 			WHERE p.email != :var
 				AND p.recibir_correo = :var2'
 		)
@@ -35,7 +35,7 @@ class ComunicadoRepository extends EntityRepository
 		$query = $this->getEntityManager()
             ->createQuery(
 			'SELECT p
-			FROM SICBundle:JefeGrupoFamiliar p
+			FROM \SICBundle\Entity\JefeGrupoFamiliar p
 			WHERE p.email != :var
 				AND p.recibir_correo = :var2'
 		)

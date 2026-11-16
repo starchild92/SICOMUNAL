@@ -17,7 +17,7 @@ class BitacoraRepository extends EntityRepository
         if ($criteria != 'todos') {   
             $query = $this->getEntityManager()
                     ->createQuery('SELECT u 
-                    FROM SICBundle:Bitacora u
+                    FROM \SICBundle\Entity\Bitacora u
                     WHERE u.fecha >= :inicio AND u.fecha <= :fin AND u.accion = :criteria
                     ORDER BY u.fecha DESC');
             $query->setparameter('inicio', $ini);
@@ -26,7 +26,7 @@ class BitacoraRepository extends EntityRepository
         }else{
             $query = $this->getEntityManager()
                     ->createQuery('SELECT u 
-                    FROM SICBundle:Bitacora u
+                    FROM \SICBundle\Entity\Bitacora u
                     WHERE u.fecha >= :inicio AND u.fecha <= :fin
                     ORDER BY u.fecha DESC');
             $query->setparameter('inicio', $ini);

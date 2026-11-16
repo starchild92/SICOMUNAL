@@ -36,8 +36,7 @@ class ComiteType extends AbstractType
             // ->add('cantVoceros')
             ->add('voceros', CollectionType::class,array(
                         'required' => false,
-                        'type' => 'SICBundle\Form\VoceroType',
-                        'cascade_validation' => true,
+                        'entry_type' => \SICBundle\Form\VoceroType::class,
                         'attr' => array('class' => 'voceros'),
                         'allow_add'=>'true',
                         'by_reference'=>'false',

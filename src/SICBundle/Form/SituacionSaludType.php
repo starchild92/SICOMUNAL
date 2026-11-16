@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use SICBundle\Form\AdminTipoSituacionExclusionType;
 
 class SituacionSaludType extends AbstractType
 {
@@ -18,7 +19,7 @@ class SituacionSaludType extends AbstractType
     {
         $builder
             ->add('padecencia', EntityType::class, array(
-                'class'     => 'SICBundle:AdminTipoPadecencia',
+                'class' => \SICBundle\Entity\AdminTipoPadecencia::class,
                 'label'     => 'Existen En Su Núcleo Familiar Personas Que Padezcan De:',
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'required'      => false,
@@ -28,7 +29,7 @@ class SituacionSaludType extends AbstractType
                     'class' => 'fluid multiple search selection')))
 
             ->add('ayudaEspecial', EntityType::class, array(
-                'class'     => 'SICBundle:AdminTipoAyudaEspecial',
+                'class' => \SICBundle\Entity\AdminTipoAyudaEspecial::class,
                 'label'     => '¿Necesita Usted De Alguna Ayuda Especial Para Familiares Enfermos En Su Hogar? - ¿Cuál(es)?',
                 'placeholder'   => 'Escriba las que aplican',
                 'required'      => false,
@@ -39,8 +40,7 @@ class SituacionSaludType extends AbstractType
 
             ->add('situacionExclusion', CollectionType::class,array(
                     'required' => false,
-                    'type' => new AdminTipoSituacionExclusionType(),
-                    'cascade_validation' => true,
+                    'entry_type' => AdminTipoSituacionExclusionType::class,
                     'attr' => array('class' => 'exclusiones'),
                     'allow_add'=>'true',
                     'by_reference'=>'false',
