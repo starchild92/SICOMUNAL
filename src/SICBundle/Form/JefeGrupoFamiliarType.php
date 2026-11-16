@@ -34,7 +34,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ->add('apellidos')
             
             ->add('embarazada', EntityType::class, array(
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'placeholder' => 'Seleccione',
             ))
 
@@ -43,7 +43,7 @@ class JefeGrupoFamiliarType extends AbstractType
             
             ->add('nacionalidad', EntityType::class, array(
                 // query choices from this entity
-                'class' => 'SICBundle:AdminNacionalidad',
+                'class' => \SICBundle\Entity\AdminNacionalidad::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'Nacionalidad',
 
@@ -64,7 +64,7 @@ class JefeGrupoFamiliarType extends AbstractType
 
             ->add('cne', EntityType::class, array(
                 'label'     => '¿Está inscrito en el CNE?',
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
             ))
@@ -86,7 +86,7 @@ class JefeGrupoFamiliarType extends AbstractType
             
             ->add('incapacitadoTipo', EntityType::class, array(
                 'label' => '¿Cúal es la discapacidad que padece?',
-                'class' => 'SICBundle:AdminIncapacidades',
+                'class' => \SICBundle\Entity\AdminIncapacidades::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'incapacidad',
                 'attr'      => array(
@@ -107,7 +107,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ))
             
             ->add('pensionadoInstitucion', EntityType::class, array(
-                'class' => 'SICBundle:AdminPensionadoInstitucion',
+                'class' => \SICBundle\Entity\AdminPensionadoInstitucion::class,
                 'label' => 'Institución Pensionado',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
@@ -117,7 +117,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ))
             
             ->add('estadoCivil', EntityType::class, array(
-                'class' => 'SICBundle:AdminEstadoCivil',
+                'class' => \SICBundle\Entity\AdminEstadoCivil::class,
                 'label' => 'Estado Civil',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
@@ -127,7 +127,7 @@ class JefeGrupoFamiliarType extends AbstractType
             
             ->add('nivelInstruccion', EntityType::class, array(
                 'label' => '¿Cúal es el Nivel de Instrucción?',
-                'class' => 'SICBundle:AdminNivelInstruccion',
+                'class' => \SICBundle\Entity\AdminNivelInstruccion::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
                 'attr' => array(
@@ -135,7 +135,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ))
             
             ->add('profesion', EntityType::class, array(
-                'class' => 'SICBundle:AdminProfesion',
+                'class' => \SICBundle\Entity\AdminProfesion::class,
                 'label' => 'Profesión',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
@@ -145,7 +145,7 @@ class JefeGrupoFamiliarType extends AbstractType
             ))
             
             ->add('trabajaActualmente', EntityType::class, array(
-                'class' => 'SICBundle:AdminRespCerrada',
+                'class' => \SICBundle\Entity\AdminRespCerrada::class,
                 'label' => '¿Trabaja actualmente?',
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'respuesta',
@@ -170,7 +170,7 @@ class JefeGrupoFamiliarType extends AbstractType
 
             ->add('ingresoFamiliar', EntityType::class, array(
                 'label' => 'Clasificación del Ingreso Familiar',
-                'class' => 'SICBundle:AdminClasIngresoFamiliar',
+                'class' => \SICBundle\Entity\AdminClasIngresoFamiliar::class,
                 'placeholder' => 'Selecciona una',
                 'choice_label' => 'nombre',
             ))

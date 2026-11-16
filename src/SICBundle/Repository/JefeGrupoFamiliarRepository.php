@@ -16,7 +16,7 @@ class JefeGrupoFamiliarRepository extends EntityRepository
 	{
 		$query = $this->getEntityManager()
                 ->createQuery('SELECT u 
-                FROM SICBundle:JefeGrupoFamiliar u
+                FROM \SICBundle\Entity\JefeGrupoFamiliar u
                 WHERE
                     u.edad >= :edad
                 ORDER BY

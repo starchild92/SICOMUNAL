@@ -18,7 +18,7 @@ class SituacionSaludType extends AbstractType
     {
         $builder
             ->add('padecencia', EntityType::class, array(
-                'class'     => 'SICBundle:AdminTipoPadecencia',
+                'class' => \SICBundle\Entity\AdminTipoPadecencia::class,
                 'label'     => 'Existen En Su Núcleo Familiar Personas Que Padezcan De:',
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'required'      => false,
@@ -28,7 +28,7 @@ class SituacionSaludType extends AbstractType
                     'class' => 'fluid multiple search selection')))
 
             ->add('ayudaEspecial', EntityType::class, array(
-                'class'     => 'SICBundle:AdminTipoAyudaEspecial',
+                'class' => \SICBundle\Entity\AdminTipoAyudaEspecial::class,
                 'label'     => '¿Necesita Usted De Alguna Ayuda Especial Para Familiares Enfermos En Su Hogar? - ¿Cuál(es)?',
                 'placeholder'   => 'Escriba las que aplican',
                 'required'      => false,

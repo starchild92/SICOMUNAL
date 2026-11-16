@@ -16,7 +16,7 @@ class GrupoFamiliarRepository extends EntityRepository
 	{
 		$query = $this->getEntityManager()
                 ->createQuery('SELECT gf 
-                FROM SICBundle:GrupoFamiliar gf
+                FROM \SICBundle\Entity\GrupoFamiliar gf
                 GROUP BY gf.avenida');
         $result = $query->getResult();
         return $result;
@@ -26,7 +26,7 @@ class GrupoFamiliarRepository extends EntityRepository
 	{
 		$query = $this->getEntityManager()
                 ->createQuery('SELECT gf 
-                FROM SICBundle:GrupoFamiliar gf
+                FROM \SICBundle\Entity\GrupoFamiliar gf
                 GROUP BY gf.calle');
         $result = $query->getResult();
         return $result;
@@ -36,7 +36,7 @@ class GrupoFamiliarRepository extends EntityRepository
 	{
 		$query = $this->getEntityManager()
 			->createQuery('
-				SELECT gf FROM SICBundle:GrupoFamiliar gf
+				SELECT gf FROM \SICBundle\Entity\GrupoFamiliar gf
 				WHERE gf.avenida = :avenida
 				GROUP BY 
 					gf.calle, gf.numeroCasa
@@ -51,7 +51,7 @@ class GrupoFamiliarRepository extends EntityRepository
 		$query = $this->getEntityManager()
 		->createQuery('
 			SELECT SUM(gf.cantidadMiembros) as cantidad
-			FROM SICBundle:GrupoFamiliar gf
+			FROM \SICBundle\Entity\GrupoFamiliar gf
 			WHERE gf.avenida = :avenida');
 		$query->setparameter('avenida', $avenida);
 		$result = $query->getResult();

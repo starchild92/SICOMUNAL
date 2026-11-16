@@ -5,11 +5,14 @@ namespace SICBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use SICBundle\Form\TelefonoType;
 
 class UsuarioType extends AbstractType
 {
@@ -20,11 +23,20 @@ class UsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $permissions = array(
-            'ROLE_ADMIN'    => 'Administrador',
-            'ROLE_USER'     => 'Empadronador',
+            'Administrador' => 'ROLE_ADMIN',
+            'Empadronador'  => 'ROLE_USER',
         );
         
         $builder
+            ->add('email', EmailType::class, array('label' => 'Correo Electrónico'))
+            ->add('username', TextType::class, array('label' => 'Nombre de Usuario'))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type'            => PasswordType::class,
+                'mapped'          => false,
+                'required'        => true,
+                'first_options'   => array('label' => 'Contraseña'),
+                'second_options'  => array('label' => 'Repita Contraseña'),
+            ))
             ->add('primerNombre')
             ->add('segundoNombre', TextType::class, array(
                 'label'     => 'Segundo Nombre',
@@ -42,22 +54,21 @@ class UsuarioType extends AbstractType
                 'label' => 'Fecha de Nacimiento',
                 'attr' => ['class' => 'js-datepicker', 'placeholder' => 'AAAA-MM-DD'],
             ))
-            ->add('telefono', CollectionType::class,array(
+            ->add('telefono', CollectionType::class, array(
                         'required' => false,
-                        'type' => new TelefonoType(),
-                        'cascade_validation' => true,
+                        'entry_type' => TelefonoType::class,
                         'attr' => array('class' => 'telefonos'),
-                        'allow_add'=>'true',
-                        'by_reference'=>'false',
-                        'allow_delete' =>'true',
-                        'data_class' => null,
+                        'allow_add' => true,
+                        'by_reference' => false,
+                        'allow_delete' => true,
                         'label' => 'Número(s) teléfonicos',
                         ))
             ->add('enabled', ChoiceType::class, array(
                 'label' => 'Estado de la Cuenta',
                 'choices'   => array(
-                    '1' => 'Cuenta Activa',
-                    '0' => 'Cuenta Inactiva')))
+                    'Cuenta Activa'   => true,
+                    'Cuenta Inactiva' => false,
+                )))
             ->add('roles', ChoiceType::class,array(
                     'label'   => 'Elija el Rol',
                     'choices' => $permissions,
@@ -69,19 +80,11 @@ class UsuarioType extends AbstractType
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => 'SICBundle\Entity\Usuario'
         ));
-    }
-
-    public function getParent()
-    {
-        return 'fos_user_registration';
     }
 
     public function getBlockPrefix()

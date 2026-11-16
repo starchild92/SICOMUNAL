@@ -19,7 +19,7 @@ class NoticiaRepository extends EntityRepository
 		$query = $this->getEntityManager()
             ->createQuery(
 			'SELECT COUNT(p)
-			FROM SICBundle:Persona p
+			FROM \SICBundle\Entity\Persona p
 			WHERE p.email != :var
 				AND p.recibir_correo = :var2'
 		)
@@ -31,7 +31,7 @@ class NoticiaRepository extends EntityRepository
 		$query = $this->getEntityManager()
             ->createQuery(
 			'SELECT COUNT(p)
-			FROM SICBundle:JefeGrupoFamiliar p
+			FROM \SICBundle\Entity\JefeGrupoFamiliar p
 			WHERE p.email != :var
 				AND p.recibir_correo = :var2'
 		)
@@ -49,7 +49,7 @@ class NoticiaRepository extends EntityRepository
 		$query = $this->getEntityManager()
             ->createQuery(
 			'SELECT n
-			FROM SICBundle:Noticia n
+			FROM \SICBundle\Entity\Noticia n
 			WHERE n.visibilidad = :var
 				ORDER BY n.fechaPub DESC'
 		)

@@ -17,7 +17,7 @@ class SituacionEconomicaRepository extends EntityRepository
          return $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('m')
-                ->from('SICBundle:SituacionEconomica', 'm')
+                ->from(\SICBundle\Entity\SituacionEconomica::class, 'm')
                 ->innerJoin('m.actividadComercialenVivienda', 'e')
                 ->where('e.id = :exampleid' )
                 ->setParameter('exampleid', $situacion->getId() )

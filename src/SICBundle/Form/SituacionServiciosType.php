@@ -19,7 +19,7 @@ class SituacionServiciosType extends AbstractType
     {
         $builder
             ->add('aguasBlancas', EntityType::class, array(
-                'class' => 'SICBundle:AdminAguasBlancas',
+                'class' => \SICBundle\Entity\AdminAguasBlancas::class,
                 'placeholder'   => 'Seleccione una',
                 'required'  => false,
                 'label' => 'Aguas Blancas',
@@ -27,7 +27,7 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'ui dropdown')))
 
             ->add('aguasServidas', EntityType::class, array(
-                'class' => 'SICBundle:AdminAguasServidas',
+                'class' => \SICBundle\Entity\AdminAguasServidas::class,
                 'placeholder'   => 'Seleccione una',
                 'required'  => false,
                 'label' => 'Aguas Servidas',
@@ -35,14 +35,14 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'ui dropdown')))
 
             ->add('gas', EntityType::class, array(
-                'class' => 'SICBundle:AdminTipoGas',
+                'class' => \SICBundle\Entity\AdminTipoGas::class,
                 'placeholder'   => 'Seleccione una',
                 'label' => 'Gas',
                 'attr'  =>  array(
                     'class' => 'ui dropdown')))
 
             ->add('sistemaElectrico', EntityType::class, array(
-                'class' => 'SICBundle:AdminSistemaElectrico',
+                'class' => \SICBundle\Entity\AdminSistemaElectrico::class,
                 'placeholder'   => 'Seleccione una',
                 'required'  => false,
                 'label' => 'Sistema Eléctrico',
@@ -50,7 +50,7 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'ui dropdown')))
 
             ->add('recoleccionBasura', EntityType::class, array(
-                'class' => 'SICBundle:AdminRecoleccionBasura',
+                'class' => \SICBundle\Entity\AdminRecoleccionBasura::class,
                 'required'  => false,
                 'placeholder'   => 'Seleccione una',
                 'label' => 'Sistema de Recolección de Basura',
@@ -59,7 +59,7 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'fluid multiple search selection')))
 
             ->add('telefonia', EntityType::class, array(
-                'class' => 'SICBundle:AdminTipoTelefonia',
+                'class' => \SICBundle\Entity\AdminTipoTelefonia::class,
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'multiple' => true,
                 'required'  => false,
@@ -69,7 +69,7 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'fluid multiple search selection')))
 
             ->add('transporte', EntityType::class, array(
-                'class' => 'SICBundle:AdminTipoTransporte',
+                'class' => \SICBundle\Entity\AdminTipoTransporte::class,
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'multiple' => true,
                 'required'  => false,
@@ -79,7 +79,7 @@ class SituacionServiciosType extends AbstractType
                     'class' => 'fluid multiple search selection')))
 
             ->add('mecanismoInformacion', EntityType::class, array(
-                'class' => 'SICBundle:AdminMecanismoInformacion',
+                'class' => \SICBundle\Entity\AdminMecanismoInformacion::class,
                 'placeholder'   => 'Seleccione todas las que apliquen',
                 'label' => 'Mecanismos de Información',
                 'multiple' => true,
@@ -90,7 +90,7 @@ class SituacionServiciosType extends AbstractType
 
             ->add('serviciosComunales', EntityType::class, array(
                 'placeholder'   => 'Seleccione todas las que apliquen',
-                'class' => 'SICBundle:AdminServiciosComunales',
+                'class' => \SICBundle\Entity\AdminServiciosComunales::class,
                 'label' => 'Servicios Comunales',
                 'multiple' => true,
                 'required'  => false,
@@ -109,10 +109,10 @@ class SituacionServiciosType extends AbstractType
             ->add('medidor', EntityType::class, array(
                 'label'     => '¿Tiene medidor de Aguas Blancas?',
                 'placeholder'   => 'Elija una',
-                'class'         => 'SICBundle:AdminRespCerrada'))
+                'class' => \SICBundle\Entity\AdminRespCerrada::class))
 
             ->add('empresaGas', EntityType::class, array(
-                'class' => 'SICBundle:AdminEmpresaGas',
+                'class' => \SICBundle\Entity\AdminEmpresaGas::class,
                 'placeholder'   => 'Seleccione una',
                 'required'  => false,
                 'label' => 'Proveedor de Gas',
@@ -125,7 +125,7 @@ class SituacionServiciosType extends AbstractType
                 'required'  => false))
 
             ->add('capacidadBombona', EntityType::class, array(
-                'class' => 'SICBundle:AdminCapacidadBombona',
+                'class' => \SICBundle\Entity\AdminCapacidadBombona::class,
                 'required'  => false,
                 'placeholder'   => 'Seleccione una',
                 'label' => 'Capacidad Bombona',
@@ -135,12 +135,12 @@ class SituacionServiciosType extends AbstractType
             ->add('medidorElectrico', EntityType::class, array(
                 'label'     => '¿Tiene medidor electrico?',
                 'placeholder'   => 'Elija una',
-                'class'         => 'SICBundle:AdminRespCerrada'))
+                'class' => \SICBundle\Entity\AdminRespCerrada::class))
 
             ->add('bombillosAhorradores', EntityType::class, array(
                 'label'     => '¿Tiene Bombillos Ahorradores?',
                 'placeholder'   => 'Elija una',
-                'class'         => 'SICBundle:AdminRespCerrada'))
+                'class' => \SICBundle\Entity\AdminRespCerrada::class))
 
             ->add('precioBombona', TextType::class,array(
                 'label'     => 'Precio del Cilindro',

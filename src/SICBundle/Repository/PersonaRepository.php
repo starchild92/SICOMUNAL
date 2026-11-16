@@ -16,7 +16,7 @@ class PersonaRepository extends EntityRepository
 	{
 		$query = $this->getEntityManager()
                 ->createQuery('SELECT u 
-                FROM SICBundle:Persona u
+                FROM \SICBundle\Entity\Persona u
                 WHERE
                     u.edad >= :edad
                 ORDER BY
@@ -31,7 +31,7 @@ class PersonaRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                 ->createQuery('SELECT u 
-                FROM SICBundle:Persona u
+                FROM \SICBundle\Entity\Persona u
                 GROUP BY
                     u.parentesco');
         $result = $query->getResult();
