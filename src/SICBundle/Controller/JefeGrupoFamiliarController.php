@@ -330,7 +330,7 @@ class JefeGrupoFamiliarController extends BaseController
             'stat_pensionados' => $stat_pensionados,
             'stat_ingresofam' => $stat_ingresofam,
             'stat_embarazada' => $stat_embarazada,
-            'base_dir' => $this->get('kernel')->getRootDir() . '/../web' . $request->getBasePath(),
+            'base_dir' => $this->getParameter('kernel.project_dir') . '/web' . $request->getBasePath(),
         );
     }
 

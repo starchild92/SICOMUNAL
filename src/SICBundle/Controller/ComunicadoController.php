@@ -3,6 +3,8 @@
 namespace SICBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use SICBundle\Controller\BaseController;
 
 use SICBundle\Entity\Comunicado;
@@ -34,7 +36,7 @@ class ComunicadoController extends BaseController
      * Creates a new Comunicado entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, MailerInterface $mailer)
     {
         $comunicado = new Comunicado();
         $form = $this->createForm(ComunicadoType::class, $comunicado);
@@ -51,21 +53,18 @@ class ComunicadoController extends BaseController
             $comunicado->setNumDestinatarios(sizeof($destinatarios));
 
             foreach ($destinatarios as $p) {
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Consejo Comunal')
-                    ->setFrom(array('gpscaracas@registro1991.com.ve' => 'Consejo Comunal'))
-                    ->setTo($p->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'comunicado/comunicadomasivo.html.twig',array(
-                                'titulo' => $comunicado->getTitulo(),
-                                'cuerpo' => $comunicado->getCuerpo(),
-                                'correo' => $p->getEmail(),
-                            )
-                        ),
-                        'text/html'
-                    );
-                $this->get('mailer')->send($message);
+                $message = (new Email())
+                    ->subject('Consejo Comunal')
+                    ->from('gpscaracas@registro1991.com.ve')
+                    ->to($p->getEmail())
+                    ->html($this->renderView(
+                        'comunicado/comunicadomasivo.html.twig', array(
+                            'titulo' => $comunicado->getTitulo(),
+                            'cuerpo' => $comunicado->getCuerpo(),
+                            'correo' => $p->getEmail(),
+                        )
+                    ));
+                $mailer->send($message);
             }
 
             $em->persist($comunicado);
