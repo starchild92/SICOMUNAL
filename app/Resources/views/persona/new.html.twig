@@ -16,7 +16,7 @@
 
     <h1>Miembro Grupo Familiar <small>Actualmente hay {{ cantMiembros }} {% if cantMiembros > 1 %}miembros{% else %}miembro{% endif %}</small></h1>
 
-    {{ form_start(form, { 'attr' : {'id':'persona'}}) }}
+    {{ form_start(form, { 'attr' : {'id':'persona', 'novalidate': 'novalidate'}}) }}
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-primary">
